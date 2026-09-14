@@ -62,7 +62,10 @@ export function Header() {
     if (closeTimer.current) clearTimeout(closeTimer.current);
   }, []);
 
-  const solid = scrolled || Boolean(openMenu);
+  // The hero video is the only dark surface on the site, so the header is
+  // light everywhere except the top of the home page.
+  const overHero = pathname === "/" && !scrolled && !openMenu;
+  const solid = !overHero;
   const active = (href: string) => pathname === href || pathname.startsWith(href + "/");
 
   return (
@@ -70,8 +73,8 @@ export function Header() {
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter,box-shadow] duration-500 ease-[var(--ease-out-quint)]",
         solid
-          ? "border-b border-hairline bg-paper/88 backdrop-blur-xl"
-          : "border-b border-white/10 bg-transparent",
+          ? "border-b border-hairline bg-white/92 backdrop-blur-xl"
+          : "border-b border-hairline bg-transparent",
       )}
       onMouseLeave={scheduleClose}
     >
@@ -128,7 +131,7 @@ export function Header() {
                       solid
                         ? active(item.href)
                           ? "text-navy-900"
-                          : "text-navy-900/72 hover:text-navy-900"
+                          : "text-body hover:text-navy-900"
                         : active(item.href)
                           ? "text-white"
                           : "text-white/78 hover:text-white",
@@ -165,7 +168,7 @@ export function Header() {
               className={cn(
                 "ml-1.5 hidden h-10 items-center gap-2 rounded-full px-5 text-[0.875rem] font-medium tracking-tight transition-all duration-300 ease-[var(--ease-out-quint)] md:inline-flex",
                 solid
-                  ? "bg-navy-900 text-ivory hover:bg-navy-700"
+                  ? "bg-navy-900 text-white hover:bg-navy-700"
                   : "bg-gold text-navy-950 hover:bg-gold-400",
               )}
             >
@@ -179,7 +182,7 @@ export function Header() {
               aria-label="Open menu"
               className={cn(
                 "ml-0.5 inline-flex size-10 cursor-pointer items-center justify-center rounded-full transition-colors duration-300 xl:hidden",
-                solid ? "text-navy-900 hover:bg-navy-900/8" : "text-white hover:bg-white/12",
+                solid ? "text-navy-900 hover:bg-hover" : "text-white hover:bg-white/12",
               )}
             >
               <Menu strokeWidth={1.6} className="size-[1.35rem]" />
@@ -199,7 +202,7 @@ export function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: reduced ? 0 : -6 }}
             transition={{ duration: 0.32, ease: EASE }}
-            className="absolute inset-x-0 top-full hidden border-b border-hairline bg-paper shadow-[0_26px_60px_-34px_rgba(7,23,48,0.45)] xl:block"
+            className="absolute inset-x-0 top-full hidden border-b border-hairline bg-white shadow-[0_26px_60px_-34px_rgba(11,18,32,0.28)] xl:block"
             onMouseEnter={cancelClose}
             onMouseLeave={scheduleClose}
           >
@@ -221,10 +224,10 @@ export function Header() {
                   </div>
                   <ul className="col-span-8 grid grid-cols-2 gap-x-10 gap-y-1">
                     {item.children?.map((child) => (
-                      <li key={child.href}>
+                      <li key={child.label}>
                         <Link
                           href={child.href}
-                          className="group flex items-start justify-between gap-6 rounded-xl px-4 py-3.5 transition-colors duration-300 hover:bg-navy-900/4"
+                          className="group flex items-start justify-between gap-6 rounded-xl px-4 py-3.5 transition-colors duration-300 hover:bg-hover"
                         >
                           <span>
                             <span className="block text-[0.9375rem] font-medium text-navy-900">
@@ -259,15 +262,15 @@ export function Header() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.28, ease: EASE }}
-            className="fixed inset-0 z-50 bg-navy-950 text-ivory xl:hidden"
+            className="fixed inset-0 z-50 bg-white text-body xl:hidden"
           >
             <div className="container-page flex h-[84px] items-center justify-between">
-              <IbcrMark tone="dark" className="w-[84px]" />
+              <IbcrMark className="w-[84px]" />
               <button
                 type="button"
                 onClick={() => setMobileOpen(false)}
                 aria-label="Close menu"
-                className="inline-flex size-10 cursor-pointer items-center justify-center rounded-full text-ivory transition-colors hover:bg-white/10"
+                className="inline-flex size-10 cursor-pointer items-center justify-center rounded-full text-navy-900 transition-colors hover:bg-hover"
               >
                 <X strokeWidth={1.6} className="size-6" />
               </button>
@@ -275,7 +278,7 @@ export function Header() {
 
             <div className="container-page h-[calc(100dvh-84px)] overflow-y-auto pb-16">
               <nav aria-label="Mobile">
-                <ul className="divide-y divide-white/10 border-y border-white/10">
+                <ul className="divide-y divide-hairline border-y border-hairline">
                   {NAV.map((item, i) => (
                     <motion.li
                       key={item.label}
@@ -285,7 +288,7 @@ export function Header() {
                     >
                       <Link
                         href={item.href}
-                        className="flex items-center justify-between py-5 text-[1.375rem] font-medium tracking-tight"
+                        className="flex items-center justify-between py-5 text-[1.375rem] font-medium tracking-tight text-navy-900"
                       >
                         {item.label}
                         <ArrowUpRight strokeWidth={1.5} className="size-5 text-gold" />
@@ -293,8 +296,8 @@ export function Header() {
                       {item.children ? (
                         <ul className="-mt-1 flex flex-wrap gap-x-5 gap-y-2 pb-5">
                           {item.children.map((child) => (
-                            <li key={child.href}>
-                              <Link href={child.href} className="text-[0.875rem] text-ivory/55">
+                            <li key={child.label}>
+                              <Link href={child.href} className="text-[0.875rem] text-muted">
                                 {child.label}
                               </Link>
                             </li>
@@ -315,18 +318,18 @@ export function Header() {
                 </Link>
                 <Link
                   href="/contact"
-                  className="inline-flex h-12 items-center justify-center rounded-full border border-white/25 text-[0.9375rem] font-medium text-ivory"
+                  className="inline-flex h-12 items-center justify-center rounded-full border border-hairline-strong text-[0.9375rem] font-medium text-navy-900"
                 >
                   Talk to IBCR
                 </Link>
               </div>
 
-              <p className="mt-10 text-[0.8125rem] leading-relaxed text-ivory/45">
+              <p className="mt-10 text-[0.8125rem] leading-relaxed text-muted">
                 {SITE.address.line1}
                 <br />
                 {SITE.address.line2}, {SITE.address.country}
                 <br />
-                <a href={`mailto:${SITE.email}`} className="text-gold-400">
+                <a href={`mailto:${SITE.email}`} className="text-gold-600">
                   {SITE.email}
                 </a>
               </p>
@@ -352,7 +355,7 @@ function IconButton({
   const external = href.startsWith("mailto:");
   const className = cn(
     "hidden size-10 items-center justify-center rounded-full transition-colors duration-300 sm:inline-flex",
-    solid ? "text-navy-900/70 hover:bg-navy-900/8 hover:text-navy-900" : "text-white/80 hover:bg-white/12 hover:text-white",
+    solid ? "text-muted hover:bg-hover hover:text-navy-900" : "text-white/80 hover:bg-white/12 hover:text-white",
   );
   if (external) {
     return (

@@ -31,7 +31,7 @@ export function Testimonials() {
   const item = TESTIMONIALS[index];
 
   return (
-    <Section tone="ivory">
+    <Section divided>
       <div className="container-page">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-4">
@@ -52,7 +52,7 @@ export function Testimonials() {
                   type="button"
                   onClick={() => go(-1)}
                   aria-label="Previous testimonial"
-                  className="inline-flex size-11 cursor-pointer items-center justify-center rounded-full border border-hairline-strong text-navy-800 transition-colors duration-300 hover:border-navy-800 hover:bg-navy-900 hover:text-ivory"
+                  className="inline-flex size-11 cursor-pointer items-center justify-center rounded-full border border-hairline-strong text-navy-800 transition-colors duration-300 hover:border-hairline-strong hover:bg-hover"
                 >
                   <ArrowLeft strokeWidth={1.6} className="size-4" />
                 </button>
@@ -60,7 +60,7 @@ export function Testimonials() {
                   type="button"
                   onClick={() => go(1)}
                   aria-label="Next testimonial"
-                  className="inline-flex size-11 cursor-pointer items-center justify-center rounded-full border border-hairline-strong text-navy-800 transition-colors duration-300 hover:border-navy-800 hover:bg-navy-900 hover:text-ivory"
+                  className="inline-flex size-11 cursor-pointer items-center justify-center rounded-full border border-hairline-strong text-navy-800 transition-colors duration-300 hover:border-hairline-strong hover:bg-hover"
                 >
                   <ArrowRight strokeWidth={1.6} className="size-4" />
                 </button>
@@ -80,7 +80,7 @@ export function Testimonials() {
               onMouseLeave={() => setPaused(false)}
               onFocusCapture={() => setPaused(true)}
               onBlurCapture={() => setPaused(false)}
-              className="relative overflow-hidden rounded-[var(--radius-card)] border border-hairline bg-paper p-8 md:p-12"
+              className="relative overflow-hidden rounded-[var(--radius-card)] border border-hairline bg-white p-8 md:p-12"
             >
               <Quote
                 strokeWidth={1}
@@ -104,7 +104,7 @@ export function Testimonials() {
                     <footer className="mt-8 flex items-center gap-4 border-t border-hairline pt-6">
                       <span
                         aria-hidden
-                        className="grid size-11 shrink-0 place-items-center rounded-full bg-navy-950 font-mono text-[0.75rem] text-gold-200"
+                        className="grid size-11 shrink-0 place-items-center rounded-full border border-hairline font-mono text-[0.75rem] text-navy-800"
                       >
                         {item.name
                           .split(" ")

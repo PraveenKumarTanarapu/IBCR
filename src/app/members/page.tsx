@@ -28,7 +28,7 @@ export default function MembersPage() {
         </ButtonLink>
       </PageHero>
 
-      <Section tone="paper">
+      <Section>
         <div className="container-page">
           <Reveal y={18}>
             <MemberDirectory />

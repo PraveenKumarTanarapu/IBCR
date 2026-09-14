@@ -6,7 +6,7 @@ export function Partners() {
   const loop = [...PARTNERS, ...PARTNERS];
 
   return (
-    <Section tone="paper" className="overflow-hidden py-16 md:py-20">
+    <Section className="overflow-hidden py-16 md:py-20">
       <div className="container-page">
         <Reveal className="flex flex-col items-center text-center">
           <Eyebrow>Our strategic partners</Eyebrow>
@@ -31,7 +31,7 @@ export function Partners() {
           {loop.map((partner, i) => (
             <div
               key={`${partner.name}-${i}`}
-              className="flex h-20 min-w-[15rem] flex-col justify-center rounded-2xl border border-hairline bg-ivory-100/60 px-6 transition-colors duration-500 hover:border-navy-800/25 hover:bg-ivory-100"
+              className="flex h-20 min-w-[15rem] flex-col justify-center rounded-2xl border border-hairline bg-white px-6 transition-colors duration-500 hover:border-navy-800/25 hover:bg-white"
             >
               <p className="text-[0.9375rem] font-semibold tracking-tight text-navy-900/80">
                 {partner.name}

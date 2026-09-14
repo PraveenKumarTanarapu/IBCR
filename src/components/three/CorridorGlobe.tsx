@@ -73,9 +73,9 @@ function PointShell() {
     const colors = new Float32Array(COUNT * 3);
     const sizes = new Float32Array(COUNT);
     const golden = Math.PI * (3 - Math.sqrt(5));
-    const a = new THREE.Color("#1b4b96");
-    const b = new THREE.Color("#5f9bdd");
-    const c = new THREE.Color("#e6c877");
+    const a = new THREE.Color("#8ea4c4");
+    const b = new THREE.Color("#4d6d9b");
+    const c = new THREE.Color("#c9a227");
     for (let i = 0; i < COUNT; i++) {
       const y = 1 - (i / (COUNT - 1)) * 2;
       const r = Math.sqrt(Math.max(0, 1 - y * y));
@@ -100,7 +100,6 @@ function PointShell() {
       <shaderMaterial
         transparent
         depthWrite={false}
-        blending={THREE.AdditiveBlending}
         vertexColors
         uniforms={{ uMap: { value: map }, uScale: { value: 340 } }}
         vertexShader={`
@@ -118,7 +117,7 @@ function PointShell() {
           varying vec3 vC;
           void main(){
             vec4 t = texture2D(uMap, gl_PointCoord);
-            gl_FragColor = vec4(vC, t.a * 0.9);
+            gl_FragColor = vec4(vC, t.a * 0.95);
           }`}
       />
     </points>
@@ -146,19 +145,18 @@ function Arc({ from, to, lift, index }: { from: THREE.Vector3; to: THREE.Vector3
         ref={material}
         transparent
         depthWrite={false}
-        blending={THREE.AdditiveBlending}
         uniforms={{
           uTime: { value: 0 },
           uOffset: { value: index / ROUTES.length },
           uA: { value: new THREE.Color("#c9a227") },
-          uB: { value: new THREE.Color("#f2ddaa") },
+          uB: { value: new THREE.Color("#8f7115") },
         }}
         vertexShader={`varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`}
         fragmentShader={`
           uniform float uTime; uniform float uOffset; uniform vec3 uA; uniform vec3 uB;
           varying vec2 vUv;
           void main(){
-            float base = 0.22 + 0.1 * sin(6.2831853 * (uTime + uOffset));
+            float base = 0.5 + 0.18 * sin(6.2831853 * (uTime + uOffset));
             float head = fract(uTime + uOffset);
             float d = vUv.x - head; d = d - floor(d + 0.5);
             float pulse = exp(-pow(d / 0.09, 2.0));
@@ -184,16 +182,15 @@ function Marker({ position, color }: { position: THREE.Vector3; color: string })
         map={map}
         color={color}
         transparent
-        opacity={0.85}
+        opacity={0.95}
         depthWrite={false}
-        blending={THREE.AdditiveBlending}
       />
     </sprite>
   );
 }
 
 function Rim() {
-  const uniforms = useMemo(() => ({ uColor: { value: new THREE.Color("#2a6ad0") } }), []);
+  const uniforms = useMemo(() => ({ uColor: { value: new THREE.Color("#7f96b8") } }), []);
   return (
     <mesh scale={1.06}>
       <sphereGeometry args={[1, 64, 64]} />
@@ -201,13 +198,12 @@ function Rim() {
         transparent
         side={THREE.BackSide}
         depthWrite={false}
-        blending={THREE.AdditiveBlending}
         uniforms={uniforms}
         vertexShader={`varying vec3 vN; varying vec3 vP;
           void main(){ vN = normalize(normalMatrix * normal); vec4 mv = modelViewMatrix * vec4(position,1.0); vP = mv.xyz; gl_Position = projectionMatrix * mv; }`}
         fragmentShader={`uniform vec3 uColor; varying vec3 vN; varying vec3 vP;
           void main(){ float f = pow(1.0 - abs(dot(normalize(vN), normalize(-vP))), 3.0);
-          gl_FragColor = vec4(uColor * f * 1.6, f * 0.8); }`}
+          gl_FragColor = vec4(uColor, f * 0.55); }`}
       />
     </mesh>
   );
@@ -238,17 +234,17 @@ function Globe({ spin }: { spin: boolean }) {
     <group ref={group} {...groupProps}>
       <mesh>
         <sphereGeometry args={[0.985, 64, 64]} />
-        <meshBasicMaterial color="#061127" />
+        <meshBasicMaterial color="#ffffff" />
       </mesh>
       <Rim />
       <PointShell />
       {arcs.map((arc) => (
         <Arc key={arc.key} from={arc.from} to={arc.to} lift={arc.lift} index={arc.index} />
       ))}
-      <Marker position={city("delhi", 1.01)} color="#e9c86a" />
-      <Marker position={city("mumbai", 1.01)} color="#e9c86a" />
-      <Marker position={city("bengaluru", 1.01)} color="#e9c86a" />
-      <Marker position={city("kigali", 1.01)} color="#71c4f5" />
+      <Marker position={city("delhi", 1.01)} color="#c9a227" />
+      <Marker position={city("mumbai", 1.01)} color="#c9a227" />
+      <Marker position={city("bengaluru", 1.01)} color="#c9a227" />
+      <Marker position={city("kigali", 1.01)} color="#1a56b8" />
     </group>
   );
 }

@@ -2,45 +2,43 @@
 
 /* ==========================================================================
    IBCR design system
-   Premium · institutional · international. Deep navy ground, royal blue
-   secondary, gold reserved for accents, ivory paper.
+   Premium · institutional · international.
+
+   Every surface is pure white. Separation comes from hairlines, whitespace
+   and typography — never from a tinted block. The only surface tint allowed
+   is a neutral light grey, and only on hover or for a pressed/selected state.
+   Navy is ink, gold is a hairline accent; neither is ever a page background.
    ========================================================================== */
 
 @theme {
-  /* --- brand ------------------------------------------------------------ */
-  --color-ink: #060f22;
-  --color-navy-950: #071730;
-  --color-navy-900: #0a1f42;
-  --color-navy-800: #0d2a58;
-  --color-navy-700: #113670;
-  --color-navy-600: #16458c;
+  /* --- ink -------------------------------------------------------------- */
+  --color-ink: #0b1220;
+  --color-navy-950: #0d1a30;
+  --color-navy-900: #0f2242;
+  --color-navy-800: #142c53;
+  --color-navy-700: #1b3a6b;
   --color-royal: #1a56b8;
-  --color-royal-400: #4380d8;
-  --color-sky: #7fb2ea;
 
-  --color-gold-600: #9a7a18;
+  --color-gold-600: #8f7115;
   --color-gold: #c9a227;
   --color-gold-400: #ddbb56;
   --color-gold-200: #f0dda6;
 
-  --color-ivory: #fbf9f4;
-  --color-ivory-100: #f5f1e8;
-  --color-ivory-200: #ece6d9;
-
-  /* flag hues, used sparingly for the India × Rwanda material */
+  /* flag hues — only the wordmark and the India × Rwanda material use these */
   --color-saffron: #ff9933;
   --color-india-green: #138808;
   --color-rw-blue: #00a1de;
-  --color-rw-yellow: #fad201;
-  --color-rw-green: #1e7b45;
+
+  /* --- surfaces: white, plus one neutral grey for state ----------------- */
+  --color-paper: #ffffff;
+  --color-white: #ffffff;
+  --color-hover: #f4f4f5; /* the only surface tint on the site */
 
   /* --- semantic --------------------------------------------------------- */
-  --color-paper: #fbf9f4;
-  --color-ground: #060f22;
-  --color-body: #16233d;
-  --color-muted: #5c6b85;
-  --color-hairline: rgba(10, 31, 66, 0.12);
-  --color-hairline-strong: rgba(10, 31, 66, 0.2);
+  --color-body: #1d2433;
+  --color-muted: #616a7a;
+  --color-hairline: #e6e6e8;
+  --color-hairline-strong: #d3d4d8;
 
   /* --- type ------------------------------------------------------------- */
   --font-sans: var(--font-manrope), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -100,8 +98,8 @@
   }
 
   ::selection {
-    background: var(--color-navy-800);
-    color: var(--color-gold-200);
+    background: var(--color-navy-900);
+    color: #ffffff;
   }
 
   h1,
@@ -118,7 +116,7 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-gold);
+    outline: 2px solid var(--color-navy-700);
     outline-offset: 3px;
     border-radius: 4px;
   }
@@ -173,23 +171,11 @@
   text-transform: uppercase;
 }
 
-/* Halftone dot veil over hero footage — the texture in the reference art. */
+/* Halftone dot veil over the hero footage — the texture in the reference art.
+   The one place on the site with anything behind the type. */
 @utility dot-veil {
   background-image: radial-gradient(rgba(255, 255, 255, 0.14) 1px, transparent 1px);
   background-size: 4px 4px;
-}
-
-@utility grain {
-  position: relative;
-
-  &::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0.035;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
 }
 
 /* Thin gold rule that grows in on reveal. */
@@ -233,7 +219,7 @@
 /* Firefox scrollbar tint */
 @supports (scrollbar-color: auto) {
   html {
-    scrollbar-color: var(--color-navy-700) var(--color-ivory-200);
+    scrollbar-color: var(--color-hairline-strong) transparent;
     scrollbar-width: thin;
   }
 }

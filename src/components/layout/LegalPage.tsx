@@ -28,10 +28,10 @@ export function LegalPage({
         copy={intro}
         crumbs={[{ label: eyebrow }]}
       >
-        <p className="label-mono text-ivory/45">Last updated: {updated}</p>
+        <p className="label-mono text-muted">Last updated: {updated}</p>
       </PageHero>
 
-      <Section tone="paper">
+      <Section>
         <div className="container-page">
           <div className="max-w-3xl space-y-12">
             {blocks.map((block, i) => (

@@ -46,13 +46,20 @@ npm run typecheck  # next typegen && tsc --noEmit
 
 Everything visual is driven by tokens in `src/app/globals.css`.
 
-**Colour** — deep navy ground (`--color-ink` → `--color-navy-600`), royal blue secondary
-(`--color-royal`), premium gold reserved for accents only (`--color-gold`), ivory paper
-(`--color-paper`). Flag hues (saffron, India green, Rwanda blue/yellow/green) appear only
-in the wordmark and the India × Rwanda material.
+**Colour** — every surface is **pure white**. There is no tinted band anywhere: sections
+are separated by hairlines (`--color-hairline`), whitespace and typography. The single
+surface tint on the site is a neutral light grey (`--color-hover`, `#f4f4f5`), used only
+for hover and selected states.
 
-Gold never carries body text — its contrast on ivory is too low. It is used for hairlines,
-icons, small caps, and as a fill behind navy text on buttons.
+Navy is ink (`--color-navy-900` and friends) and gold (`--color-gold`) is a hairline
+accent — a rule, an icon, a small cap, or the fill behind navy text on the primary button.
+Neither is ever a page background. Flag hues (saffron, India green, Rwanda blue) appear
+only in the wordmark and the India × Rwanda material.
+
+Gold never carries body text — its contrast on white is too low.
+
+The one dark surface on the entire site is the hero video, which needs a dark grade for
+the white headline to read against it.
 
 **Type** — three families, loaded through `next/font`:
 
@@ -65,8 +72,8 @@ icons, small caps, and as a fill behind navy text on buttons.
 a plain fade under `prefers-reduced-motion`, and Lenis switches itself off entirely for
 reduced-motion visitors and coarse pointers.
 
-Reusable utilities: `.container-page`, `.accent-serif`, `.label-mono`, `.dot-veil`,
-`.grain`, `.rule-gold`, `.link-underline`.
+Reusable utilities: `.container-page`, `.accent-serif`, `.label-mono`, `.dot-veil`
+(hero only), `.rule-gold`, `.link-underline`.
 
 ---
 
@@ -107,12 +114,13 @@ src/
 
 ## The hero
 
-The hero is a three-slide carousel over full-bleed MP4 footage, graded with a navy
-gradient and a halftone dot veil for legibility. Each slide has its own headline, copy and
-call to action; the progress bars are scrubbable and the whole thing can be paused.
+The hero is a single looping video, full-bleed, graded with a navy gradient and a halftone
+dot veil so the headline reads against it. No carousel, no controls — just the footage, the
+eyebrow, the headline, one line of copy and two calls to action.
 
 The footage is **not** stock. `tools/media/scenes.mjs` defines three deterministic,
-seamlessly-looping three.js scenes:
+seamlessly-looping three.js scenes — `corridor` is the one the hero uses; the other two are
+rendered spares you can swap in by pointing `HERO.video` at them in `src/lib/content.ts`:
 
 | Scene       | What it shows                                              |
 | ----------- | ---------------------------------------------------------- |
@@ -135,7 +143,7 @@ CHROMIUM_PATH=/path/to/chromium FFMPEG_PATH=/path/to/ffmpeg npm run media:render
 
 Each scene's `update(t)` takes normalised progress, so the last frame joins back to the
 first and the loop is invisible. Output is ~6 MB total for all three clips; a poster frame
-sits underneath every video so there is never a blank hero.
+sits underneath the video so there is never a blank hero.
 
 The same corridor scene also runs **live** in WebGL in the India × Rwanda section
 (`components/three/`), where it is draggable. It only mounts once it is near the viewport,
@@ -149,7 +157,8 @@ so the three.js bundle and the GPU context are never paid for above the fold.
 Display 700 glyphs converted to paths once with opentype.js (`tools/ibcr-logo-paths.json`),
 so it renders identically without shipping a webfont. The "I" carries the Indian tricolour
 with the Ashoka Chakra, the "R" carries the flag of Rwanda with its sun, and every letter
-is edged in IBCR gold. Pass `tone="dark"` on dark backgrounds.
+is edged in IBCR gold. Pass `tone="dark"` for the one place it sits on dark — the header
+while it is over the hero video.
 
 A standalone `public/brand/ibcr-logo.svg` is available for decks and email signatures.
 
@@ -202,7 +211,7 @@ Also review before going live:
 
 - Skip link, visible focus rings (gold, 2px), and semantic landmarks throughout
 - Every interactive control is at least 44×44px on touch, with `cursor-pointer`
-- Body text meets 4.5:1 against its background; gold is never used for body copy
+- Body text meets 4.5:1 against white; gold is never used for body copy
 - `prefers-reduced-motion` disables Lenis, parallax and counters, and reduces reveals to a fade
 - The map iframe and the WebGL globe both load lazily
 - Videos are `muted`, `playsInline` and paired with poster frames, so no layout shift

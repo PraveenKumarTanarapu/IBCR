@@ -9,7 +9,7 @@ export function InsightsSection() {
   const rest = INSIGHTS.filter((i) => i.slug !== featured.slug).slice(0, 3);
 
   return (
-    <Section id="insights" tone="paper">
+    <Section id="insights">
       <div className="container-page">
         <SectionHeading
           eyebrow="Business insights"

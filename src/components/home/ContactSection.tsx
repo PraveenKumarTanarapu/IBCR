@@ -8,7 +8,7 @@ const MAP_QUERY = encodeURIComponent("Kigali Heights, KG 7 Ave, Kigali, Rwanda")
 
 export function ContactSection() {
   return (
-    <Section id="contact" tone="paper">
+    <Section id="contact">
       <div className="container-page">
         <div className="grid gap-14 lg:grid-cols-12 lg:gap-16">
           {/* --------------------------------------------------- details */}
@@ -116,7 +116,7 @@ export function ContactSection() {
 
           {/* ------------------------------------------------------ form */}
           <Reveal className="lg:col-span-7" delay={0.08} y={24}>
-            <div className="rounded-[var(--radius-card)] border border-hairline bg-ivory-100/60 p-7 md:p-10">
+            <div className="rounded-[var(--radius-card)] border border-hairline bg-white p-7 md:p-10">
               <h3 className="text-[1.25rem] font-semibold tracking-tight text-navy-900">
                 Send an enquiry
               </h3>

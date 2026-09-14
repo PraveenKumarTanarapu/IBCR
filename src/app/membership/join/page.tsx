@@ -39,12 +39,12 @@ export default async function JoinPage(props: PageProps<"/membership/join">) {
         crumbs={[{ label: "Membership", href: "/membership" }, { label: "Become a Member" }]}
       />
 
-      <Section tone="paper">
+      <Section>
         <div className="container-page">
           <div className="grid gap-14 lg:grid-cols-12 lg:gap-16">
             {/* ----------------------------------------------------- form */}
             <Reveal className="lg:col-span-7" y={22}>
-              <div className="rounded-[var(--radius-card)] border border-hairline bg-ivory-100/50 p-7 md:p-10">
+              <div className="rounded-[var(--radius-card)] border border-hairline bg-white p-7 md:p-10">
                 <MembershipForm defaultTier={tier?.name} />
               </div>
             </Reveal>
@@ -61,8 +61,8 @@ export default async function JoinPage(props: PageProps<"/membership/join">) {
                 <ul className="mt-8 space-y-6">
                   {ASSURANCES.map((item) => (
                     <li key={item.title} className="flex gap-4">
-                      <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-navy-950">
-                        <item.icon strokeWidth={1.3} className="size-4 text-gold-400" aria-hidden />
+                      <span className="grid size-10 shrink-0 place-items-center rounded-xl border border-hairline">
+                        <item.icon strokeWidth={1.3} className="size-4 text-navy-700" aria-hidden />
                       </span>
                       <div>
                         <p className="text-[0.9375rem] font-semibold text-navy-900">{item.title}</p>
@@ -75,18 +75,18 @@ export default async function JoinPage(props: PageProps<"/membership/join">) {
 
               {tier ? (
                 <Reveal delay={0.12}>
-                  <div className="mt-10 rounded-[var(--radius-card)] border border-gold/35 bg-navy-950 p-7 text-ivory">
-                    <p className="label-mono text-gold-400">Selected category</p>
+                  <div className="mt-10 rounded-[var(--radius-card)] border border-gold/55 bg-white p-7">
+                    <p className="label-mono text-gold-600">Selected category</p>
                     <h3 className="mt-4 text-[1.25rem] font-semibold tracking-tight">{tier.name}</h3>
                     <ul className="mt-5 space-y-2.5">
                       {tier.benefits.map((benefit) => (
                         <li key={benefit} className="flex gap-2.5">
                           <Check
                             strokeWidth={2}
-                            className="mt-1 size-3.5 shrink-0 text-gold-400"
+                            className="mt-1 size-3.5 shrink-0 text-gold-600"
                             aria-hidden
                           />
-                          <span className="text-[0.875rem] leading-[1.55] text-ivory/78">
+                          <span className="text-[0.875rem] leading-[1.55] text-muted">
                             {benefit}
                           </span>
                         </li>

@@ -5,39 +5,32 @@ import type { ComponentPropsWithoutRef, ReactNode } from "react";
 import { useId } from "react";
 import { cn } from "@/lib/utils";
 
-type Tone = "light" | "dark";
-
+/**
+ * Field primitives. One appearance only — white field, hairline border, navy
+ * focus ring — because every surface on the site is white.
+ */
 const shell =
-  "w-full rounded-xl border bg-transparent px-4 py-3.5 text-[0.9375rem] transition-[border-color,box-shadow,background-color] duration-300 outline-none placeholder:text-muted/60";
-
-const tones: Record<Tone, string> = {
-  light:
-    "border-hairline-strong bg-white text-navy-900 focus:border-navy-700 focus:shadow-[0_0_0_3px_rgba(17,54,112,0.1)]",
-  dark: "border-white/18 bg-white/5 text-ivory placeholder:text-ivory/40 focus:border-gold/70 focus:shadow-[0_0_0_3px_rgba(201,162,39,0.16)]",
-};
+  "w-full rounded-xl border border-hairline-strong bg-white px-4 py-3.5 text-[0.9375rem] text-navy-900 " +
+  "outline-none transition-[border-color,box-shadow] duration-300 placeholder:text-muted/60 " +
+  "focus:border-navy-700 focus:shadow-[0_0_0_3px_rgba(27,58,107,0.1)]";
 
 function Label({
   htmlFor,
   children,
   required,
-  tone,
 }: {
   htmlFor: string;
   children: ReactNode;
   required?: boolean;
-  tone: Tone;
 }) {
   return (
     <label
       htmlFor={htmlFor}
-      className={cn(
-        "mb-2 block text-[0.8125rem] font-medium tracking-tight",
-        tone === "dark" ? "text-ivory/70" : "text-navy-900/75",
-      )}
+      className="mb-2 block text-[0.8125rem] font-medium tracking-tight text-navy-900/75"
     >
       {children}
       {required ? (
-        <span className="ml-1 text-gold" aria-hidden>
+        <span className="ml-1 text-gold-600" aria-hidden>
           *
         </span>
       ) : null}
@@ -45,20 +38,15 @@ function Label({
   );
 }
 
-function Hint({ children, tone }: { children: ReactNode; tone: Tone }) {
-  return (
-    <p className={cn("mt-1.5 text-[0.75rem]", tone === "dark" ? "text-ivory/45" : "text-muted")}>
-      {children}
-    </p>
-  );
+function Hint({ children }: { children: ReactNode }) {
+  return <p className="mt-1.5 text-[0.75rem] text-muted">{children}</p>;
 }
 
-type FieldExtras = { label: string; hint?: string; tone?: Tone; wrapperClassName?: string };
+type FieldExtras = { label: string; hint?: string; wrapperClassName?: string };
 
 export function Field({
   label,
   hint,
-  tone = "light",
   wrapperClassName,
   className,
   ...props
@@ -66,11 +54,11 @@ export function Field({
   const id = useId();
   return (
     <div className={wrapperClassName}>
-      <Label htmlFor={id} required={props.required} tone={tone}>
+      <Label htmlFor={id} required={props.required}>
         {label}
       </Label>
-      <input id={id} className={cn(shell, tones[tone], className)} {...props} />
-      {hint ? <Hint tone={tone}>{hint}</Hint> : null}
+      <input id={id} className={cn(shell, className)} {...props} />
+      {hint ? <Hint>{hint}</Hint> : null}
     </div>
   );
 }
@@ -78,7 +66,6 @@ export function Field({
 export function TextareaField({
   label,
   hint,
-  tone = "light",
   wrapperClassName,
   className,
   ...props
@@ -86,11 +73,11 @@ export function TextareaField({
   const id = useId();
   return (
     <div className={wrapperClassName}>
-      <Label htmlFor={id} required={props.required} tone={tone}>
+      <Label htmlFor={id} required={props.required}>
         {label}
       </Label>
-      <textarea id={id} rows={5} className={cn(shell, tones[tone], "resize-y", className)} {...props} />
-      {hint ? <Hint tone={tone}>{hint}</Hint> : null}
+      <textarea id={id} rows={5} className={cn(shell, "resize-y", className)} {...props} />
+      {hint ? <Hint>{hint}</Hint> : null}
     </div>
   );
 }
@@ -98,7 +85,6 @@ export function TextareaField({
 export function SelectField({
   label,
   hint,
-  tone = "light",
   wrapperClassName,
   className,
   options,
@@ -107,17 +93,17 @@ export function SelectField({
   const id = useId();
   return (
     <div className={wrapperClassName}>
-      <Label htmlFor={id} required={props.required} tone={tone}>
+      <Label htmlFor={id} required={props.required}>
         {label}
       </Label>
       <div className="relative">
         <select
           id={id}
-          className={cn(shell, tones[tone], "cursor-pointer appearance-none pr-11", className)}
+          className={cn(shell, "cursor-pointer appearance-none pr-11", className)}
           {...props}
         >
           {options.map((option) => (
-            <option key={option} value={option} className="text-navy-900">
+            <option key={option} value={option}>
               {option}
             </option>
           ))}
@@ -125,23 +111,19 @@ export function SelectField({
         <ChevronDown
           strokeWidth={1.5}
           aria-hidden
-          className={cn(
-            "pointer-events-none absolute top-1/2 right-4 size-4 -translate-y-1/2",
-            tone === "dark" ? "text-ivory/50" : "text-muted",
-          )}
+          className="pointer-events-none absolute top-1/2 right-4 size-4 -translate-y-1/2 text-muted"
         />
       </div>
-      {hint ? <Hint tone={tone}>{hint}</Hint> : null}
+      {hint ? <Hint>{hint}</Hint> : null}
     </div>
   );
 }
 
 export function CheckboxField({
   label,
-  tone = "light",
   className,
   ...props
-}: { label: ReactNode; tone?: Tone } & ComponentPropsWithoutRef<"input">) {
+}: { label: ReactNode } & ComponentPropsWithoutRef<"input">) {
   const id = useId();
   return (
     <div className="flex items-start gap-3">
@@ -154,13 +136,7 @@ export function CheckboxField({
         )}
         {...props}
       />
-      <label
-        htmlFor={id}
-        className={cn(
-          "cursor-pointer text-[0.8125rem] leading-[1.55]",
-          tone === "dark" ? "text-ivory/65" : "text-muted",
-        )}
-      >
+      <label htmlFor={id} className="cursor-pointer text-[0.8125rem] leading-[1.55] text-muted">
         {label}
       </label>
     </div>
@@ -170,11 +146,9 @@ export function CheckboxField({
 export function FormStatus({
   state,
   message,
-  tone = "light",
 }: {
   state: "idle" | "submitting" | "success" | "error";
   message?: string;
-  tone?: Tone;
 }) {
   if (state === "idle" || state === "submitting" || !message) return null;
   const ok = state === "success";
@@ -183,14 +157,8 @@ export function FormStatus({
       role="status"
       aria-live="polite"
       className={cn(
-        "rounded-xl border px-4 py-3 text-[0.875rem] leading-relaxed",
-        ok
-          ? tone === "dark"
-            ? "border-gold/35 bg-gold/10 text-gold-200"
-            : "border-india-green/25 bg-india-green/8 text-india-green"
-          : tone === "dark"
-            ? "border-red-400/35 bg-red-400/10 text-red-200"
-            : "border-red-500/25 bg-red-500/8 text-red-700",
+        "rounded-xl border bg-white px-4 py-3 text-[0.875rem] leading-relaxed",
+        ok ? "border-india-green/35 text-india-green" : "border-red-500/35 text-red-700",
       )}
     >
       {message}

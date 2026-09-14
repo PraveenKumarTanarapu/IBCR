@@ -26,14 +26,14 @@ export default function AboutPage() {
           <ButtonLink href="/membership/join" withArrow>
             Become a Member
           </ButtonLink>
-          <ButtonLink href="/contact" variant="outline-light">
+          <ButtonLink href="/contact" variant="outline">
             Talk to the secretariat
           </ButtonLink>
         </div>
       </PageHero>
 
       {/* --------------------------------------------------- who we are */}
-      <Section id="who-we-are" tone="paper">
+      <Section id="who-we-are">
         <div className="container-page">
           <div className="grid gap-14 lg:grid-cols-12 lg:gap-16">
             <div className="lg:col-span-5">
@@ -72,22 +72,22 @@ export default function AboutPage() {
       </Section>
 
       {/* ----------------------------------------------- vision & mission */}
-      <Section id="vision" tone="ink" className="grain">
+      <Section id="vision" divided>
         <div className="container-page relative">
           <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
             <Reveal>
-              <div className="rounded-[var(--radius-card)] border border-white/12 bg-white/[0.035] p-8 md:p-10">
-                <p className="label-mono text-gold-400">Vision</p>
-                <p className="mt-6 text-[clamp(1.35rem,2.6vw,1.9rem)] leading-[1.35] font-medium tracking-tight text-ivory">
+              <div className="rounded-[var(--radius-card)] border border-hairline bg-white p-8 md:p-10">
+                <p className="label-mono text-gold-600">Vision</p>
+                <p className="mt-6 text-[clamp(1.35rem,2.6vw,1.9rem)] leading-[1.35] font-medium tracking-tight text-navy-900">
                   A strong, trusted and mutually beneficial India–Rwanda business ecosystem that
                   drives sustainable growth, innovation and prosperity.
                 </p>
               </div>
             </Reveal>
             <Reveal delay={0.08}>
-              <div className="rounded-[var(--radius-card)] border border-white/12 bg-white/[0.035] p-8 md:p-10">
-                <p className="label-mono text-gold-400">Mission</p>
-                <p className="mt-6 text-[clamp(1.35rem,2.6vw,1.9rem)] leading-[1.35] font-medium tracking-tight text-ivory">
+              <div className="rounded-[var(--radius-card)] border border-hairline bg-white p-8 md:p-10">
+                <p className="label-mono text-gold-600">Mission</p>
+                <p className="mt-6 text-[clamp(1.35rem,2.6vw,1.9rem)] leading-[1.35] font-medium tracking-tight text-navy-900">
                   To connect, represent and equip businesses on both sides of the corridor — with
                   access, intelligence and a credible collective voice.
                 </p>
@@ -98,11 +98,11 @@ export default function AboutPage() {
           <RevealGroup className="mt-14 grid gap-x-10 gap-y-9 sm:grid-cols-2 lg:grid-cols-4">
             {VALUES.map((value, i) => (
               <RevealItem key={value.title}>
-                <p className="label-mono text-ivory/30">{String(i + 1).padStart(2, "0")}</p>
-                <h3 className="mt-4 text-[1.125rem] font-semibold tracking-tight text-ivory">
+                <p className="label-mono text-navy-900/40">{String(i + 1).padStart(2, "0")}</p>
+                <h3 className="mt-4 text-[1.125rem] font-semibold tracking-tight text-navy-900">
                   {value.title}
                 </h3>
-                <p className="mt-2.5 text-[0.9375rem] leading-[1.65] text-ivory/60">{value.copy}</p>
+                <p className="mt-2.5 text-[0.9375rem] leading-[1.65] text-muted">{value.copy}</p>
               </RevealItem>
             ))}
           </RevealGroup>
@@ -110,7 +110,7 @@ export default function AboutPage() {
       </Section>
 
       {/* ------------------------------------------------------ leadership */}
-      <Section id="leadership" tone="paper">
+      <Section id="leadership">
         <div className="container-page">
           <SectionHeading
             eyebrow="Leadership"
@@ -121,7 +121,7 @@ export default function AboutPage() {
 
           <RevealGroup className="mt-14 grid gap-px overflow-hidden rounded-[var(--radius-card)] bg-hairline sm:grid-cols-2 lg:grid-cols-3">
             {BOARD.map((person, i) => (
-              <RevealItem noShift key={person.name} className="bg-paper p-8">
+              <RevealItem noShift key={person.name} className="bg-white p-8">
                 <span className="label-mono text-navy-900/22">
                   {String(i + 1).padStart(2, "0")}
                 </span>
@@ -137,7 +137,7 @@ export default function AboutPage() {
       </Section>
 
       {/* ------------------------------------------------------------ team */}
-      <Section id="team" tone="ivory">
+      <Section id="team" divided>
         <div className="container-page">
           <SectionHeading
             eyebrow="Secretariat"
@@ -149,7 +149,7 @@ export default function AboutPage() {
           <RevealGroup className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {TEAM.map((unit) => (
               <RevealItem key={unit.name}>
-                <div className="h-full rounded-[var(--radius-card)] border border-hairline bg-paper p-7">
+                <div className="h-full rounded-[var(--radius-card)] border border-hairline bg-white p-7">
                   <h3 className="text-[1.125rem] font-semibold tracking-tight text-navy-900">
                     {unit.name}
                   </h3>
@@ -163,7 +163,7 @@ export default function AboutPage() {
       </Section>
 
       {/* -------------------------------------------------------- partners */}
-      <Section id="partners" tone="paper">
+      <Section id="partners">
         <div className="container-page">
           <SectionHeading
             eyebrow="Partners"
@@ -176,7 +176,7 @@ export default function AboutPage() {
             {PARTNERS.map((partner) => (
               <RevealItem noShift
                 key={partner.name}
-                className="flex min-h-[7.5rem] flex-col justify-center bg-paper p-6 transition-colors duration-500 hover:bg-ivory-100"
+                className="flex min-h-[7.5rem] flex-col justify-center bg-white p-6 transition-colors duration-500 hover:bg-white"
               >
                 <p className="text-[0.9375rem] leading-snug font-semibold tracking-tight text-navy-900/85">
                   {partner.name}

@@ -63,7 +63,7 @@ export function MemberDirectory({
   return (
     <div>
       {/* ------------------------------------------------------ controls */}
-      <div className="rounded-[var(--radius-card)] border border-hairline bg-paper p-5 md:p-6">
+      <div className="rounded-[var(--radius-card)] border border-hairline bg-white p-5 md:p-6">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center">
           <div className="relative flex-1">
             <Search
@@ -140,7 +140,7 @@ export function MemberDirectory({
           {showAllLink ? (
             <Link
               href="/members"
-              className="inline-flex h-11 items-center gap-2 rounded-full border border-hairline-strong px-6 text-[0.9375rem] font-medium text-navy-900 transition-colors duration-300 hover:border-navy-800 hover:bg-navy-900 hover:text-ivory"
+              className="inline-flex h-11 items-center gap-2 rounded-full border border-hairline-strong px-6 text-[0.9375rem] font-medium text-navy-900 transition-colors duration-300 hover:border-hairline-strong hover:bg-hover"
             >
               View the full directory
               <ArrowUpRight strokeWidth={1.75} className="size-4" />
@@ -149,7 +149,7 @@ export function MemberDirectory({
             <button
               type="button"
               onClick={() => setExpanded(true)}
-              className="inline-flex h-11 cursor-pointer items-center gap-2 rounded-full border border-hairline-strong px-6 text-[0.9375rem] font-medium text-navy-900 transition-colors duration-300 hover:border-navy-800 hover:bg-navy-900 hover:text-ivory"
+              className="inline-flex h-11 cursor-pointer items-center gap-2 rounded-full border border-hairline-strong px-6 text-[0.9375rem] font-medium text-navy-900 transition-colors duration-300 hover:border-hairline-strong hover:bg-hover"
             >
               Show all {filtered.length} members
             </button>
@@ -186,7 +186,7 @@ function FilterRow({
               className={cn(
                 "cursor-pointer rounded-full border px-3.5 py-1.5 text-[0.8125rem] transition-[background-color,border-color,color] duration-300",
                 selected
-                  ? "border-navy-900 bg-navy-900 text-ivory"
+                  ? "border-navy-900 bg-navy-900 text-white"
                   : "border-hairline text-muted hover:border-navy-800/35 hover:text-navy-900",
               )}
             >
@@ -207,11 +207,11 @@ export function MemberCard({ member }: { member: Member }) {
     .join("");
 
   return (
-    <article className="group flex h-full flex-col rounded-[var(--radius-card)] border border-hairline bg-paper p-6 transition-[border-color,transform,box-shadow] duration-500 ease-[var(--ease-out-quint)] hover:-translate-y-1 hover:border-navy-800/25 hover:shadow-[0_20px_46px_-30px_rgba(7,23,48,0.4)]">
+    <article className="group flex h-full flex-col rounded-[var(--radius-card)] border border-hairline bg-white p-6 transition-[border-color,transform,box-shadow] duration-500 ease-[var(--ease-out-quint)] hover:-translate-y-1 hover:border-hairline-strong hover:bg-hover">
       <div className="flex items-start gap-4">
         <span
           aria-hidden
-          className="grid size-11 shrink-0 place-items-center rounded-xl bg-navy-950 font-mono text-[0.8125rem] font-medium tracking-tight text-gold-200"
+          className="grid size-11 shrink-0 place-items-center rounded-xl border border-hairline font-mono text-[0.8125rem] font-medium tracking-tight text-navy-800"
         >
           {initials}
         </span>

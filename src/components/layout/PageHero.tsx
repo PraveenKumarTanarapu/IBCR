@@ -8,8 +8,9 @@ import { cn } from "@/lib/utils";
 export type Crumb = { label: string; href?: string };
 
 /**
- * Dark masthead used at the top of every inner page. Keeps the header's
- * transparent-on-dark opening state consistent across the whole site.
+ * Masthead at the top of every inner page. White ground; the only decoration
+ * is a hairline corridor motif, so the page opens the same way the rest of the
+ * site reads.
  */
 export function PageHero({
   eyebrow,
@@ -29,18 +30,12 @@ export function PageHero({
   align?: "left" | "center";
 }) {
   return (
-    <section className="grain relative overflow-hidden bg-ink pt-[9.5rem] pb-20 text-ivory md:pt-[11rem] md:pb-24">
-      <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(90%_120%_at_78%_-10%,rgba(26,86,184,0.4),transparent_58%),radial-gradient(70%_90%_at_8%_110%,rgba(201,162,39,0.18),transparent_60%)]"
-        aria-hidden
-      />
-      <div className="dot-veil pointer-events-none absolute inset-0 opacity-25" aria-hidden />
-
+    <section className="relative overflow-hidden border-b border-hairline bg-white pt-[8.5rem] pb-16 md:pt-[10rem] md:pb-20">
       {/* Corridor motif — concentric arcs reaching across the masthead. */}
       <svg
         viewBox="0 0 420 420"
         aria-hidden
-        className="pointer-events-none absolute -top-16 -right-24 hidden h-[30rem] w-[30rem] text-gold/22 lg:block"
+        className="pointer-events-none absolute -top-20 -right-20 hidden h-[30rem] w-[30rem] text-navy-900/8 lg:block"
       >
         {[80, 120, 160, 200].map((r, i) => (
           <circle
@@ -50,39 +45,44 @@ export function PageHero({
             r={r}
             fill="none"
             stroke="currentColor"
-            strokeWidth={i === 1 ? 1.4 : 0.7}
+            strokeWidth={i === 1 ? 1.4 : 0.8}
             strokeDasharray={i % 2 ? "2 8" : undefined}
           />
         ))}
         <path
           d="M40 300 C 140 120, 300 120, 392 216"
           fill="none"
-          stroke="currentColor"
+          stroke="var(--color-gold)"
+          strokeOpacity="0.5"
           strokeWidth="1.4"
         />
-        <circle cx="40" cy="300" r="4.5" fill="currentColor" />
-        <circle cx="392" cy="216" r="4.5" className="text-royal-400" fill="#4380d8" />
+        <circle cx="40" cy="300" r="4.5" fill="var(--color-gold)" />
+        <circle cx="392" cy="216" r="4.5" fill="var(--color-royal)" />
       </svg>
 
       <div className="container-page relative">
         {crumbs.length ? (
           <Reveal>
             <nav aria-label="Breadcrumb">
-              <ol className="flex flex-wrap items-center gap-1.5 text-[0.75rem] text-ivory/45">
+              <ol className="flex flex-wrap items-center gap-1.5 text-[0.75rem] text-muted">
                 <li>
-                  <Link href="/" className="transition-colors hover:text-ivory">
+                  <Link href="/" className="transition-colors hover:text-navy-900">
                     Home
                   </Link>
                 </li>
                 {crumbs.map((crumb) => (
                   <li key={crumb.label} className="flex items-center gap-1.5">
-                    <ChevronRight strokeWidth={1.5} className="size-3 text-ivory/25" aria-hidden />
+                    <ChevronRight
+                      strokeWidth={1.5}
+                      className="size-3 text-navy-900/25"
+                      aria-hidden
+                    />
                     {crumb.href ? (
-                      <Link href={crumb.href} className="transition-colors hover:text-ivory">
+                      <Link href={crumb.href} className="transition-colors hover:text-navy-900">
                         {crumb.label}
                       </Link>
                     ) : (
-                      <span className="text-ivory/70">{crumb.label}</span>
+                      <span className="text-navy-900">{crumb.label}</span>
                     )}
                   </li>
                 ))}
@@ -93,15 +93,15 @@ export function PageHero({
 
         <div className={cn("mt-8", align === "center" && "mx-auto max-w-3xl text-center")}>
           <Reveal>
-            <Eyebrow tone="light">{eyebrow}</Eyebrow>
+            <Eyebrow>{eyebrow}</Eyebrow>
           </Reveal>
           <Reveal delay={0.06}>
-            <h1 className="mt-6 max-w-4xl text-[clamp(2.25rem,5.6vw,4.25rem)] leading-[1.02] font-semibold tracking-[-0.035em] text-ivory">
+            <h1 className="mt-6 max-w-4xl text-[clamp(2.25rem,5.6vw,4.25rem)] leading-[1.02] font-semibold tracking-[-0.035em] text-navy-900">
               {title}
               {accent ? (
                 <>
                   {" "}
-                  <span className="accent-serif text-gold-400">{accent}</span>
+                  <span className="accent-serif text-gold-600">{accent}</span>
                 </>
               ) : null}
             </h1>
@@ -110,7 +110,7 @@ export function PageHero({
             <Reveal delay={0.12}>
               <p
                 className={cn(
-                  "mt-6 max-w-2xl text-[1.0625rem] leading-[1.65] text-ivory/68 md:text-[1.125rem]",
+                  "mt-6 max-w-2xl text-[1.0625rem] leading-[1.65] text-muted md:text-[1.125rem]",
                   align === "center" && "mx-auto",
                 )}
               >

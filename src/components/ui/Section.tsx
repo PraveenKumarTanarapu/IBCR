@@ -4,32 +4,10 @@ import { Reveal } from "@/components/motion/Reveal";
 
 /* --------------------------------------------------------------- eyebrow */
 
-export function Eyebrow({
-  children,
-  tone = "navy",
-  className,
-}: {
-  children: ReactNode;
-  tone?: "navy" | "light" | "gold";
-  className?: string;
-}) {
+export function Eyebrow({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <span
-      className={cn(
-        "label-mono inline-flex items-center gap-2.5",
-        tone === "navy" && "text-navy-700/70",
-        tone === "light" && "text-ivory/60",
-        tone === "gold" && "text-gold",
-        className,
-      )}
-    >
-      <span
-        className={cn(
-          "inline-block h-px w-6",
-          tone === "light" ? "bg-gold-400/70" : "bg-gold/70",
-        )}
-        aria-hidden
-      />
+    <span className={cn("label-mono inline-flex items-center gap-2.5 text-muted", className)}>
+      <span className="inline-block h-px w-6 bg-gold" aria-hidden />
       {children}
     </span>
   );
@@ -37,31 +15,27 @@ export function Eyebrow({
 
 /* -------------------------------------------------------------- section */
 
+/**
+ * Every section sits on white. `divided` adds a hairline at the top, which is
+ * how the page gets its rhythm now that there are no tinted bands.
+ */
 export function Section({
   children,
   className,
   id,
-  tone = "paper",
+  divided = false,
 }: {
   children: ReactNode;
   className?: string;
   id?: string;
-  tone?: "paper" | "ivory" | "navy" | "ink" | "transparent";
+  divided?: boolean;
 }) {
-  const tones = {
-    paper: "bg-paper text-body",
-    ivory: "bg-ivory-100 text-body",
-    navy: "bg-navy-950 text-ivory",
-    ink: "bg-ink text-ivory",
-    transparent: "",
-  } as const;
-
   return (
     <section
       id={id}
       className={cn(
-        "relative scroll-mt-24 py-20 md:py-28 lg:py-32",
-        tones[tone],
+        "relative scroll-mt-24 bg-white py-16 text-body md:py-20 lg:py-24",
+        divided && "border-t border-hairline",
         className,
       )}
     >
@@ -78,7 +52,6 @@ export function SectionHeading({
   accent,
   copy,
   align = "left",
-  tone = "navy",
   action,
   className,
 }: {
@@ -87,11 +60,9 @@ export function SectionHeading({
   accent?: string;
   copy?: ReactNode;
   align?: "left" | "center";
-  tone?: "navy" | "light";
   action?: ReactNode;
   className?: string;
 }) {
-  const light = tone === "light";
   return (
     <div
       className={cn(
@@ -104,23 +75,16 @@ export function SectionHeading({
       <div className={cn("max-w-3xl", align === "center" && "mx-auto")}>
         {eyebrow ? (
           <Reveal>
-            <Eyebrow tone={light ? "light" : "navy"}>{eyebrow}</Eyebrow>
+            <Eyebrow>{eyebrow}</Eyebrow>
           </Reveal>
         ) : null}
         <Reveal delay={0.06}>
-          <h2
-            className={cn(
-              "mt-5 text-[clamp(1.9rem,4.4vw,3.25rem)] leading-[1.06] font-semibold",
-              light ? "text-ivory" : "text-navy-900",
-            )}
-          >
+          <h2 className="mt-5 text-[clamp(1.9rem,4.4vw,3.25rem)] leading-[1.06] font-semibold text-navy-900">
             {title}
             {accent ? (
               <>
                 {" "}
-                <span className={cn("accent-serif", light ? "text-gold-400" : "text-gold-600")}>
-                  {accent}
-                </span>
+                <span className="accent-serif text-gold-600">{accent}</span>
               </>
             ) : null}
           </h2>
@@ -129,8 +93,7 @@ export function SectionHeading({
           <Reveal delay={0.12}>
             <p
               className={cn(
-                "mt-5 max-w-2xl text-[1.0625rem] leading-[1.65]",
-                light ? "text-ivory/70" : "text-muted",
+                "mt-5 max-w-2xl text-[1.0625rem] leading-[1.65] text-muted",
                 align === "center" && "mx-auto",
               )}
             >

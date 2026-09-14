@@ -24,7 +24,7 @@ export default function ContactPage() {
           <ButtonLink href={`mailto:${SITE.email}`} withArrow>
             Email the secretariat
           </ButtonLink>
-          <ButtonLink href={`tel:${SITE.phoneHref}`} variant="outline-light">
+          <ButtonLink href={`tel:${SITE.phoneHref}`} variant="outline">
             {SITE.phone}
           </ButtonLink>
         </div>

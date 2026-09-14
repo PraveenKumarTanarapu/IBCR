@@ -100,7 +100,7 @@ export const NAV: NavItem[] = [
     children: [
       { label: "Upcoming Events", href: "/events#upcoming" },
       { label: "Past Events", href: "/events#past" },
-      { label: "Event Registration", href: "/events#upcoming" },
+      { label: "Event Registration", href: "/events#register" },
     ],
   },
   {
@@ -116,86 +116,43 @@ export const NAV: NavItem[] = [
   },
 ];
 
-/* ------------------------------------------------------------- hero slides */
+/* -------------------------------------------------------------------- hero */
 
-export type HeroSlide = {
-  id: string;
-  eyebrow: string;
-  title: string;
-  accent?: string;
-  copy: string;
-  cta: { label: string; href: string };
-  secondary: { label: string; href: string };
-  video: string;
-  poster: string;
-};
-
-export const HERO_SLIDES: HeroSlide[] = [
-  {
-    id: "corridor",
-    eyebrow: "India × Rwanda",
-    title: "Connecting India.",
-    accent: "Empowering Rwanda.",
-    copy: "Building stronger India–Rwanda business relations through trade, investment, networking, advocacy and strategic partnerships.",
-    cta: { label: "Become a Member", href: "/membership/join" },
-    secondary: { label: "Explore Opportunities", href: "/india-rwanda#opportunities" },
-    video: "hero-corridor",
-    poster: "/video/hero-corridor-poster.jpg",
-  },
-  {
-    id: "filaments",
-    eyebrow: "Trade & Investment",
-    title: "Where opportunity",
-    accent: "meets ambition.",
-    copy: "From agribusiness to advanced manufacturing, we help Indian enterprise find its footing in one of Africa's fastest-reforming economies.",
-    cta: { label: "Explore Opportunities", href: "/india-rwanda#opportunities" },
-    secondary: { label: "Our Services", href: "/services" },
-    video: "hero-filaments",
-    poster: "/video/hero-filaments-poster.jpg",
-  },
-  {
-    id: "lattice",
-    eyebrow: "The Network",
-    title: "Connect. Collaborate.",
-    accent: "Grow.",
-    copy: "A working network of businesses, investors, institutions and decision-makers across Kigali, Delhi, Mumbai and beyond.",
-    cta: { label: "Join the Chamber", href: "/membership/join" },
-    secondary: { label: "Member Directory", href: "/members" },
-    video: "hero-lattice",
-    poster: "/video/hero-lattice-poster.jpg",
-  },
-];
+export const HERO = {
+  eyebrow: "India × Rwanda",
+  title: "Connecting India.",
+  accent: "Empowering Rwanda.",
+  copy: "Building stronger India–Rwanda business relations through trade, investment, networking, advocacy and strategic partnerships.",
+  cta: { label: "Become a Member", href: "/membership/join" },
+  secondary: { label: "Explore Opportunities", href: "/india-rwanda#opportunities" },
+  video: "/video/hero-corridor.mp4",
+  poster: "/video/hero-corridor-poster.jpg",
+} as const;
 
 /* ------------------------------------------------------------ at a glance */
 
+/** The tagline, carried as the Chamber's three working pillars. */
 export const PILLARS = [
   {
-    id: "trade",
+    id: "connect",
     number: "01",
-    title: "Trade",
-    copy: "Facilitating India–Rwanda commercial opportunities, from first enquiry to signed contract.",
-    icon: "exchange",
+    title: "Connect",
+    copy: "Meet the businesses, investors, institutions and decision-makers who shape trade between India and Rwanda.",
+    icon: "connect",
   },
   {
-    id: "investment",
+    id: "collaborate",
     number: "02",
-    title: "Investment",
-    copy: "Connecting capital with credible, well-structured opportunities across Rwanda's priority sectors.",
-    icon: "trending",
+    title: "Collaborate",
+    copy: "Turn introductions into partnerships — joint ventures, distribution, supply agreements and co-investment.",
+    icon: "collaborate",
   },
   {
-    id: "networking",
+    id: "grow",
     number: "03",
-    title: "Networking",
-    copy: "Creating meaningful connections between businesses, institutions and decision-makers.",
-    icon: "network",
-  },
-  {
-    id: "advocacy",
-    number: "04",
-    title: "Advocacy",
-    copy: "Representing the interests of the Indian business community in constructive public-private dialogue.",
-    icon: "shield",
+    title: "Grow",
+    copy: "Expand into Rwanda and the wider East African market with intelligence, advocacy and the Chamber behind you.",
+    icon: "grow",
   },
 ] as const;
 
@@ -206,22 +163,26 @@ export const STATS = [
   { value: 2, suffix: "", label: "Markets, one corridor" },
 ] as const;
 
+/**
+ * Kept distinct from PILLARS above — the tagline covers connect/collaborate/
+ * grow, so these describe what the Chamber puts behind those three.
+ */
 export const WHY_IBCR = [
   {
-    title: "Connect",
-    copy: "Meet businesses, investors, institutions and decision-makers across both markets — in rooms that are difficult to reach alone.",
+    title: "Access",
+    copy: "Rooms, relationships and institutions across both markets that are difficult to reach on your own.",
   },
   {
-    title: "Discover",
-    copy: "Access market intelligence, regulatory guidance and emerging opportunities before they become common knowledge.",
+    title: "Intelligence",
+    copy: "Market research, regulatory guidance and emerging opportunities before they become common knowledge.",
   },
   {
-    title: "Grow",
-    copy: "Build partnerships, find distribution and expand your footprint into Rwanda and the wider East African market.",
+    title: "Representation",
+    copy: "A collective voice in the dialogue that shapes the business environment for Indian enterprise in Rwanda.",
   },
   {
-    title: "Influence",
-    copy: "Participate in the dialogue that shapes the business environment for Indian enterprise in Rwanda.",
+    title: "Momentum",
+    copy: "Delegations, forums and matchmaking that keep a market-entry plan moving instead of stalling.",
   },
 ] as const;
 

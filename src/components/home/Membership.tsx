@@ -6,7 +6,7 @@ import { MEMBERSHIP_TIERS } from "@/lib/content";
 
 export function Membership() {
   return (
-    <Section id="membership" tone="paper">
+    <Section id="membership">
       <div className="container-page">
         <SectionHeading
           eyebrow="Membership"

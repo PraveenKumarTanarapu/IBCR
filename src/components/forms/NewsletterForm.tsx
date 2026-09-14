@@ -20,7 +20,7 @@ export function NewsletterForm({ className }: { className?: string }) {
           required
           autoComplete="email"
           placeholder="you@company.com"
-          className="h-12 w-full rounded-full border border-white/18 bg-white/5 px-5 text-[0.9375rem] text-ivory outline-none transition-[border-color,box-shadow] duration-300 placeholder:text-ivory/35 focus:border-gold/70 focus:shadow-[0_0_0_3px_rgba(201,162,39,0.16)]"
+          className="h-12 w-full rounded-full border border-hairline-strong bg-white px-5 text-[0.9375rem] text-navy-900 outline-none transition-[border-color,box-shadow] duration-300 placeholder:text-muted/70 focus:border-navy-700 focus:shadow-[0_0_0_3px_rgba(27,58,107,0.1)]"
         />
         <button
           type="submit"
@@ -43,7 +43,7 @@ export function NewsletterForm({ className }: { className?: string }) {
           aria-live="polite"
           className={cn(
             "mt-3 text-[0.8125rem]",
-            state === "success" ? "text-gold-400" : "text-red-300",
+            state === "success" ? "text-india-green" : "text-red-600",
           )}
         >
           {message}

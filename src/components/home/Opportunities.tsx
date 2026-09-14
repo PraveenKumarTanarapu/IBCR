@@ -5,7 +5,7 @@ import { OPPORTUNITIES } from "@/lib/content";
 
 export function Opportunities() {
   return (
-    <Section id="opportunities" tone="ivory">
+    <Section id="opportunities" divided>
       <div className="container-page">
         <SectionHeading
           eyebrow="Investment opportunities"
@@ -17,7 +17,7 @@ export function Opportunities() {
         <RevealGroup className="mt-16 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
           {OPPORTUNITIES.map((item, i) => (
             <RevealItem key={item.title}>
-              <article className="group relative h-full overflow-hidden rounded-[var(--radius-card)] border border-hairline bg-paper p-7 transition-[border-color,transform,box-shadow] duration-500 ease-[var(--ease-out-quint)] hover:-translate-y-1 hover:border-navy-800/25 hover:shadow-[0_22px_50px_-30px_rgba(7,23,48,0.45)]">
+              <article className="group relative h-full overflow-hidden rounded-[var(--radius-card)] border border-hairline bg-white p-7 transition-[border-color,transform,box-shadow] duration-500 ease-[var(--ease-out-quint)] hover:-translate-y-1 hover:border-hairline-strong hover:bg-hover">
                 <div
                   className="absolute inset-x-0 top-0 h-[3px] origin-left scale-x-0 bg-gradient-to-r from-gold to-gold-200 transition-transform duration-600 ease-[var(--ease-out-quint)] group-hover:scale-x-100"
                   aria-hidden

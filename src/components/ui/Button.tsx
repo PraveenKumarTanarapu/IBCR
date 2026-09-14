@@ -14,12 +14,14 @@ const base =
 const variants: Record<Variant, string> = {
   gold:
     "rounded-full bg-gold text-navy-950 shadow-[0_1px_0_rgba(255,255,255,0.35)_inset] hover:bg-gold-400",
-  navy: "rounded-full bg-navy-900 text-ivory hover:bg-navy-700",
+  navy: "rounded-full bg-navy-900 text-white hover:bg-navy-700",
+  // Hover is a neutral light grey — the only surface tint on the site.
   outline:
-    "rounded-full border border-hairline-strong text-navy-900 hover:border-navy-800 hover:bg-navy-900 hover:text-ivory",
+    "rounded-full border border-hairline-strong bg-white text-navy-900 hover:border-navy-800/40 hover:bg-hover",
+  // Reserved for the hero, the one place with footage behind the buttons.
   "outline-light":
-    "rounded-full border border-white/30 text-white backdrop-blur-[2px] hover:border-white/70 hover:bg-white/10",
-  ghost: "rounded-full text-navy-900 hover:bg-navy-900/6",
+    "rounded-full border border-hairline text-white backdrop-blur-[2px] hover:border-white/70 hover:bg-hairline",
+  ghost: "rounded-full text-navy-900 hover:bg-hover",
 };
 
 const sizes: Record<Size, string> = {

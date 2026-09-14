@@ -3,11 +3,15 @@ import { ArrowUpRight } from "lucide-react";
 import type { Insight } from "@/lib/content";
 import { cn, formatDate } from "@/lib/utils";
 
-const CATEGORY_TINT: Record<Insight["category"], string> = {
-  "IBCR News": "from-royal/55 via-navy-800 to-navy-950",
-  "Market Intelligence": "from-gold/45 via-navy-800 to-navy-950",
-  "India–Rwanda Trade": "from-saffron/40 via-navy-800 to-navy-950",
-  Reports: "from-rw-blue/45 via-navy-800 to-navy-950",
+/**
+ * Article thumbnails are drawn, not photographed: a white plate with a hairline
+ * corridor motif, tinted only by a thin accent rule per category.
+ */
+const CATEGORY_RULE: Record<Insight["category"], string> = {
+  "IBCR News": "bg-royal",
+  "Market Intelligence": "bg-gold",
+  "India–Rwanda Trade": "bg-saffron",
+  Reports: "bg-rw-blue",
 };
 
 export function InsightCard({ insight, featured }: { insight: Insight; featured?: boolean }) {
@@ -16,34 +20,44 @@ export function InsightCard({ insight, featured }: { insight: Insight; featured?
       <Link href={`/insights/${insight.slug}`} className="flex h-full flex-col">
         <div
           className={cn(
-            "relative overflow-hidden rounded-[var(--radius-card)] bg-navy-950",
+            "relative overflow-hidden rounded-[var(--radius-card)] border border-hairline bg-white transition-colors duration-500 group-hover:bg-hover",
             featured ? "aspect-16/10" : "aspect-3/2",
           )}
         >
-          <div
-            className={cn(
-              "absolute inset-0 bg-gradient-to-br transition-transform duration-700 ease-[var(--ease-out-quint)] group-hover:scale-[1.04]",
-              CATEGORY_TINT[insight.category],
-            )}
+          <span
+            className={cn("absolute inset-x-0 top-0 h-[3px]", CATEGORY_RULE[insight.category])}
             aria-hidden
           />
-          <div className="dot-veil absolute inset-0 opacity-30" aria-hidden />
-          <div
-            className="absolute inset-0 bg-[radial-gradient(90%_70%_at_18%_12%,rgba(255,255,255,0.14),transparent_60%)]"
-            aria-hidden
-          />
-          {/* Corridor arcs, so each card reads as part of one system. */}
+
           <svg
             viewBox="0 0 400 240"
             preserveAspectRatio="none"
             aria-hidden
-            className="absolute inset-0 size-full text-gold-200/35"
+            className="absolute inset-0 size-full text-navy-900/12 transition-transform duration-700 ease-[var(--ease-out-quint)] group-hover:scale-[1.03]"
           >
-            <path d="M-20 210 C 90 90, 250 70, 420 130" fill="none" stroke="currentColor" strokeWidth="1" />
-            <path d="M-20 235 C 110 140, 260 120, 420 175" fill="none" stroke="currentColor" strokeWidth="0.8" strokeDasharray="3 9" />
-            <path d="M-20 185 C 80 60, 260 30, 420 90" fill="none" stroke="currentColor" strokeWidth="0.6" opacity="0.7" />
+            <path
+              d="M-20 210 C 90 90, 250 70, 420 130"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1"
+            />
+            <path
+              d="M-20 235 C 110 140, 260 120, 420 175"
+              fill="none"
+              stroke="var(--color-gold)"
+              strokeOpacity="0.55"
+              strokeWidth="1"
+            />
+            <path
+              d="M-20 185 C 80 60, 260 30, 420 90"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="0.8"
+              strokeDasharray="3 9"
+            />
           </svg>
-          <span className="label-mono absolute top-5 left-5 rounded-full bg-navy-950/70 px-3 py-1.5 text-[0.5625rem] text-gold-200 backdrop-blur-sm">
+
+          <span className="label-mono absolute bottom-5 left-5 rounded-full border border-hairline bg-white px-3 py-1.5 text-[0.5625rem] text-muted">
             {insight.category}
           </span>
         </div>

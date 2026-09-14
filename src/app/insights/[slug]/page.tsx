@@ -61,12 +61,12 @@ export default async function InsightPage(props: PageProps<"/insights/[slug]">) 
         copy={insight.summary}
         crumbs={[{ label: "Insights", href: "/insights" }, { label: insight.category }]}
       >
-        <p className="label-mono text-ivory/45">
+        <p className="label-mono text-navy-900/40">
           {formatDate(insight.date)} · {insight.readingTime}
         </p>
       </PageHero>
 
-      <Section tone="paper">
+      <Section>
         <div className="container-page">
           <div className="grid gap-14 lg:grid-cols-12 lg:gap-16">
             <article className="lg:col-span-8">
@@ -99,7 +99,7 @@ export default async function InsightPage(props: PageProps<"/insights/[slug]">) 
 
             <aside className="lg:col-span-4">
               <Reveal>
-                <div className="rounded-[var(--radius-card)] border border-hairline bg-ivory-100/60 p-7">
+                <div className="rounded-[var(--radius-card)] border border-hairline bg-white p-7">
                   <p className="label-mono text-gold-600">Members</p>
                   <p className="mt-4 text-[0.9375rem] leading-[1.6] text-body/85">
                     Members can request the underlying data, a sector cut, or a tailored assessment
@@ -115,7 +115,7 @@ export default async function InsightPage(props: PageProps<"/insights/[slug]">) 
         </div>
       </Section>
 
-      <Section tone="ivory">
+      <Section divided>
         <div className="container-page">
           <h2 className="text-[clamp(1.5rem,3vw,2.25rem)] leading-tight font-semibold text-navy-900">
             More <span className="accent-serif text-gold-600">insights.</span>

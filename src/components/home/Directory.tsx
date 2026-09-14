@@ -4,7 +4,7 @@ import { Section, SectionHeading } from "@/components/ui/Section";
 
 export function Directory() {
   return (
-    <Section id="directory" tone="ivory">
+    <Section id="directory" divided>
       <div className="container-page">
         <SectionHeading
           eyebrow="Member directory"

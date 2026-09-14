@@ -45,7 +45,7 @@ export default function ServicesPage() {
             <a
               key={service.id}
               href={`#${service.id}`}
-              className="inline-flex items-center rounded-full border border-white/15 px-4 py-2 text-[0.8125rem] text-ivory/75 transition-colors duration-300 hover:border-gold/55 hover:text-gold-200"
+              className="inline-flex items-center rounded-full border border-hairline px-4 py-2 text-[0.8125rem] text-muted transition-colors duration-300 hover:border-gold/55 hover:text-gold-600"
             >
               {service.title}
             </a>
@@ -55,12 +55,11 @@ export default function ServicesPage() {
 
       {SERVICES.map((service, index) => {
         const Icon = ICONS[service.icon];
-        const alt = index % 2 === 1;
         return (
           <Section
             key={service.id}
             id={service.id}
-            tone={alt ? "ivory" : "paper"}
+            divided={index > 0}
             className="py-16 md:py-20"
           >
             <div className="container-page">
@@ -68,8 +67,8 @@ export default function ServicesPage() {
                 <div className="lg:col-span-5">
                   <Reveal>
                     <div className="flex items-center gap-4">
-                      <span className="grid size-12 place-items-center rounded-2xl bg-navy-950">
-                        <Icon strokeWidth={1.2} className="size-5 text-gold-400" aria-hidden />
+                      <span className="grid size-12 place-items-center rounded-2xl border border-hairline">
+                        <Icon strokeWidth={1.2} className="size-5 text-navy-700" aria-hidden />
                       </span>
                       <span className="label-mono text-navy-900/25">{service.number}</span>
                     </div>
@@ -91,7 +90,7 @@ export default function ServicesPage() {
                     {service.detail.map((item) => (
                       <RevealItem noShift
                         key={item}
-                        className="flex items-start gap-3 bg-paper p-6 transition-colors duration-500 hover:bg-navy-950/4"
+                        className="flex items-start gap-3 bg-white p-6 transition-colors duration-500 hover:bg-hover"
                       >
                         <Check
                           strokeWidth={2}
@@ -109,10 +108,9 @@ export default function ServicesPage() {
         );
       })}
 
-      <Section tone="ink" className="grain">
+      <Section divided>
         <div className="container-page relative">
           <SectionHeading
-            tone="light"
             align="center"
             eyebrow="Next step"
             title="Not sure which service"
@@ -123,7 +121,7 @@ export default function ServicesPage() {
             <ButtonLink href="/contact" size="lg" withArrow>
               Talk to IBCR
             </ButtonLink>
-            <ButtonLink href="/membership" variant="outline-light" size="lg">
+            <ButtonLink href="/membership" variant="outline" size="lg">
               See membership
             </ButtonLink>
           </div>

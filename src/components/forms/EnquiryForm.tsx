@@ -4,22 +4,21 @@ import { Loader2, Send } from "lucide-react";
 import { CheckboxField, Field, FormStatus, SelectField, TextareaField } from "@/components/forms/Fields";
 import { AREAS_OF_INTEREST } from "@/lib/content";
 import { useFormPost } from "@/lib/forms";
-import { cn } from "@/lib/utils";
 
-export function EnquiryForm({ tone = "light" }: { tone?: "light" | "dark" }) {
+export function EnquiryForm() {
   const { state, message, submit } = useFormPost("/api/enquiry");
 
   return (
     <form onSubmit={submit} className="space-y-5" noValidate={false}>
       <div className="grid gap-5 sm:grid-cols-2">
-        <Field tone={tone} label="Name" name="name" required autoComplete="name" placeholder="Your full name" />
-        <Field tone={tone} label="Company" name="company" autoComplete="organization" placeholder="Company or organisation" />
-        <Field tone={tone} label="Email" name="email" type="email" required autoComplete="email" placeholder="you@company.com" />
-        <Field tone={tone} label="Phone" name="phone" type="tel" autoComplete="tel" placeholder="+250 …" />
+        <Field label="Name" name="name" required autoComplete="name" placeholder="Your full name" />
+        <Field label="Company" name="company" autoComplete="organization" placeholder="Company or organisation" />
+        <Field label="Email" name="email" type="email" required autoComplete="email" placeholder="you@company.com" />
+        <Field label="Phone" name="phone" type="tel" autoComplete="tel" placeholder="+250 …" />
       </div>
 
       <SelectField
-        tone={tone}
+       
         label="Area of interest"
         name="interest"
         options={AREAS_OF_INTEREST}
@@ -27,7 +26,7 @@ export function EnquiryForm({ tone = "light" }: { tone?: "light" | "dark" }) {
       />
 
       <TextareaField
-        tone={tone}
+       
         label="Message"
         name="message"
         required
@@ -41,24 +40,19 @@ export function EnquiryForm({ tone = "light" }: { tone?: "light" | "dark" }) {
       </div>
 
       <CheckboxField
-        tone={tone}
+       
         name="consent"
         value="yes"
         required
         label="I agree that IBCR may store these details in order to respond to my enquiry."
       />
 
-      <FormStatus state={state} message={message} tone={tone} />
+      <FormStatus state={state} message={message} />
 
       <button
         type="submit"
         disabled={state === "submitting"}
-        className={cn(
-          "group inline-flex h-[3.25rem] cursor-pointer items-center gap-2.5 rounded-full px-7 text-[0.9375rem] font-medium transition-colors duration-300 disabled:opacity-60",
-          tone === "dark"
-            ? "bg-gold text-navy-950 hover:bg-gold-400"
-            : "bg-navy-900 text-ivory hover:bg-navy-700",
-        )}
+        className="group inline-flex h-[3.25rem] cursor-pointer items-center gap-2.5 rounded-full bg-navy-900 px-7 text-[0.9375rem] font-medium text-white transition-colors duration-300 hover:bg-navy-700 disabled:opacity-60"
       >
         {state === "submitting" ? (
           <Loader2 className="size-4 animate-spin" strokeWidth={1.75} />

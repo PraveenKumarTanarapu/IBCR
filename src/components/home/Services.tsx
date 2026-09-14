@@ -24,7 +24,7 @@ const ICONS = {
 
 export function Services() {
   return (
-    <Section id="services" tone="paper">
+    <Section id="services">
       <div className="container-page">
         <SectionHeading
           eyebrow="What we do"
@@ -45,27 +45,27 @@ export function Services() {
               <RevealItem noShift key={service.id}>
                 <Link
                   href={`/services#${service.id}`}
-                  className="group relative flex h-full flex-col bg-paper p-8 transition-colors duration-500 hover:bg-navy-950 lg:p-10"
+                  className="group relative flex h-full flex-col bg-white p-8 transition-colors duration-500 hover:bg-hover lg:p-10"
                 >
                   <div className="flex items-start justify-between">
                     <Icon
                       strokeWidth={1.2}
-                      className="size-7 text-navy-700 transition-colors duration-500 group-hover:text-gold-400"
+                      className="size-7 text-navy-700 transition-colors duration-500 group-hover:text-gold-600"
                       aria-hidden
                     />
-                    <span className="label-mono text-navy-900/22 transition-colors duration-500 group-hover:text-ivory/30">
+                    <span className="label-mono text-navy-900/25">
                       {service.number}
                     </span>
                   </div>
 
-                  <h3 className="mt-10 text-[1.3125rem] font-semibold tracking-tight text-navy-900 transition-colors duration-500 group-hover:text-ivory">
+                  <h3 className="mt-10 text-[1.3125rem] font-semibold tracking-tight text-navy-900 transition-colors duration-500 group-hover:text-navy-700">
                     {service.title}
                   </h3>
-                  <p className="mt-3 flex-1 text-[0.9375rem] leading-[1.65] text-muted transition-colors duration-500 group-hover:text-ivory/65">
+                  <p className="mt-3 flex-1 text-[0.9375rem] leading-[1.65] text-muted">
                     {service.copy}
                   </p>
 
-                  <span className="mt-8 inline-flex items-center gap-1.5 text-[0.8125rem] font-medium text-navy-700 transition-colors duration-500 group-hover:text-gold-400">
+                  <span className="mt-8 inline-flex items-center gap-1.5 text-[0.8125rem] font-medium text-navy-700 transition-colors duration-500 group-hover:text-gold-600">
                     Explore
                     <ArrowUpRight
                       strokeWidth={1.75}

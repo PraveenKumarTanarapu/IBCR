@@ -35,7 +35,7 @@ export default async function InsightsPage(props: PageProps<"/insights">) {
         crumbs={[{ label: "Insights" }]}
       />
 
-      <Section tone="paper">
+      <Section>
         <div className="container-page">
           <Reveal>
             <nav aria-label="Insight categories" className="flex flex-wrap gap-2">
@@ -47,7 +47,7 @@ export default async function InsightsPage(props: PageProps<"/insights">) {
                   className={cn(
                     "rounded-full border px-4 py-2 text-[0.8125rem] transition-[background-color,border-color,color] duration-300",
                     category === active
-                      ? "border-navy-900 bg-navy-900 text-ivory"
+                      ? "border-navy-900 bg-navy-900 text-white"
                       : "border-hairline text-muted hover:border-navy-800/35 hover:text-navy-900",
                   )}
                 >

@@ -34,14 +34,14 @@ export default function MembershipPage() {
           <ButtonLink href="/membership/join" withArrow>
             Become a Member
           </ButtonLink>
-          <ButtonLink href="/members" variant="outline-light">
+          <ButtonLink href="/members" variant="outline">
             Browse the directory
           </ButtonLink>
         </div>
       </PageHero>
 
       {/* --------------------------------------------------------- why join */}
-      <Section id="why" tone="paper">
+      <Section id="why">
         <div className="container-page">
           <div className="grid gap-14 lg:grid-cols-12 lg:gap-16">
             <div className="lg:col-span-5">
@@ -72,22 +72,21 @@ export default function MembershipPage() {
       </Section>
 
       {/* --------------------------------------------------------- benefits */}
-      <Section id="benefits" tone="ink" className="grain">
+      <Section id="benefits" divided>
         <div className="container-page relative">
           <SectionHeading
-            tone="light"
             eyebrow="Benefits"
             title="What you actually"
             accent="receive."
           />
           <RevealGroup className="mt-14 grid gap-px overflow-hidden rounded-[var(--radius-card)] bg-white/10 sm:grid-cols-2 lg:grid-cols-3">
             {MEMBERSHIP_BENEFITS.map((benefit, i) => (
-              <RevealItem noShift key={benefit.title} className="bg-ink p-8">
-                <span className="label-mono text-ivory/25">{String(i + 1).padStart(2, "0")}</span>
-                <h3 className="mt-6 text-[1.1875rem] font-semibold tracking-tight text-ivory">
+              <RevealItem noShift key={benefit.title} className="bg-white p-8 transition-colors duration-500 hover:bg-hover">
+                <span className="label-mono text-navy-900/25">{String(i + 1).padStart(2, "0")}</span>
+                <h3 className="mt-6 text-[1.1875rem] font-semibold tracking-tight text-navy-900">
                   {benefit.title}
                 </h3>
-                <p className="mt-3 text-[0.9375rem] leading-[1.65] text-ivory/60">{benefit.copy}</p>
+                <p className="mt-3 text-[0.9375rem] leading-[1.65] text-muted">{benefit.copy}</p>
               </RevealItem>
             ))}
           </RevealGroup>
@@ -95,7 +94,7 @@ export default function MembershipPage() {
       </Section>
 
       {/* ------------------------------------------------------- categories */}
-      <Section id="categories" tone="paper">
+      <Section id="categories">
         <div className="container-page">
           <SectionHeading
             eyebrow="Categories"
@@ -114,7 +113,7 @@ export default function MembershipPage() {
       </Section>
 
       {/* ----------------------------------------------------------- how to */}
-      <Section tone="ivory">
+      <Section divided>
         <div className="container-page">
           <SectionHeading eyebrow="Process" title="How joining" accent="works." />
           <RevealGroup className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">

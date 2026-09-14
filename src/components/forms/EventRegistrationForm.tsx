@@ -14,7 +14,6 @@ export function EventRegistrationForm({ defaultEvent }: { defaultEvent?: string 
   return (
     <form onSubmit={submit} className="space-y-5">
       <SelectField
-        tone="dark"
         label="Event"
         name="event"
         required
@@ -23,16 +22,15 @@ export function EventRegistrationForm({ defaultEvent }: { defaultEvent?: string 
       />
 
       <div className="grid gap-5 sm:grid-cols-2">
-        <Field tone="dark" label="Full name" name="name" required autoComplete="name" placeholder="Your full name" />
-        <Field tone="dark" label="Company" name="company" required autoComplete="organization" placeholder="Company or organisation" />
-        <Field tone="dark" label="Email" name="email" type="email" required autoComplete="email" placeholder="you@company.com" />
-        <Field tone="dark" label="Phone" name="phone" type="tel" autoComplete="tel" placeholder="+250 …" />
-        <Field tone="dark" label="Position" name="position" autoComplete="organization-title" placeholder="Managing Director" />
-        <SelectField tone="dark" label="Attendees" name="attendees" options={PARTY_SIZES} defaultValue="1" />
+        <Field label="Full name" name="name" required autoComplete="name" placeholder="Your full name" />
+        <Field label="Company" name="company" required autoComplete="organization" placeholder="Company or organisation" />
+        <Field label="Email" name="email" type="email" required autoComplete="email" placeholder="you@company.com" />
+        <Field label="Phone" name="phone" type="tel" autoComplete="tel" placeholder="+250 …" />
+        <Field label="Position" name="position" autoComplete="organization-title" placeholder="Managing Director" />
+        <SelectField label="Attendees" name="attendees" options={PARTY_SIZES} defaultValue="1" />
       </div>
 
       <TextareaField
-        tone="dark"
         label="Anything we should know?"
         name="notes"
         rows={3}
@@ -44,7 +42,7 @@ export function EventRegistrationForm({ defaultEvent }: { defaultEvent?: string 
         <input id="event-company-website" name="company_website" tabIndex={-1} autoComplete="off" />
       </div>
 
-      <FormStatus state={state} message={message} tone="dark" />
+      <FormStatus state={state} message={message} />
 
       <button
         type="submit"

@@ -42,11 +42,11 @@ export function GlobeStage({ className }: { className?: string }) {
     <div ref={ref} className={cn("relative aspect-square w-full", className)}>
       {/* Static under-layer: the section still reads correctly without WebGL. */}
       <div
-        className="absolute inset-[8%] rounded-full bg-[radial-gradient(circle_at_38%_32%,rgba(31,95,196,0.35),rgba(6,17,39,0.9)_62%,transparent_72%)]"
+        className="absolute inset-[8%] rounded-full bg-white"
         aria-hidden
       />
       <div
-        className="absolute inset-[8%] rounded-full ring-1 ring-royal/25"
+        className="absolute inset-[8%] rounded-full ring-1 ring-hairline"
         aria-hidden
       />
       {visible ? (
