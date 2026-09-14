@@ -199,7 +199,7 @@ export function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: reduced ? 0 : -6 }}
             transition={{ duration: 0.32, ease: EASE }}
-            className="absolute inset-x-0 top-full hidden border-b border-hairline bg-paper/97 backdrop-blur-xl xl:block"
+            className="absolute inset-x-0 top-full hidden border-b border-hairline bg-paper shadow-[0_26px_60px_-34px_rgba(7,23,48,0.45)] xl:block"
             onMouseEnter={cancelClose}
             onMouseLeave={scheduleClose}
           >
