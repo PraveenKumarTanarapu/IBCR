@@ -1,0 +1,239 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   IBCR design system
+   Premium · institutional · international. Deep navy ground, royal blue
+   secondary, gold reserved for accents, ivory paper.
+   ========================================================================== */
+
+@theme {
+  /* --- brand ------------------------------------------------------------ */
+  --color-ink: #060f22;
+  --color-navy-950: #071730;
+  --color-navy-900: #0a1f42;
+  --color-navy-800: #0d2a58;
+  --color-navy-700: #113670;
+  --color-navy-600: #16458c;
+  --color-royal: #1a56b8;
+  --color-royal-400: #4380d8;
+  --color-sky: #7fb2ea;
+
+  --color-gold-600: #9a7a18;
+  --color-gold: #c9a227;
+  --color-gold-400: #ddbb56;
+  --color-gold-200: #f0dda6;
+
+  --color-ivory: #fbf9f4;
+  --color-ivory-100: #f5f1e8;
+  --color-ivory-200: #ece6d9;
+
+  /* flag hues, used sparingly for the India × Rwanda material */
+  --color-saffron: #ff9933;
+  --color-india-green: #138808;
+  --color-rw-blue: #00a1de;
+  --color-rw-yellow: #fad201;
+  --color-rw-green: #1e7b45;
+
+  /* --- semantic --------------------------------------------------------- */
+  --color-paper: #fbf9f4;
+  --color-ground: #060f22;
+  --color-body: #16233d;
+  --color-muted: #5c6b85;
+  --color-hairline: rgba(10, 31, 66, 0.12);
+  --color-hairline-strong: rgba(10, 31, 66, 0.2);
+
+  /* --- type ------------------------------------------------------------- */
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-instrument), "Iowan Old Style", Georgia, serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, "SFMono-Regular", monospace;
+
+  /* --- motion ----------------------------------------------------------- */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* --- rhythm ----------------------------------------------------------- */
+  --radius-card: 20px;
+
+  --animate-marquee: marquee 42s linear infinite;
+  --animate-shimmer: shimmer 2.6s var(--ease-out-quint) infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(14px);
+    opacity: 0;
+  }
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-body);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv01";
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--color-navy-800);
+    color: var(--color-gold-200);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.028em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Lenis owns the scroll position; keep the native smooth behaviour off. */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+}
+
+/* ==========================================================================
+   Utilities
+   ========================================================================== */
+
+@utility container-page {
+  width: 100%;
+  margin-inline: auto;
+  max-width: 88rem;
+  padding-inline: 1.25rem;
+
+  @media (min-width: 768px) {
+    padding-inline: 2.5rem;
+  }
+
+  @media (min-width: 1280px) {
+    padding-inline: 3.5rem;
+  }
+}
+
+/* Editorial accent — used for one or two words inside a heading. */
+@utility accent-serif {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+@utility label-mono {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+/* Halftone dot veil over hero footage — the texture in the reference art. */
+@utility dot-veil {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.14) 1px, transparent 1px);
+  background-size: 4px 4px;
+}
+
+@utility grain {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+/* Thin gold rule that grows in on reveal. */
+@utility rule-gold {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    var(--color-gold) 0%,
+    color-mix(in oklab, var(--color-gold) 40%, transparent) 60%,
+    transparent 100%
+  );
+}
+
+@utility link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  transition: background-size 0.4s var(--ease-out-expo);
+
+  &:hover {
+    background-size: 100% 1px;
+  }
+}
+
+/* ==========================================================================
+   Reduced motion
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Firefox scrollbar tint */
+@supports (scrollbar-color: auto) {
+  html {
+    scrollbar-color: var(--color-navy-700) var(--color-ivory-200);
+    scrollbar-width: thin;
+  }
+}

@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>IBCR hero renderer</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        background: #050d1f;
+        overflow: hidden;
+      }
+      canvas {
+        display: block;
+      }
+    </style>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "../../node_modules/three/build/three.module.js",
+          "three/addons/": "../../node_modules/three/examples/jsm/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <script type="module">
+      import * as THREE from "three";
+      import { SCENES } from "./scenes.mjs";
+
+      const params = new URLSearchParams(location.search);
+      const name = params.get("scene") || "corridor";
+      const width = Number(params.get("w") || 1600);
+      const height = Number(params.get("h") || 900);
+
+      const renderer = new THREE.WebGLRenderer({
+        antialias: true,
+        preserveDrawingBuffer: true,
+        powerPreference: "high-performance",
+      });
+      renderer.setPixelRatio(1);
+      renderer.setSize(width, height, false);
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.05;
+      document.body.appendChild(renderer.domElement);
+
+      const scene = SCENES[name](renderer, width, height);
+
+      window.__renderFrame = (t) => {
+        scene.update(t);
+        scene.composer.render();
+        return true;
+      };
+      window.__grab = (quality) =>
+        renderer.domElement.toDataURL("image/jpeg", quality || 0.94).split(",")[1];
+      window.__ready = true;
+    </script>
+  </body>
+</html>
