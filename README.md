@@ -102,7 +102,9 @@ src/
 │   ├── members/                 Directory with live search and filters
 │   ├── motion/                  SmoothScroll, Reveal, Parallax, ScrollProgress
 │   ├── three/                   R3F corridor globe + lazy mounting stage
-│   └── ui/                      Button, Section, cards, Counter
+│   └── ui/                      Button, Section, cards, Counter,
+│                                parallax-scroll-feature-section,
+│                                card-fan-carousel
 ├── lib/
 │   ├── content.ts               All site content in one typed module
 │   ├── forms.ts                 Shared submit hook
@@ -148,6 +150,35 @@ sits underneath the video so there is never a blank hero.
 The same corridor scene also runs **live** in WebGL in the India × Rwanda section
 (`components/three/`), where it is draggable. It only mounts once it is near the viewport,
 so the three.js bundle and the GPU context are never paid for above the fold.
+
+---
+
+## Two showcase components
+
+Both live in `components/ui/` and are used on the homepage.
+
+**`parallax-scroll-feature-section.tsx`** drives *Why IBCR* and *The Corridor*.
+Each row scrubs a media panel in from the left while the copy column drifts
+upward, so the two settle together. Media is either an image or an arbitrary
+node — the corridor row passes the live WebGL globe through it. Rows alternate
+sides via `reverse`.
+
+Two notes for anyone extending it. The upstream snippet called `useScroll` and
+`useTransform` inside `.map()`, which breaks the rules of hooks as soon as the
+list length changes; each row is its own component here. And reduced motion
+resolves the transforms to their resting values rather than dropping the
+`style` prop — removing the prop leaves the last `opacity: 0` painted on the
+element and hides the media permanently.
+
+**`card-fan-carousel.tsx`** drives *What We Do*: the six services fan out as a
+deck on entry, lift individually on hover, and compress on narrow viewports.
+GSAP owns the transforms; the layout height and the card footprint come from
+the `.fan-layout` / `.fan-card` rules in `globals.css` — the breakpoints there
+must stay in step with `getHeightMultiplier` in the component. Past seven cards
+it paginates itself with arrows and dots.
+
+Both fall back to a drawn corridor plate when a photograph is missing, so an
+asset you have not supplied yet degrades to something deliberate.
 
 ---
 
@@ -199,6 +230,10 @@ Nothing else needs to change.
 dates and statistics are illustrative sample content used to build the experience out.
 Replace them with verified IBCR data — or point the module at a CMS (Sanity or Strapi, per
 the project blueprint) — before launch.
+
+**Photography.** `public/images/README.md` lists the seven files the homepage
+expects and the crop each one needs. Until they are dropped in, those slots
+render a drawn plate rather than a broken image.
 
 Also review before going live:
 

@@ -191,6 +191,8 @@ export const WHY_IBCR = [
 export const SERVICES = [
   {
     id: "market-entry",
+    image: "/images/services/market-entry.jpg",
+    short: "Understand the market before you commit",
     number: "01",
     title: "Market Entry",
     copy: "Helping Indian companies understand and enter the Rwandan market — company formation, licensing, local partners and a realistic view of what it takes.",
@@ -204,6 +206,8 @@ export const SERVICES = [
   },
   {
     id: "trade-facilitation",
+    image: "/images/services/trade-facilitation.png",
+    short: "Buyers, suppliers and the logistics between",
     number: "02",
     title: "Trade Facilitation",
     copy: "Connecting businesses with buyers, suppliers and strategic partners, and smoothing the practical friction in between.",
@@ -217,6 +221,8 @@ export const SERVICES = [
   },
   {
     id: "investment-advisory",
+    image: "/images/services/investment-advisory.jpeg",
+    short: "Turning interest into commitment",
     number: "03",
     title: "Investment Advisory",
     copy: "Identifying investment opportunities and facilitating the stakeholder connections that turn interest into commitment.",
@@ -230,6 +236,8 @@ export const SERVICES = [
   },
   {
     id: "business-delegations",
+    image: "/images/services/business-delegations.png",
+    short: "B2B meetings in both directions",
     number: "04",
     title: "Business Delegations",
     copy: "Organising B2B meetings, trade missions and institutional engagements in both directions — Kigali to India, India to Kigali.",
@@ -243,6 +251,8 @@ export const SERVICES = [
   },
   {
     id: "business-intelligence",
+    image: "/images/services/business-intelligence.avif",
+    short: "Briefings written for decision-makers",
     number: "05",
     title: "Business Intelligence",
     copy: "Market insights, sector briefings, regulatory updates and opportunity analysis written for people who have to make decisions.",
@@ -256,6 +266,8 @@ export const SERVICES = [
   },
   {
     id: "advocacy-policy",
+    image: "/images/services/advocacy-policy.png",
+    short: "A collective voice in the dialogue",
     number: "06",
     title: "Advocacy & Policy",
     copy: "Representing business interests and supporting constructive public-private dialogue on the issues that affect trade and investment.",

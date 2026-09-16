@@ -8,7 +8,7 @@ const positions = process.argv.slice(3).map(Number);
 const W = Number(process.env.W || 1440), H = Number(process.env.H || 900);
 const b = await chromium.launch({ executablePath: "/opt/pw-browsers/chromium", args:["--use-gl=angle","--use-angle=swiftshader","--enable-unsafe-swiftshader","--autoplay-policy=no-user-gesture-required"] });
 const p = await b.newPage({ viewport: { width: W, height: H } });
-await p.emulateMedia({ reducedMotion: "reduce" });
+if (process.env.MOTION !== "on") await p.emulateMedia({ reducedMotion: "reduce" });
 await p.goto(url, { waitUntil: "networkidle" }).catch(()=>{});
 await p.waitForTimeout(2000);
 for (const y of positions) {

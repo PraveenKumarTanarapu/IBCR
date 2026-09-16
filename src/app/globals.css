@@ -178,6 +178,82 @@
   background-size: 4px 4px;
 }
 
+/* ==========================================================================
+   Card fan (What We Do)
+   The carousel positions cards with GSAP transforms; the layout height and the
+   card footprint have to come from CSS. Breakpoints match getHeightMultiplier
+   in components/ui/card-fan-carousel.tsx — keep the two in step.
+   ========================================================================== */
+
+.fan-layout {
+  height: 22rem;
+}
+
+.fan-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 13rem;
+  height: 17.5rem;
+  margin-top: -8.75rem;
+  margin-left: -6.5rem;
+  overflow: hidden;
+  border-radius: 18px;
+  background: var(--color-white);
+  border: 1px solid var(--color-hairline);
+  box-shadow: 0 18px 42px -26px rgba(11, 18, 32, 0.45);
+  will-change: transform;
+  opacity: 0;
+}
+
+@media (min-width: 480px) {
+  .fan-layout {
+    height: 26rem;
+  }
+  .fan-card {
+    width: 15rem;
+    height: 20.5rem;
+    margin-top: -10.25rem;
+    margin-left: -7.5rem;
+  }
+}
+
+@media (min-width: 640px) {
+  .fan-layout {
+    height: 28rem;
+  }
+  .fan-card {
+    width: 16rem;
+    height: 22rem;
+    margin-top: -11rem;
+    margin-left: -8rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .fan-layout {
+    height: 34rem;
+  }
+  .fan-card {
+    width: 18rem;
+    height: 25rem;
+    margin-top: -12.5rem;
+    margin-left: -9rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .fan-layout {
+    height: 38rem;
+  }
+  .fan-card {
+    width: 20rem;
+    height: 28rem;
+    margin-top: -14rem;
+    margin-left: -10rem;
+  }
+}
+
 /* Thin gold rule that grows in on reveal. */
 @utility rule-gold {
   height: 1px;

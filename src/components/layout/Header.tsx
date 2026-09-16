@@ -20,8 +20,32 @@ export function Header() {
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const reduced = useReducedMotion();
 
+  // Scroll direction drives both the solid state and whether the bar is
+  // parked off-screen: down hides it, up brings it back, and the top of the
+  // page always shows it. Reads are batched into a frame so the listener stays
+  // cheap.
+  const [hidden, setHidden] = useState(false);
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    let last = window.scrollY;
+    let queued = false;
+
+    const measure = () => {
+      queued = false;
+      const y = window.scrollY;
+      setScrolled(y > 40);
+
+      const delta = y - last;
+      if (Math.abs(delta) < 6) return; // ignore jitter and rubber-banding
+      last = y;
+      setHidden(delta > 0 && y > 160);
+    };
+
+    const onScroll = () => {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(measure);
+    };
+
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -67,14 +91,17 @@ export function Header() {
   const overHero = pathname === "/" && !scrolled && !openMenu;
   const solid = !overHero;
   const active = (href: string) => pathname === href || pathname.startsWith(href + "/");
+  // Never slide away underneath an open menu.
+  const parked = hidden && !openMenu && !mobileOpen;
 
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter,box-shadow] duration-500 ease-[var(--ease-out-quint)]",
-        solid
-          ? "border-b border-hairline bg-white/92 backdrop-blur-xl"
-          : "border-b border-hairline bg-transparent",
+        "fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter,box-shadow,transform] duration-500 ease-[var(--ease-out-quint)]",
+        // No rule over the footage — the hairline only earns its place once
+        // the bar has a white ground behind it.
+        solid ? "border-b border-hairline bg-white/92 backdrop-blur-xl" : "bg-transparent",
+        parked && "-translate-y-full",
       )}
       onMouseLeave={scheduleClose}
     >

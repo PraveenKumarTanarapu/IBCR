@@ -1,30 +1,21 @@
-import Link from "next/link";
-import {
-  ArrowUpRight,
-  BarChart3,
-  Compass,
-  DoorOpen,
-  Route,
-  ShieldCheck,
-  Users,
-} from "lucide-react";
-import { RevealGroup, RevealItem } from "@/components/motion/Reveal";
+import { Reveal } from "@/components/motion/Reveal";
 import { ButtonLink } from "@/components/ui/Button";
+import SocialCards, { type CardItem } from "@/components/ui/card-fan-carousel";
 import { Section, SectionHeading } from "@/components/ui/Section";
 import { SERVICES } from "@/lib/content";
 
-const ICONS = {
-  door: DoorOpen,
-  route: Route,
-  chart: BarChart3,
-  users: Users,
-  compass: Compass,
-  shield: ShieldCheck,
-} as const;
+const CARDS: CardItem[] = SERVICES.map((service) => ({
+  imgUrl: service.image,
+  alt: service.title,
+  linkUrl: `/services#${service.id}`,
+  index: service.number,
+  title: service.title,
+  subtitle: service.short,
+}));
 
 export function Services() {
   return (
-    <Section id="services">
+    <Section id="services" divided>
       <div className="container-page">
         <SectionHeading
           eyebrow="What we do"
@@ -37,47 +28,12 @@ export function Services() {
             </ButtonLink>
           }
         />
-
-        <RevealGroup className="mt-16 grid gap-px overflow-hidden rounded-[var(--radius-card)] bg-hairline md:grid-cols-2 xl:grid-cols-3">
-          {SERVICES.map((service) => {
-            const Icon = ICONS[service.icon];
-            return (
-              <RevealItem noShift key={service.id}>
-                <Link
-                  href={`/services#${service.id}`}
-                  className="group relative flex h-full flex-col bg-white p-8 transition-colors duration-500 hover:bg-hover lg:p-10"
-                >
-                  <div className="flex items-start justify-between">
-                    <Icon
-                      strokeWidth={1.2}
-                      className="size-7 text-navy-700 transition-colors duration-500 group-hover:text-gold-600"
-                      aria-hidden
-                    />
-                    <span className="label-mono text-navy-900/25">
-                      {service.number}
-                    </span>
-                  </div>
-
-                  <h3 className="mt-10 text-[1.3125rem] font-semibold tracking-tight text-navy-900 transition-colors duration-500 group-hover:text-navy-700">
-                    {service.title}
-                  </h3>
-                  <p className="mt-3 flex-1 text-[0.9375rem] leading-[1.65] text-muted">
-                    {service.copy}
-                  </p>
-
-                  <span className="mt-8 inline-flex items-center gap-1.5 text-[0.8125rem] font-medium text-navy-700 transition-colors duration-500 group-hover:text-gold-600">
-                    Explore
-                    <ArrowUpRight
-                      strokeWidth={1.75}
-                      className="size-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                    />
-                  </span>
-                </Link>
-              </RevealItem>
-            );
-          })}
-        </RevealGroup>
       </div>
+
+      {/* The deck fans out on load and lifts card-by-card on hover. */}
+      <Reveal className="mt-10" y={18}>
+        <SocialCards cards={CARDS} />
+      </Reveal>
     </Section>
   );
 }

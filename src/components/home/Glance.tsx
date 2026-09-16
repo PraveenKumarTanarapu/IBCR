@@ -1,14 +1,8 @@
-import { Handshake, Link2, TrendingUp } from "lucide-react";
+import { GLANCE_ICONS } from "@/components/brand/GlanceIcons";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
 import { Counter } from "@/components/ui/Counter";
 import { Eyebrow, Section } from "@/components/ui/Section";
 import { PILLARS, STATS } from "@/lib/content";
-
-const ICONS = {
-  connect: Link2,
-  collaborate: Handshake,
-  grow: TrendingUp,
-} as const;
 
 export function Glance() {
   return (
@@ -35,19 +29,15 @@ export function Glance() {
         {/* ------------------------------------------- connect · collaborate · grow */}
         <RevealGroup className="mt-16 grid border-t border-hairline md:grid-cols-3">
           {PILLARS.map((pillar) => {
-            const Icon = ICONS[pillar.icon];
+            const Icon = GLANCE_ICONS[pillar.icon];
             return (
               <RevealItem
                 noShift
                 key={pillar.id}
-                className="group border-b border-hairline px-0 py-10 transition-colors duration-500 md:border-b-0 md:border-l md:px-9 md:py-12 md:first:border-l-0 md:first:pl-0 md:hover:bg-hover"
+                className="group cursor-default border-b border-hairline px-0 py-10 transition-colors duration-500 md:border-b-0 md:border-l md:px-9 md:py-12 md:first:border-l-0 md:first:pl-0 md:hover:bg-hover"
               >
                 <div className="flex items-center justify-between">
-                  <Icon
-                    strokeWidth={1.25}
-                    className="size-7 text-navy-700 transition-colors duration-500 group-hover:text-gold-600"
-                    aria-hidden
-                  />
+                  <Icon className="size-12 text-navy-700 transition-colors duration-500 group-hover:text-navy-900" />
                   <span className="label-mono text-navy-900/20">{pillar.number}</span>
                 </div>
 
