@@ -153,9 +153,9 @@ so the three.js bundle and the GPU context are never paid for above the fold.
 
 ---
 
-## Two showcase components
+## Three showcase components
 
-Both live in `components/ui/` and are used on the homepage.
+All three live in `components/ui/` and are used on the homepage.
 
 **`parallax-scroll-feature-section.tsx`** drives *Why IBCR* and *The Corridor*.
 Each row scrubs a media panel in from the left while the copy column drifts
@@ -177,8 +177,22 @@ the `.fan-layout` / `.fan-card` rules in `globals.css` — the breakpoints there
 must stay in step with `getHeightMultiplier` in the component. Past seven cards
 it paginates itself with arrows and dots.
 
-Both fall back to a drawn corridor plate when a photograph is missing, so an
-asset you have not supplied yet degrades to something deliberate.
+**`color-change-card.tsx`** drives *Investment opportunities*, on the homepage
+and again on `/india-rwanda#opportunities` — both render `OpportunityGrid`
+from `components/home/Opportunities.tsx`, so the two can never drift apart.
+Each sector sits behind a desaturated photograph that resolves to full colour
+on hover while the heading rolls over letter by letter and the arrow swings
+up. Letters are grouped per word, so a long sector name still wraps at spaces.
+
+The photograph sits on an oversized layer that drifts a few percent with
+scroll, which is what keeps the grid moving with the rest of the page rather
+than sitting dead still in it. Below `md` the photographs stay in colour: the
+desaturation is a pointer affordance, and hover on touch is a tap away.
+
+All three fall back to a drawn corridor plate when a photograph is missing, so
+an asset you have not supplied yet degrades to something deliberate. On the
+opportunity cards that fallback is white with navy type rather than a dark
+frame, so a gap in the photography does not put a dark block on a white page.
 
 ---
 
@@ -231,9 +245,14 @@ dates and statistics are illustrative sample content used to build the experienc
 Replace them with verified IBCR data — or point the module at a CMS (Sanity or Strapi, per
 the project blueprint) — before launch.
 
-**Photography.** `public/images/README.md` lists the seven files the homepage
-expects and the crop each one needs. Until they are dropped in, those slots
-render a drawn plate rather than a broken image.
+**Photography.** `public/images/README.md` lists every file the site expects,
+which ones are already in place, and the crop each one needs. Seven slots are
+still open — two service cards and five opportunity sectors. Until they are
+dropped in, those slots render a drawn plate rather than a broken image.
+
+The photographs currently in `public/images/` were supplied for the build and
+are stock frames, one of them still watermarked. Clear the licensing, or
+replace them with the Chamber's own photography, before launch.
 
 Also review before going live:
 

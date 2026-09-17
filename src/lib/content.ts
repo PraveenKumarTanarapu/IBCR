@@ -206,7 +206,7 @@ export const SERVICES = [
   },
   {
     id: "trade-facilitation",
-    image: "/images/services/trade-facilitation.png",
+    image: "/images/services/trade-facilitation.jpg",
     short: "Buyers, suppliers and the logistics between",
     number: "02",
     title: "Trade Facilitation",
@@ -221,7 +221,7 @@ export const SERVICES = [
   },
   {
     id: "investment-advisory",
-    image: "/images/services/investment-advisory.jpeg",
+    image: "/images/services/investment-advisory.jpg",
     short: "Turning interest into commitment",
     number: "03",
     title: "Investment Advisory",
@@ -236,7 +236,7 @@ export const SERVICES = [
   },
   {
     id: "business-delegations",
-    image: "/images/services/business-delegations.png",
+    image: "/images/services/business-delegations.jpg",
     short: "B2B meetings in both directions",
     number: "04",
     title: "Business Delegations",
@@ -251,7 +251,7 @@ export const SERVICES = [
   },
   {
     id: "business-intelligence",
-    image: "/images/services/business-intelligence.avif",
+    image: "/images/services/business-intelligence.jpg",
     short: "Briefings written for decision-makers",
     number: "05",
     title: "Business Intelligence",
@@ -266,7 +266,7 @@ export const SERVICES = [
   },
   {
     id: "advocacy-policy",
-    image: "/images/services/advocacy-policy.png",
+    image: "/images/services/advocacy-policy.jpg",
     short: "A collective voice in the dialogue",
     number: "06",
     title: "Advocacy & Policy",
@@ -285,44 +285,60 @@ export const SERVICES = [
 
 export const OPPORTUNITIES = [
   {
+    id: "agriculture",
     title: "Agriculture & Agribusiness",
     copy: "Value addition, cold chain, irrigation technology and export-grade processing.",
     metric: "Priority sector",
+    image: "/images/opportunities/agriculture.jpg",
   },
   {
+    id: "manufacturing",
     title: "Manufacturing",
     copy: "Light manufacturing, pharmaceuticals, packaging and building materials.",
     metric: "Made in Rwanda",
+    image: "/images/opportunities/manufacturing.jpg",
   },
   {
+    id: "infrastructure",
     title: "Infrastructure",
     copy: "Roads, housing, industrial parks, water and urban development projects.",
     metric: "Long horizon",
+    image: "/images/opportunities/infrastructure.jpg",
   },
   {
+    id: "healthcare",
     title: "Healthcare",
     copy: "Hospitals, diagnostics, medical devices and pharmaceutical distribution.",
     metric: "High demand",
+    image: "/images/opportunities/healthcare.jpg",
   },
   {
+    id: "technology",
     title: "Technology & Innovation",
     copy: "Fintech, digital public infrastructure, IT services and engineering talent.",
     metric: "Fast growth",
+    image: "/images/opportunities/technology.jpg",
   },
   {
+    id: "tourism",
     title: "Tourism & Hospitality",
     copy: "Hotels, MICE facilities, eco-tourism and destination services.",
     metric: "Premium market",
+    image: "/images/opportunities/tourism.jpg",
   },
   {
+    id: "energy",
     title: "Energy",
     copy: "Solar, mini-grids, energy storage and productive-use appliances.",
     metric: "Access agenda",
+    image: "/images/opportunities/energy.jpg",
   },
   {
+    id: "logistics",
     title: "Logistics",
     copy: "Freight, warehousing, cold storage and regional distribution hubs.",
     metric: "Regional gateway",
+    image: "/images/opportunities/logistics.jpg",
   },
 ] as const;
 

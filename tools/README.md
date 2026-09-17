@@ -44,9 +44,14 @@ positions against the artwork afterwards.
 | `measure.mjs`     | Report document and per-section heights                     |
 | `find404.mjs`     | List failing network requests on a page                     |
 | `shot.mjs`        | Screenshot any file or URL                                  |
+| `hovershot.mjs`   | A section at rest, then with one element hovered            |
 
 ```bash
 SHOT_DIR=/tmp/shots node tools/scrollshots.mjs / 0 2900 8000
+SHOT_DIR=/tmp/shots node tools/hovershot.mjs / "#opportunities" "#opportunities h3" opps
 ```
+
+`scrollshots.mjs` emulates reduced motion unless `MOTION=on`; `hovershot.mjs`
+always runs with motion on, since a hover state is the thing being looked at.
 
 All of them accept `BASE_URL` (default `http://127.0.0.1:3100`).
