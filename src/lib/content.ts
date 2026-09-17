@@ -57,7 +57,7 @@ export const NAV: NavItem[] = [
     children: [
       { label: "Who We Are", href: "/about#who-we-are", note: "The Chamber in brief" },
       { label: "Vision & Mission", href: "/about#vision", note: "What we are building" },
-      { label: "Leadership & Board", href: "/about#leadership", note: "Governance" },
+      { label: "Board Members", href: "/about#leadership", note: "The seven who govern" },
       { label: "Secretariat Team", href: "/about#team", note: "Day-to-day delivery" },
       { label: "Partners", href: "/about#partners", note: "Institutions we work with" },
     ],
@@ -70,7 +70,6 @@ export const NAV: NavItem[] = [
       { label: "Why Become a Member", href: "/membership#why", note: "The case for joining" },
       { label: "Benefits", href: "/membership#benefits", note: "What you receive" },
       { label: "Categories & Fees", href: "/membership#categories", note: "Silver to Corporate" },
-      { label: "Board Members", href: "/membership#board", note: "Who governs the Chamber" },
       { label: "Member Directory", href: "/members", note: "Search the network" },
       { label: "Become a Member", href: "/membership/join", note: "Apply online" },
     ],

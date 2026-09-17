@@ -3,6 +3,7 @@ import { PageHero } from "@/components/layout/PageHero";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
 import { ButtonLink } from "@/components/ui/Button";
 import { Section, SectionHeading } from "@/components/ui/Section";
+import { TeamShowcase } from "@/components/ui/team-showcase";
 import { BOARD, MISSION, PARTNERS, SITE, TEAM, VALUES, VISION } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -120,31 +121,15 @@ export default function AboutPage() {
       <Section id="leadership">
         <div className="container-page">
           <SectionHeading
-            eyebrow="Leadership"
-            title="The board that"
-            accent="sets direction."
-            copy="IBCR is governed by a board of seven drawn from the Indian business community in Rwanda."
-            action={
-              <ButtonLink href="/membership#board" variant="outline" withArrow>
-                Board in full
-              </ButtonLink>
-            }
+            eyebrow="Board members"
+            title="The seven people who"
+            accent="govern the Chamber."
+            copy="Point at a name to see that member in full. Membership at every category carries representative participation in the Board."
           />
 
-          <RevealGroup className="mt-14 grid gap-px overflow-hidden rounded-[var(--radius-card)] bg-hairline sm:grid-cols-2 lg:grid-cols-3">
-            {BOARD.map((person, i) => (
-              <RevealItem noShift key={person.id} className="bg-white p-8">
-                <span className="label-mono text-navy-900/22">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h3 className="mt-6 text-[1.1875rem] leading-snug font-semibold tracking-tight text-navy-900">
-                  {person.name}
-                </h3>
-                <p className="mt-1.5 text-[0.8125rem] text-gold-600">{person.role}</p>
-                <p className="mt-4 text-[0.875rem] leading-[1.65] text-muted">{person.company}</p>
-              </RevealItem>
-            ))}
-          </RevealGroup>
+          <Reveal className="mt-14" y={26}>
+            <TeamShowcase members={[...BOARD]} />
+          </Reveal>
         </div>
       </Section>
 

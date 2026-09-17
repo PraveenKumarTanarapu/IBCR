@@ -41,7 +41,7 @@ Until a file is there, the page keeps the drawn corridor motif it has today.
 
 ## 2. Board portraits — **7 to upload**
 
-Folder: `public/images/board/`
+Folder: `public/images/board/` — shown on `/about#leadership`.
 
 | File                                  | Member                                                      |
 | ------------------------------------- | ----------------------------------------------------------- |

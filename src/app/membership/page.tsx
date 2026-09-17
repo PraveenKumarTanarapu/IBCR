@@ -4,9 +4,7 @@ import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
 import { ButtonLink } from "@/components/ui/Button";
 import { PricingSection } from "@/components/ui/pricing-section";
 import { Section, SectionHeading } from "@/components/ui/Section";
-import { TeamShowcase } from "@/components/ui/team-showcase";
 import {
-  BOARD,
   INDUSTRY_LEADERSHIP,
   MEMBERSHIP_BENEFITS,
   MEMBERSHIP_TIERS,
@@ -109,7 +107,7 @@ export default function MembershipPage() {
             eyebrow="Categories & fees"
             title="Four ways in,"
             accent="one chamber."
-            copy="Each category carries everything in the one before it. Fees are annual; the limited offer rate is open for a defined period, and the secretariat confirms the category with you before anything is finalised."
+            copy="Each category carries everything in the one before it, and every one of them carries representative participation in the Board. Fees are annual; the limited offer rate is open for a defined period, and the secretariat confirms the category with you before anything is finalised."
           />
           <Reveal className="mt-14" y={26}>
             <PricingSection tiers={MEMBERSHIP_TIERS} />
@@ -117,23 +115,8 @@ export default function MembershipPage() {
         </div>
       </Section>
 
-      {/* ------------------------------------------------------------ board */}
-      <Section id="board" divided>
-        <div className="container-page">
-          <SectionHeading
-            eyebrow="Board members"
-            title="The seven people who"
-            accent="govern the Chamber."
-            copy="Point at a name to see that member in full. Membership at every category carries representative participation in the Board."
-          />
-          <Reveal className="mt-14" y={26}>
-            <TeamShowcase members={[...BOARD]} />
-          </Reveal>
-        </div>
-      </Section>
-
       {/* --------------------------------------------------- sub-committees */}
-      <Section id="committees">
+      <Section id="committees" divided>
         <div className="container-page">
           <SectionHeading
             eyebrow="Sub-committees"

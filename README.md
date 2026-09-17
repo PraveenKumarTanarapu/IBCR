@@ -166,7 +166,7 @@ rings and no "most popular" claim. Each card's CTA carries its category into
 the application form via `?tier=`.
 
 `components/ui/team-showcase.tsx` renders the seven board members on
-`/membership#board`: a staggered wall of portraits beside the list of names.
+`/about#leadership`: a staggered wall of portraits beside the list of names.
 Pointing at, tabbing to or tapping a name brings that portrait to full colour
 and swaps the person's full details into the panel below. The panel has a
 reserved height and cross-fades, so moving down the list never shifts the page
