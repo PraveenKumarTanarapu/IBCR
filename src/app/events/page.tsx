@@ -24,6 +24,7 @@ export default function EventsPage() {
   return (
     <>
       <PageHero
+        image="/images/heroes/events.jpg"
         eyebrow="Events"
         title="Connect. Meet."
         accent="Collaborate."

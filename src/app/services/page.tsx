@@ -34,6 +34,7 @@ export default function ServicesPage() {
   return (
     <>
       <PageHero
+        image="/images/heroes/services.jpg"
         eyebrow="Services"
         title="What we do,"
         accent="in practice."

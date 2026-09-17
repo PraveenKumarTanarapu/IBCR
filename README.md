@@ -153,6 +153,36 @@ so the three.js bundle and the GPU context are never paid for above the fold.
 
 ---
 
+## Membership, pricing and the board
+
+`components/ui/pricing-section.tsx` (with `pricing-card` and `pricing-tab`)
+renders the Chamber's four categories — Silver, Gold, Platinum and Corporate —
+on the homepage and again on `/membership#categories`. The toggle above the
+grid switches between the standard annual fee and the Chamber's limited offer
+rate; the figure springs between the two and the standard rate stays visible,
+struck through, so the discount is legible rather than implied. Platinum
+inverts to navy, which is the whole hierarchy on a white page — no coloured
+rings and no "most popular" claim. Each card's CTA carries its category into
+the application form via `?tier=`.
+
+`components/ui/team-showcase.tsx` renders the seven board members on
+`/membership#board`: a staggered wall of portraits beside the list of names.
+Pointing at, tabbing to or tapping a name brings that portrait to full colour
+and swaps the person's full details into the panel below. The panel has a
+reserved height and cross-fades, so moving down the list never shifts the page
+under the cursor. A member with no portrait yet shows their initials on a
+drawn plate.
+
+Both read from `src/lib/content.ts` (`MEMBERSHIP_TIERS`, `BOARD`), which now
+carries the Chamber's verified categories, fees, board, mission and vision.
+
+**`components/layout/PageHeroMedia.tsx`** puts a photograph behind an inner
+page's masthead — veiled in white and faded towards the copy, so the page still
+opens white and the navy headline keeps its contrast. Six pages are wired for
+one; until the file is supplied each falls back to the drawn corridor motif.
+
+---
+
 ## Three showcase components
 
 All three live in `components/ui/` and are used on the homepage.
@@ -246,9 +276,16 @@ Replace them with verified IBCR data — or point the module at a CMS (Sanity or
 the project blueprint) — before launch.
 
 **Photography.** `public/images/README.md` lists every file the site expects,
-which ones are already in place, and the crop each one needs. Seven slots are
-still open — two service cards and five opportunity sectors. Until they are
-dropped in, those slots render a drawn plate rather than a broken image.
+which ones are already in place, and the crop each one needs. Twenty slots are
+still open — six page backgrounds, seven board portraits, five opportunity
+sectors and two service cards. Until they are dropped in, each renders a drawn
+plate, a set of initials or the masthead motif rather than a broken image.
+
+**Content from the deck.** Membership categories and fees, the board, the
+mission and vision statements, the key sectors and the sub-committees come
+from the Chamber's presentation and are verified. Members, testimonials,
+events, insight articles and the secretariat units are still sample content —
+`src/lib/content.ts` says which is which at the top of the file.
 
 The photographs currently in `public/images/` were supplied for the build and
 are stock frames, one of them still watermarked. Clear the licensing, or

@@ -2,15 +2,18 @@ import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import type { ReactNode } from "react";
 import { Reveal } from "@/components/motion/Reveal";
+import { PageHeroMedia } from "@/components/layout/PageHeroMedia";
 import { Eyebrow } from "@/components/ui/Section";
 import { cn } from "@/lib/utils";
 
 export type Crumb = { label: string; href?: string };
 
 /**
- * Masthead at the top of every inner page. White ground; the only decoration
- * is a hairline corridor motif, so the page opens the same way the rest of the
- * site reads.
+ * Masthead at the top of every inner page.
+ *
+ * White ground. `image` puts a photograph behind the masthead — see
+ * PageHeroMedia for the treatment, and for the drawn corridor motif that
+ * stands in until the file is supplied.
  */
 export function PageHero({
   eyebrow,
@@ -20,6 +23,7 @@ export function PageHero({
   crumbs = [],
   children,
   align = "left",
+  image,
 }: {
   eyebrow: string;
   title: string;
@@ -28,37 +32,11 @@ export function PageHero({
   crumbs?: Crumb[];
   children?: ReactNode;
   align?: "left" | "center";
+  image?: string;
 }) {
   return (
     <section className="relative overflow-hidden border-b border-hairline bg-white pt-[8.5rem] pb-16 md:pt-[10rem] md:pb-20">
-      {/* Corridor motif — concentric arcs reaching across the masthead. */}
-      <svg
-        viewBox="0 0 420 420"
-        aria-hidden
-        className="pointer-events-none absolute -top-20 -right-20 hidden h-[30rem] w-[30rem] text-navy-900/8 lg:block"
-      >
-        {[80, 120, 160, 200].map((r, i) => (
-          <circle
-            key={r}
-            cx="210"
-            cy="210"
-            r={r}
-            fill="none"
-            stroke="currentColor"
-            strokeWidth={i === 1 ? 1.4 : 0.8}
-            strokeDasharray={i % 2 ? "2 8" : undefined}
-          />
-        ))}
-        <path
-          d="M40 300 C 140 120, 300 120, 392 216"
-          fill="none"
-          stroke="var(--color-gold)"
-          strokeOpacity="0.5"
-          strokeWidth="1.4"
-        />
-        <circle cx="40" cy="300" r="4.5" fill="var(--color-gold)" />
-        <circle cx="392" cy="216" r="4.5" fill="var(--color-royal)" />
-      </svg>
+      <PageHeroMedia image={image} align={align} />
 
       <div className="container-page relative">
         {crumbs.length ? (

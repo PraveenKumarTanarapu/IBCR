@@ -1,10 +1,15 @@
 /**
  * Single source of truth for IBCR site content.
  *
- * PLACEHOLDER NOTICE — member companies, testimonials, people, event dates and
- * statistics below are illustrative sample content used to build out the
- * experience. Replace them with verified IBCR data (or wire this module to the
- * CMS) before the site goes live. See README.md → "Replacing sample content".
+ * FROM THE CHAMBER — membership categories and pricing, the board, the mission
+ * and vision statements, the key sectors and the sub-committees come from the
+ * IBCR presentation deck and are verified content.
+ *
+ * PLACEHOLDER NOTICE — member companies, testimonials, event dates, insight
+ * articles and the secretariat units below are still illustrative sample
+ * content used to build out the experience. Replace them with verified IBCR
+ * data (or wire this module to the CMS) before the site goes live. See
+ * README.md → "Replacing sample content".
  */
 
 export const SITE = {
@@ -64,7 +69,8 @@ export const NAV: NavItem[] = [
     children: [
       { label: "Why Become a Member", href: "/membership#why", note: "The case for joining" },
       { label: "Benefits", href: "/membership#benefits", note: "What you receive" },
-      { label: "Categories", href: "/membership#categories", note: "Corporate to startup" },
+      { label: "Categories & Fees", href: "/membership#categories", note: "Silver to Corporate" },
+      { label: "Board Members", href: "/membership#board", note: "Who governs the Chamber" },
       { label: "Member Directory", href: "/members", note: "Search the network" },
       { label: "Become a Member", href: "/membership/join", note: "Apply online" },
     ],
@@ -157,10 +163,15 @@ export const PILLARS = [
 ] as const;
 
 export const STATS = [
-  { value: 250, suffix: "+", label: "Businesses in the network" },
-  { value: 12, suffix: "", label: "Priority sectors covered" },
-  { value: 40, suffix: "+", label: "Engagements each year" },
-  { value: 2, suffix: "", label: "Markets, one corridor" },
+  {
+    value: 445,
+    prefix: "USD ",
+    suffix: "M",
+    label: "Committed Indian investment in Rwanda in 2024",
+  },
+  { value: 9, prefix: "", suffix: "", label: "Key sectors driving the corridor today" },
+  { value: 4, prefix: "", suffix: "", label: "Membership categories, professional to corporate" },
+  { value: 3, prefix: "", suffix: "", label: "Sub-committees turning plans into delivery" },
 ] as const;
 
 /**
@@ -169,22 +180,40 @@ export const STATS = [
  */
 export const WHY_IBCR = [
   {
-    title: "Access",
-    copy: "Rooms, relationships and institutions across both markets that are difficult to reach on your own.",
+    title: "A bridge between communities",
+    copy: "The place where the Indian and Rwandan business communities actually meet, and a platform for collaboration with government and international stakeholders.",
   },
   {
-    title: "Intelligence",
-    copy: "Market research, regulatory guidance and emerging opportunities before they become common knowledge.",
+    title: "A voice for business",
+    copy: "A unified voice representing Indian enterprise in Rwanda, and representation for members in front of government.",
   },
   {
-    title: "Representation",
-    copy: "A collective voice in the dialogue that shapes the business environment for Indian enterprise in Rwanda.",
+    title: "An advisory body",
+    copy: "Trade, business, market and legal advice — and a business growth ecosystem for entrepreneurs once the advice has been taken.",
   },
   {
-    title: "Momentum",
-    copy: "Delegations, forums and matchmaking that keep a market-entry plan moving instead of stalling.",
+    title: "A gateway to Africa",
+    copy: "Trade and investment facilitation that opens doors for Indian companies into Rwanda and the wider continent.",
   },
 ] as const;
+
+/* ---------------------------------------------------------- mission/vision */
+
+export const MISSION = {
+  statement:
+    "IBCR drives meaningful business connectivity between India and Rwanda by enabling investment opportunities, facilitating trade relations, advocating for member interests, and delivering strategic business support that contributes to long-term economic prosperity.",
+} as const;
+
+export const VISION = {
+  statement:
+    "To position IBCR as the premier platform advancing India–Rwanda commercial excellence, economic diplomacy, and sustainable cross-border partnerships.",
+  points: [
+    "To be the most influential and respected India–Africa bilateral business chamber",
+    "To position Rwanda as the premier gateway for Indian business into Africa",
+    "To create a thriving ecosystem of commerce, collaboration and shared growth",
+    "To achieve sustainable bilateral trade growth aligned with IBCR Vision 2030",
+  ],
+} as const;
 
 /* ---------------------------------------------------------------- services */
 
@@ -344,10 +373,28 @@ export const OPPORTUNITIES = [
 
 /* -------------------------------------------------------------- membership */
 
+/**
+ * The four categories, their annual fees and their benefits, exactly as the
+ * Chamber's deck sets them out.
+ *
+ * `price` is keyed by the two rates the deck quotes — the standard annual fee
+ * and the exclusive limited offer — which is what the toggle above the cards
+ * switches between. A string price (Corporate) is printed as written.
+ */
+export const MEMBERSHIP_RATES = ["standard", "launch offer"] as const;
+export type MembershipRate = (typeof MEMBERSHIP_RATES)[number];
+
 export type MembershipTier = {
   id: string;
   name: string;
+  /** The deck's one-line positioning for the category. */
+  label: string;
+  price: Record<MembershipRate, number | string>;
+  currency: string;
+  period: string;
   who: string;
+  /** Named tier whose benefits this one builds on, per the deck. */
+  inherits?: string;
   benefits: string[];
   eligibility: string;
   featured?: boolean;
@@ -355,78 +402,90 @@ export type MembershipTier = {
 
 export const MEMBERSHIP_TIERS: MembershipTier[] = [
   {
-    id: "corporate",
-    name: "Corporate Member",
-    who: "Established businesses and corporations operating in or entering Rwanda.",
+    id: "silver",
+    name: "Silver",
+    label: "Professional & SME",
+    price: { standard: 250_000, "launch offer": 124_999 },
+    currency: "RWF",
+    period: "/yr",
+    who: "Designed for startups, professionals, freelancers and emerging entrepreneurs who want to become part of the India\u2013Rwanda business ecosystem.",
     benefits: [
-      "Priority access to delegations and forums",
-      "Company profile in the member directory",
-      "Bespoke market intelligence on request",
-      "Direct advocacy support on business issues",
-      "Speaking opportunities at IBCR events",
+      "Representative participation in the Board",
+      "Sub-committee participation opportunity",
+      "Access to general networking events",
+      "Invitations to selected chamber activities",
+      "Access to newsletters and business updates",
+      "Networking with fellow Indian and Rwandan entrepreneurs",
+      "Educational and awareness sessions",
+      "Basic participation in chamber initiatives",
+      "Startup and entrepreneurship guidance sessions",
+      "Discounted rates for selected events",
+      "Community engagement and relationship building",
     ],
-    eligibility: "Registered company with an established operating history.",
+    eligibility: "Startups, professionals, freelancers and emerging entrepreneurs.",
+  },
+  {
+    id: "gold",
+    name: "Gold",
+    label: "Growth Business",
+    price: { standard: 1_000_000, "launch offer": 449_999 },
+    currency: "RWF",
+    period: "/yr",
+    who: "Designed for small and medium businesses seeking visibility, networking and market expansion opportunities.",
+    inherits: "Silver",
+    benefits: [
+      "Business listing in the member directory",
+      "Participation in selected trade events",
+      "Showcase products and services at chamber activities",
+      "Referral support within the chamber ecosystem",
+      "Business collaboration opportunities with members",
+      "Representative participation in the Board",
+      "Sub-committee participation opportunity",
+    ],
+    eligibility: "Registered small and medium-sized businesses.",
+  },
+  {
+    id: "platinum",
+    name: "Platinum",
+    label: "Leadership Business",
+    price: { standard: 2_000_000, "launch offer": 999_999 },
+    currency: "RWF",
+    period: "/yr",
+    who: "Designed for growing enterprises, medium-sized businesses, exporters, technology firms, consultants and high-potential entrepreneurs.",
+    inherits: "Gold",
+    benefits: [
+      "Premium brand visibility",
+      "C-suite network access",
+      "Government and institutional engagement",
+      "VIP event connectivity",
+      "International connectivity",
+      "Priority sponsorship",
+      "B2B networking opportunities and business referrals",
+      "Invitations to trade missions, seminars and workshops",
+      "Priority access to sector-specific investment opportunities",
+      "Participation in business delegation meetings",
+      "Listing on the IBCR website and promotional materials",
+      "Chamber business advisory support",
+    ],
+    eligibility: "Growing enterprises, exporters, technology firms and consultancies.",
     featured: true,
   },
   {
-    id: "sme",
-    name: "SME Member",
-    who: "Small and medium-sized enterprises building trade between the two markets.",
+    id: "corporate",
+    name: "Corporate",
+    label: "Premium Strategic Partner",
+    price: { standard: "On request", "launch offer": "On request" },
+    currency: "RWF",
+    period: "",
+    who: "A special category engaging Indian, Rwandan and international multi-million-dollar corporates as part of this prestigious chamber.",
+    inherits: "Platinum",
     benefits: [
-      "Member directory listing",
-      "Discounted event and delegation participation",
-      "Buyer and supplier matchmaking",
-      "Quarterly trade and policy briefings",
+      "Everything in Platinum",
+      "Partnership terms scoped directly with the Board",
+      "Reserved for multi-million-dollar corporates",
+      "Indian, Rwandan and international enterprises",
     ],
-    eligibility: "Registered SME in India, Rwanda or the wider region.",
-  },
-  {
-    id: "startup",
-    name: "Startup Member",
-    who: "Emerging and innovative businesses under five years old.",
-    benefits: [
-      "Concessional membership fee",
-      "Introductions to investors and mentors",
-      "Pitch slots at selected IBCR events",
-      "Access to the Chamber's knowledge base",
-    ],
-    eligibility: "Incorporated within the last five years.",
-  },
-  {
-    id: "institutional",
-    name: "Institutional Member",
-    who: "Institutions and organisations aligned with IBCR's objectives.",
-    benefits: [
-      "Joint programming and co-hosted events",
-      "Institutional listing and recognition",
-      "Policy dialogue participation",
-      "Research and publication collaboration",
-    ],
-    eligibility: "Universities, associations, agencies and non-profits.",
-  },
-  {
-    id: "international",
-    name: "International Member",
-    who: "Businesses outside Rwanda pursuing India–Rwanda opportunities.",
-    benefits: [
-      "Remote access to briefings and webinars",
-      "Introductions ahead of market visits",
-      "Delegation participation",
-      "Directory listing with international tag",
-    ],
-    eligibility: "Organisations headquartered outside Rwanda.",
-  },
-  {
-    id: "strategic",
-    name: "Strategic Partner",
-    who: "Organisations supporting IBCR's broader mission and programmes.",
-    benefits: [
-      "Headline visibility across IBCR platforms",
-      "Board-level engagement",
-      "Co-branded flagship programming",
-      "First sight of the opportunity pipeline",
-    ],
-    eligibility: "By invitation and mutual agreement.",
+    eligibility: "By discussion with the Board. Talk to the secretariat.",
   },
 ];
 
@@ -767,32 +826,182 @@ export const PARTNERS = [
 
 /* ------------------------------------------------------------- about pages */
 
+/** What a collective voice is for, in the Chamber's own four words. */
 export const VALUES = [
   {
-    title: "Credibility first",
-    copy: "We would rather tell a member that an opportunity is not ready than help them lose money on it.",
+    title: "Better networking",
+    copy: "Not a social platform but a business acceleration platform — the right people, quality referrals and collaboration across sectors.",
   },
   {
-    title: "Two-way benefit",
-    copy: "Every engagement should leave both the Indian and the Rwandan side materially better off.",
+    title: "Stronger representation",
+    copy: "Many businesses operate independently. The Chamber turns them into one voice in front of government and institutions.",
   },
   {
-    title: "Practical over ceremonial",
-    copy: "Signed agreements, shipped containers and operating companies — not photo opportunities.",
+    title: "Shared growth",
+    copy: "Trust, credibility and ethical practice, so partnerships hold up over the long term rather than the length of one deal.",
   },
   {
-    title: "Open to all sizes",
-    copy: "A twelve-person exporter should get the same quality of answer as a listed corporation.",
+    title: "Faster solutions",
+    copy: "Regulatory understanding, market intelligence and a first point of support, so problems get answered in days rather than quarters.",
   },
 ] as const;
 
-export const BOARD = [
-  { name: "President", role: "Chair of the Board", focus: "Strategy, bilateral relations and institutional partnerships" },
-  { name: "Vice President", role: "Deputy Chair", focus: "Membership growth and sector committees" },
-  { name: "Secretary General", role: "Executive Office", focus: "Day-to-day operations and member services" },
-  { name: "Treasurer", role: "Finance & Governance", focus: "Financial oversight, audit and compliance" },
-  { name: "Director — Trade", role: "Board Director", focus: "Trade facilitation and delegations" },
-  { name: "Director — Investment", role: "Board Director", focus: "Investment pipeline and investor relations" },
+/* ------------------------------------------------------------------- board */
+
+export type BoardMember = {
+  id: string;
+  name: string;
+  role: string;
+  /** One line under the name in the list. */
+  company: string;
+  bio: string;
+  highlights: string[];
+  image: string;
+};
+
+/**
+ * The Chamber's board, as listed in the IBCR deck. Two titles are spelled as
+ * the deck intends rather than as it prints them ("Treasure" → Treasurer,
+ * "Memership" → Membership).
+ *
+ * `image` paths are empty slots until the portraits are supplied — see
+ * public/images/README.md. A member with no portrait shows their initials on
+ * a drawn plate, so the section is complete either way.
+ */
+export const BOARD: BoardMember[] = [
+  {
+    id: "mangesh-kumar-verma",
+    name: "Mr. Mangesh Kumar Verma",
+    role: "Chairman",
+    company: "CEO, CIMERWA",
+    bio: "Chairman of the Indian Business Chamber in Rwanda and Chief Executive Officer of CIMERWA, with over 25 years of leadership experience across Africa.",
+    highlights: [
+      "CEO of CIMERWA",
+      "Over 25 years of leadership experience across Africa",
+      "Serves on multiple boards",
+      "Leads several companies across the region",
+    ],
+    image: "/images/board/mangesh-kumar-verma.jpg",
+  },
+  {
+    id: "suman-alla",
+    name: "Mr. Suman Alla",
+    role: "Vice Chairman",
+    company: "Founder & Managing Director, Bizoneer International LLC",
+    bio: "Vice Chairman of the Chamber and a techno-commercial leader in ICT and cybersecurity, working across several sectors as an entrepreneur.",
+    highlights: [
+      "Founder & Managing Director, Bizoneer International LLC",
+      "Techno-commercial leader in ICT & cybersecurity",
+      "Multi-sector entrepreneur",
+      "Rotary leadership · Oxford alumnus",
+    ],
+    image: "/images/board/suman-alla.jpg",
+  },
+  {
+    id: "tiwari-himanshu",
+    name: "Mr. Tiwari Himanshu",
+    role: "Treasurer & Director, Corporate Governance",
+    company: "Director, A1 Group",
+    bio: "Treasurer and Director of Corporate Governance for the Chamber, and a director of the A1 Group, managing operations in East Africa since 2007.",
+    highlights: [
+      "Director of A1 Group",
+      "In East Africa since 2007",
+      "Financial oversight and corporate governance for IBCR",
+    ],
+    image: "/images/board/tiwari-himanshu.jpg",
+  },
+  {
+    id: "manoj-thaipparampil-skariah",
+    name: "Mr. Manoj Thaipparampil Skariah",
+    role: "General Secretary",
+    company: "Founder & Managing Director, Eye Care Optical Ltd",
+    bio: "General Secretary of the Chamber, running businesses in Rwanda across optical retail, home appliances and distribution since 2007.",
+    highlights: [
+      "Founder & Managing Director, Eye Care Optical Ltd",
+      "Hotpoint Appliances (Rwanda) Ltd",
+      "Afroind Ltd",
+      "In Rwanda since 2007",
+    ],
+    image: "/images/board/manoj-thaipparampil-skariah.jpg",
+  },
+  {
+    id: "thomas-binoy",
+    name: "Mr. Thomas Binoy",
+    role: "Director, Membership",
+    company: "Managing Director, T&C Africa Ltd",
+    bio: "Director of Membership for the Chamber, and managing director of a group of construction, trading and services companies operating in Rwanda.",
+    highlights: [
+      "Managing Director, T&C Africa Ltd",
+      "Thomas & Company Rwanda Ltd",
+      "RS Build Tech Ltd",
+      "Eccetra Rwanda Ltd",
+    ],
+    image: "/images/board/thomas-binoy.jpg",
+  },
+  {
+    id: "harlalka-natwarlal-murarilal",
+    name: "Mr. Harlalka Natwarlal Murarilal",
+    role: "Director, Public Relations & Events",
+    company: "Chairman, Vplus Group Africa",
+    bio: "Director of Public Relations and Events for the Chamber, with over 15 years in Rwanda's packaging industry and interests across several African markets.",
+    highlights: [
+      "Chairman of Vplus Group Africa",
+      "Over 15 years in the packaging industry in Rwanda",
+      "Serving multiple industries across Africa",
+      "Leads industry growth, corporate relations and business opportunities",
+    ],
+    image: "/images/board/harlalka-natwarlal-murarilal.jpg",
+  },
+  {
+    id: "palaparthy-vinay",
+    name: "Mr. Palaparthy Vinay",
+    role: "Director, Investment & International Trading",
+    company: "International trade, hospitality, real estate and mining",
+    bio: "Director of Investment and International Trading for the Chamber, with nearly four decades of business experience across 19 African countries.",
+    highlights: [
+      "Nearly four decades across 19 African countries",
+      "Specialises in international trade",
+      "Hospitality and real estate",
+      "Mining",
+    ],
+    image: "/images/board/palaparthy-vinay.jpg",
+  },
+];
+
+/* --------------------------------------------------------- sub-committees */
+
+/**
+ * The Chamber's delivery structure: focused committees that expand leadership
+ * participation among active members.
+ */
+export const SUB_COMMITTEES = [
+  {
+    title: "Membership",
+    copy: "New members, renewals, onboarding and engagement.",
+  },
+  {
+    title: "Trade & Investment",
+    copy: "B2B connects, investor meetings, delegations and market opportunities.",
+  },
+  {
+    title: "PR & Events",
+    copy: "Networking sessions, seminars, business forums and sponsorships.",
+  },
+] as const;
+
+/** Sector teams formed under the committees, each led by industry members. */
+export const INDUSTRY_LEADERSHIP = [
+  "ICT",
+  "Construction",
+  "Real estate",
+  "Healthcare",
+  "Agriculture",
+  "Trade",
+  "Hospitality",
+  "Retail",
+  "Finance",
+  "Education",
+  "Logistics",
 ] as const;
 
 export const TEAM = [
@@ -822,17 +1031,17 @@ export const WHY_INDIA = [
   { title: "Institutional links", copy: "Deep bilateral ties across trade bodies, universities and government agencies." },
 ] as const;
 
+/** The key sectors the Chamber names for the India–Rwanda relationship. */
 export const CORRIDOR_FOCUS = [
-  "Trade",
-  "Investment",
-  "Technology",
+  "Education",
+  "ICT",
   "Healthcare",
   "Agriculture",
-  "Manufacturing",
+  "Trading",
+  "Pharmaceuticals",
   "Infrastructure",
-  "Tourism",
-  "Education",
-  "Innovation",
+  "Real estate",
+  "Hospitality & tourism",
 ] as const;
 
 export const AREAS_OF_INTEREST = [

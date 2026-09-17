@@ -3,7 +3,7 @@ import { PageHero } from "@/components/layout/PageHero";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
 import { ButtonLink } from "@/components/ui/Button";
 import { Section, SectionHeading } from "@/components/ui/Section";
-import { BOARD, PARTNERS, SITE, TEAM, VALUES } from "@/lib/content";
+import { BOARD, MISSION, PARTNERS, SITE, TEAM, VALUES, VISION } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "About the Chamber",
@@ -16,6 +16,7 @@ export default function AboutPage() {
   return (
     <>
       <PageHero
+        image="/images/heroes/about.jpg"
         eyebrow="About IBCR"
         title="A bridge built for"
         accent="business, not ceremony."
@@ -76,20 +77,26 @@ export default function AboutPage() {
         <div className="container-page relative">
           <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
             <Reveal>
-              <div className="rounded-[var(--radius-card)] border border-hairline bg-white p-8 md:p-10">
+              <div className="h-full rounded-[var(--radius-card)] border border-hairline bg-white p-8 md:p-10">
                 <p className="label-mono text-gold-600">Vision</p>
-                <p className="mt-6 text-[clamp(1.35rem,2.6vw,1.9rem)] leading-[1.35] font-medium tracking-tight text-navy-900">
-                  A strong, trusted and mutually beneficial India–Rwanda business ecosystem that
-                  drives sustainable growth, innovation and prosperity.
+                <p className="mt-6 text-[clamp(1.25rem,2.3vw,1.6rem)] leading-[1.4] font-medium tracking-tight text-navy-900">
+                  {VISION.statement}
                 </p>
+                <ul className="mt-8 space-y-3 border-t border-hairline pt-6">
+                  {VISION.points.map((point) => (
+                    <li key={point} className="flex gap-3 text-[0.9375rem] leading-[1.6] text-muted">
+                      <span className="mt-2 size-1 shrink-0 rounded-full bg-gold" aria-hidden />
+                      {point}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </Reveal>
             <Reveal delay={0.08}>
-              <div className="rounded-[var(--radius-card)] border border-hairline bg-white p-8 md:p-10">
+              <div className="h-full rounded-[var(--radius-card)] border border-hairline bg-white p-8 md:p-10">
                 <p className="label-mono text-gold-600">Mission</p>
-                <p className="mt-6 text-[clamp(1.35rem,2.6vw,1.9rem)] leading-[1.35] font-medium tracking-tight text-navy-900">
-                  To connect, represent and equip businesses on both sides of the corridor — with
-                  access, intelligence and a credible collective voice.
+                <p className="mt-6 text-[clamp(1.25rem,2.3vw,1.6rem)] leading-[1.4] font-medium tracking-tight text-navy-900">
+                  {MISSION.statement}
                 </p>
               </div>
             </Reveal>
@@ -116,20 +123,25 @@ export default function AboutPage() {
             eyebrow="Leadership"
             title="The board that"
             accent="sets direction."
-            copy="IBCR is governed by a board drawn from the Indian and Rwandan business communities. Roles below reflect the Chamber's governance structure."
+            copy="IBCR is governed by a board of seven drawn from the Indian business community in Rwanda."
+            action={
+              <ButtonLink href="/membership#board" variant="outline" withArrow>
+                Board in full
+              </ButtonLink>
+            }
           />
 
           <RevealGroup className="mt-14 grid gap-px overflow-hidden rounded-[var(--radius-card)] bg-hairline sm:grid-cols-2 lg:grid-cols-3">
             {BOARD.map((person, i) => (
-              <RevealItem noShift key={person.name} className="bg-white p-8">
+              <RevealItem noShift key={person.id} className="bg-white p-8">
                 <span className="label-mono text-navy-900/22">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <h3 className="mt-6 text-[1.1875rem] font-semibold tracking-tight text-navy-900">
+                <h3 className="mt-6 text-[1.1875rem] leading-snug font-semibold tracking-tight text-navy-900">
                   {person.name}
                 </h3>
-                <p className="mt-1 text-[0.8125rem] text-gold-600">{person.role}</p>
-                <p className="mt-4 text-[0.875rem] leading-[1.65] text-muted">{person.focus}</p>
+                <p className="mt-1.5 text-[0.8125rem] text-gold-600">{person.role}</p>
+                <p className="mt-4 text-[0.875rem] leading-[1.65] text-muted">{person.company}</p>
               </RevealItem>
             ))}
           </RevealGroup>

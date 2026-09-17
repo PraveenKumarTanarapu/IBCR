@@ -1,7 +1,7 @@
-import { RevealGroup, RevealItem } from "@/components/motion/Reveal";
+import { Reveal } from "@/components/motion/Reveal";
 import { ButtonLink } from "@/components/ui/Button";
+import { PricingSection } from "@/components/ui/pricing-section";
 import { Section, SectionHeading } from "@/components/ui/Section";
-import { TierCard } from "@/components/ui/TierCard";
 import { MEMBERSHIP_TIERS } from "@/lib/content";
 
 export function Membership() {
@@ -10,9 +10,9 @@ export function Membership() {
       <div className="container-page">
         <SectionHeading
           eyebrow="Membership"
-          title="Become part of the"
-          accent="IBCR business community."
-          copy="Six ways in, one network. Choose the category that fits — the secretariat will confirm it with you."
+          title="Four ways in,"
+          accent="one chamber."
+          copy="Silver to Corporate — each category builds on the one before it. The secretariat will confirm the right fit with you before anything is finalised."
           action={
             <ButtonLink href="/membership" variant="outline" withArrow>
               Membership in detail
@@ -20,13 +20,9 @@ export function Membership() {
           }
         />
 
-        <RevealGroup className="mt-16 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {MEMBERSHIP_TIERS.map((tier, i) => (
-            <RevealItem key={tier.id}>
-              <TierCard tier={tier} index={i} />
-            </RevealItem>
-          ))}
-        </RevealGroup>
+        <Reveal className="mt-16" y={26}>
+          <PricingSection tiers={MEMBERSHIP_TIERS} />
+        </Reveal>
 
         <div className="mt-14 flex justify-center">
           <ButtonLink href="/membership/join" size="lg" withArrow>

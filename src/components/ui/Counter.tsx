@@ -5,10 +5,12 @@ import { useInView, useReducedMotion } from "motion/react";
 
 export function Counter({
   value,
+  prefix = "",
   suffix = "",
   duration = 1600,
 }: {
   value: number;
+  prefix?: string;
   suffix?: string;
   duration?: number;
 }) {
@@ -37,6 +39,7 @@ export function Counter({
 
   return (
     <span ref={ref} className="tabular-nums">
+      {prefix}
       {display}
       {suffix}
     </span>

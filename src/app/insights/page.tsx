@@ -28,6 +28,7 @@ export default async function InsightsPage(props: PageProps<"/insights">) {
   return (
     <>
       <PageHero
+        image="/images/heroes/insights.jpg"
         eyebrow="Business insights"
         title="Written for people who have to"
         accent="decide something."

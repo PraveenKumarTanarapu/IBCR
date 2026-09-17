@@ -63,7 +63,7 @@ export function Glance() {
           {STATS.map((stat) => (
             <RevealItem key={stat.label}>
               <p className="text-[clamp(2.5rem,5vw,3.75rem)] leading-none font-semibold tracking-[-0.04em] text-navy-900">
-                <Counter value={stat.value} suffix={stat.suffix} />
+                <Counter value={stat.value} prefix={stat.prefix} suffix={stat.suffix} />
               </p>
               <p className="mt-3 max-w-[13rem] text-[0.875rem] leading-[1.5] text-muted">
                 {stat.label}

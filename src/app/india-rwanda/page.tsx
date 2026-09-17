@@ -18,6 +18,7 @@ export default function IndiaRwandaPage() {
   return (
     <>
       <PageHero
+        image="/images/heroes/india-rwanda.jpg"
         eyebrow="The corridor"
         title="Two markets."
         accent="One growing relationship."
