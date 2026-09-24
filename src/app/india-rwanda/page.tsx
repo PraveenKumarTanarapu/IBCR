@@ -97,7 +97,7 @@ export default function IndiaRwandaPage() {
               </Reveal>
               <Reveal delay={0.06}>
                 <h2 className="mt-5 text-[clamp(1.9rem,4.4vw,3.25rem)] leading-[1.05] font-semibold text-navy-900">
-                  Delhi, Mumbai, Bengaluru{" "}
+                  Delhi, Mumbai, Ahmedabad{" "}
                   <span className="accent-serif text-gold-600">→ Kigali.</span>
                 </h2>
               </Reveal>

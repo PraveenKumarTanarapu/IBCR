@@ -105,9 +105,9 @@ export default function MembershipPage() {
         <div className="container-page">
           <SectionHeading
             eyebrow="Categories & fees"
-            title="Four ways in,"
+            title="Five ways in,"
             accent="one chamber."
-            copy="Each category carries everything in the one before it, and every one of them carries representative participation in the Board. Fees are annual; the limited offer rate is open for a defined period, and the secretariat confirms the category with you before anything is finalised."
+            copy="Each category carries everything in the one before it, and every one of them carries representative participation in the Board. Fees are the standard annual rate; the secretariat confirms the category with you before anything is finalised."
           />
           <Reveal className="mt-14" y={26}>
             <PricingSection tiers={MEMBERSHIP_TIERS} />

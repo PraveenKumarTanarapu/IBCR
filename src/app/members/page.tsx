@@ -9,7 +9,7 @@ import { MEMBERS } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Member Directory",
   description:
-    "Search the IBCR business community by company, sector, location and membership type — a working directory of India–Rwanda businesses.",
+    "Search the IBCR business community by company, representative or membership category — the Chamber's working register of member businesses in Kigali.",
   alternates: { canonical: "/members" },
 };
 
@@ -20,7 +20,7 @@ export default function MembersPage() {
         eyebrow="Member directory"
         title="Our business"
         accent="community."
-        copy={`A working directory of ${MEMBERS.length} member organisations across Rwanda, India and the wider region — searchable by company, sector, location and membership type.`}
+        copy={`${MEMBERS.length} member companies, all based in Kigali. Each entry carries the representative the Chamber deals with and their membership category.`}
         crumbs={[{ label: "Members" }]}
       >
         <ButtonLink href="/membership/join" withArrow>

@@ -87,15 +87,74 @@ export function clientKey(request: Request) {
 
 export type SubmissionKind = "enquiry" | "membership" | "event" | "newsletter";
 
+const SUBJECTS: Record<SubmissionKind, string> = {
+  enquiry: "New enquiry from the IBCR website",
+  membership: "New membership application",
+  event: "New event registration",
+  newsletter: "New newsletter subscription",
+};
+
+/** Where every submission is sent. Override with IBCR_SUBMISSION_EMAIL. */
+const INBOX = process.env.IBCR_SUBMISSION_EMAIL || "info@ibcr.rw";
+
+function asText(kind: SubmissionKind, data: Validated, receivedAt: string) {
+  const lines = Object.entries(data).map(([key, value]) => `${key}: ${value}`);
+  return [`${SUBJECTS[kind]}`, `Received: ${receivedAt}`, "", ...lines].join("\n");
+}
+
+/**
+ * Send the submission on by email.
+ *
+ * Uses Resend's HTTP API when IBCR_RESEND_API_KEY is set — no SDK, just a
+ * fetch, so nothing is added to the bundle. Without a key nothing is emailed
+ * and the record still goes to the log and the webhook, which is what keeps
+ * local development quiet.
+ */
+async function email(kind: SubmissionKind, data: Validated, receivedAt: string) {
+  const key = process.env.IBCR_RESEND_API_KEY;
+  if (!key) return false;
+
+  const from = process.env.IBCR_SUBMISSION_FROM || "IBCR Website <website@ibcr.rw>";
+  const replyTo = typeof data.email === "string" ? data.email : undefined;
+
+  try {
+    const response = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        authorization: `Bearer ${key}`,
+      },
+      body: JSON.stringify({
+        from,
+        to: [INBOX],
+        subject: SUBJECTS[kind],
+        text: asText(kind, data, receivedAt),
+        ...(replyTo ? { reply_to: replyTo } : {}),
+      }),
+    });
+    if (!response.ok) {
+      console.error("[ibcr:submission] email rejected", response.status, await response.text());
+      return false;
+    }
+    return true;
+  } catch (error) {
+    console.error("[ibcr:submission] email failed", error);
+    return false;
+  }
+}
+
 export async function deliver(kind: SubmissionKind, data: Validated) {
   const record = {
     kind,
     receivedAt: new Date().toISOString(),
+    to: INBOX,
     data,
   };
 
-  // Default sink: the server log. Replace with your transport of choice.
+  // The log is the floor: a submission is never silently dropped.
   console.info("[ibcr:submission]", JSON.stringify(record));
+
+  await email(kind, data, record.receivedAt);
 
   const webhook = process.env.IBCR_SUBMISSION_WEBHOOK;
   if (webhook) {

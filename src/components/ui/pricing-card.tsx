@@ -1,44 +1,29 @@
 "use client";
 
-import { useEffect } from "react";
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
-import { motion, useReducedMotion, useSpring, useTransform } from "motion/react";
 import { cn } from "@/lib/utils";
 import type { MembershipTier } from "@/lib/content";
 
 /**
  * One membership category.
  *
- * The figure animates between the standard rate and the limited offer when the
- * toggle above the grid changes — a spring on the raw number, formatted on
- * every frame, rather than the upstream snippet's `@number-flow/react`
- * dependency. Under reduced motion it simply prints the number.
- *
  * The featured category inverts to navy: on a white page that is the whole
- * hierarchy, so no card needs a coloured ring or a "most popular" claim.
+ * hierarchy, so no card needs a coloured ring or a "most popular" claim. A
+ * category that splits into more than one kind of member (International)
+ * carries those options above its benefits rather than becoming two cards.
  */
 
 const FORMAT = new Intl.NumberFormat("en-US");
 
-export function PricingCard({
-  tier,
-  rate,
-  className,
-}: {
-  tier: MembershipTier;
-  rate: string;
-  className?: string;
-}) {
-  const price = tier.price[rate as keyof typeof tier.price];
-  const standard = tier.price.standard;
-  const discounted = typeof price === "number" && typeof standard === "number" && price < standard;
+export function PricingCard({ tier, className }: { tier: MembershipTier; className?: string }) {
   const dark = !!tier.featured;
+  const numeric = typeof tier.price === "number";
 
   return (
     <article
       className={cn(
-        "group relative flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] border p-7",
+        "group relative flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] border p-6",
         "transition-[border-color,transform] duration-500 ease-[var(--ease-out-quint)] hover:-translate-y-1",
         dark
           ? "border-navy-900 bg-navy-900 text-white hover:border-navy-700"
@@ -47,74 +32,56 @@ export function PricingCard({
       )}
     >
       {/* ------------------------------------------------------ category */}
-      <div className="flex items-start justify-between gap-3">
-        <h3
-          className={cn(
-            "text-[1.375rem] leading-none font-semibold tracking-tight",
-            dark ? "text-white" : "text-navy-900",
-          )}
-        >
-          {tier.name}
-        </h3>
-        {discounted ? (
-          <span
-            className={cn(
-              "label-mono rounded-full px-2.5 py-1 text-[0.625rem] whitespace-nowrap",
-              dark ? "bg-gold/22 text-gold-200" : "bg-gold/15 text-gold-600",
-            )}
-          >
-            Limited offer
-          </span>
-        ) : null}
-      </div>
+      <h3
+        className={cn(
+          "text-[1.25rem] leading-none font-semibold tracking-tight",
+          dark ? "text-white" : "text-navy-900",
+        )}
+      >
+        {tier.name}
+      </h3>
       <p className={cn("mt-2 text-[0.8125rem]", dark ? "text-white/60" : "text-muted")}>
         {tier.label}
       </p>
 
       {/* --------------------------------------------------------- price */}
-      <div className="mt-7 min-h-[4.5rem]">
-        {typeof price === "number" ? (
+      <div className="mt-6 min-h-[3.75rem]">
+        {numeric ? (
           <>
             <p
               className={cn(
-                "flex items-baseline gap-1.5 text-[2rem] leading-none font-semibold tracking-[-0.03em] tabular-nums",
+                "flex items-baseline gap-1.5 text-[1.625rem] leading-none font-semibold tracking-[-0.03em] tabular-nums",
                 dark ? "text-white" : "text-navy-900",
               )}
             >
-              <span className={cn("text-[0.875rem] font-medium", dark ? "text-white/55" : "text-muted")}>
+              <span
+                className={cn("text-[0.8125rem] font-medium", dark ? "text-white/55" : "text-muted")}
+              >
                 {tier.currency}
               </span>
-              <Figure value={price} />
-              <span className={cn("text-[0.875rem] font-medium", dark ? "text-white/55" : "text-muted")}>
+              {FORMAT.format(tier.price as number)}
+              <span
+                className={cn("text-[0.8125rem] font-medium", dark ? "text-white/55" : "text-muted")}
+              >
                 {tier.period}
               </span>
             </p>
             <p className={cn("mt-2 text-[0.75rem]", dark ? "text-white/50" : "text-muted")}>
-              {discounted ? (
-                <>
-                  Standard rate{" "}
-                  <span className="line-through">
-                    {tier.currency} {FORMAT.format(standard as number)}
-                    {tier.period}
-                  </span>
-                </>
-              ) : (
-                "Annual membership fee"
-              )}
+              Annual membership fee
             </p>
           </>
         ) : (
           <>
             <p
               className={cn(
-                "text-[2rem] leading-none font-semibold tracking-[-0.03em]",
+                "text-[1.625rem] leading-none font-semibold tracking-[-0.03em]",
                 dark ? "text-white" : "text-navy-900",
               )}
             >
-              {price}
+              {tier.price}
             </p>
             <p className={cn("mt-2 text-[0.75rem]", dark ? "text-white/50" : "text-muted")}>
-              Scoped with the Board
+              {tier.options ? "Two ways to join" : "Scoped with the Board"}
             </p>
           </>
         )}
@@ -123,20 +90,59 @@ export function PricingCard({
       {/* ------------------------------------------------------ benefits */}
       <p
         className={cn(
-          "mt-6 border-t pt-6 text-[0.8125rem] leading-[1.6]",
+          "mt-5 border-t pt-5 text-[0.8125rem] leading-[1.6]",
           dark ? "border-white/12 text-white/70" : "border-hairline text-muted",
         )}
       >
         {tier.who}
       </p>
 
+      {tier.options?.length ? (
+        <ul className="mt-5 space-y-2">
+          {tier.options.map((option, i) => (
+            <li
+              key={option.name}
+              className={cn(
+                "rounded-[calc(var(--radius-card)-6px)] border p-3",
+                dark ? "border-white/15" : "border-hairline bg-hover/60",
+              )}
+            >
+              <p
+                className={cn(
+                  "flex items-baseline gap-2 text-[0.8125rem] font-semibold tracking-tight",
+                  dark ? "text-white" : "text-navy-900",
+                )}
+              >
+                <span className={cn("label-mono", dark ? "text-gold-200" : "text-gold-600")}>
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                {option.name}
+              </p>
+              <p
+                className={cn(
+                  "mt-1.5 text-[0.75rem] leading-[1.5]",
+                  dark ? "text-white/65" : "text-muted",
+                )}
+              >
+                {option.who}
+              </p>
+            </li>
+          ))}
+        </ul>
+      ) : null}
+
       {tier.inherits ? (
-        <p className={cn("mt-5 text-[0.8125rem] font-medium", dark ? "text-gold-200" : "text-gold-600")}>
+        <p
+          className={cn(
+            "mt-5 text-[0.8125rem] font-medium",
+            dark ? "text-gold-200" : "text-gold-600",
+          )}
+        >
           Everything in {tier.inherits}, plus
         </p>
       ) : null}
 
-      <ul className={cn("flex-1 space-y-2.5", tier.inherits ? "mt-3.5" : "mt-5")}>
+      <ul className={cn("flex-1 space-y-2.5", tier.inherits || tier.options ? "mt-3.5" : "mt-5")}>
         {tier.benefits.map((benefit) => (
           <li key={benefit} className="flex gap-2.5 text-[0.8125rem] leading-[1.5]">
             <Check
@@ -153,8 +159,8 @@ export function PricingCard({
       <Link
         href={`/membership/join?tier=${encodeURIComponent(tier.name)}`}
         className={cn(
-          "mt-8 inline-flex h-11 cursor-pointer items-center justify-center gap-2.5 rounded-full",
-          "text-[0.9375rem] font-medium tracking-tight transition-colors duration-300",
+          "mt-7 inline-flex h-11 cursor-pointer items-center justify-center gap-2 rounded-full",
+          "text-[0.875rem] font-medium tracking-tight transition-colors duration-300",
           dark
             ? "bg-gold text-navy-950 hover:bg-gold-400"
             : "border border-hairline-strong bg-white text-navy-900 hover:border-navy-800/40 hover:bg-hover",
@@ -169,19 +175,4 @@ export function PricingCard({
       </Link>
     </article>
   );
-}
-
-/* ---------------------------------------------------------------- figure */
-
-function Figure({ value }: { value: number }) {
-  const reduced = useReducedMotion();
-  const spring = useSpring(value, { stiffness: 140, damping: 24, mass: 0.7 });
-  const text = useTransform(spring, (v) => FORMAT.format(Math.round(v)));
-
-  useEffect(() => {
-    spring.set(value);
-  }, [spring, value]);
-
-  if (reduced) return <>{FORMAT.format(value)}</>;
-  return <motion.span>{text}</motion.span>;
 }

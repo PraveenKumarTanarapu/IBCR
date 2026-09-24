@@ -10,9 +10,9 @@ export function Membership() {
       <div className="container-page">
         <SectionHeading
           eyebrow="Membership"
-          title="Four ways in,"
+          title="Five ways in,"
           accent="one chamber."
-          copy="Silver to Corporate — each category builds on the one before it. The secretariat will confirm the right fit with you before anything is finalised."
+          copy="Silver to Corporate, plus an International category for members based outside Rwanda. Each one builds on the category before it, and the secretariat will confirm the right fit with you before anything is finalised."
           action={
             <ButtonLink href="/membership" variant="outline" withArrow>
               Membership in detail

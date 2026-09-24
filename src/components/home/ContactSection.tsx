@@ -1,4 +1,5 @@
-import { ArrowUpRight, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import { ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
+import { WhatsAppIcon } from "@/components/brand/WhatsAppIcon";
 import { Reveal } from "@/components/motion/Reveal";
 import { EnquiryForm } from "@/components/forms/EnquiryForm";
 import { Eyebrow, Section } from "@/components/ui/Section";
@@ -74,20 +75,21 @@ export function ContactSection() {
                 </div>
 
                 <div className="flex gap-4">
-                  <MessageCircle
-                    strokeWidth={1.4}
-                    className="mt-0.5 size-5 shrink-0 text-gold"
-                    aria-hidden
-                  />
-                  <a
-                    href={`https://wa.me/${SITE.whatsapp.replace(/[^0-9]/g, "")}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="link-underline inline-flex items-center gap-1 text-[0.9375rem] text-navy-900"
-                  >
-                    WhatsApp the secretariat
-                    <ArrowUpRight strokeWidth={1.6} className="size-3.5" />
-                  </a>
+                  <WhatsAppIcon className="mt-0.5 size-5 shrink-0 text-gold" />
+                  <div>
+                    <a
+                      href={`https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(SITE.whatsappMessage)}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="link-underline inline-flex items-center gap-1 text-[0.9375rem] text-navy-900"
+                    >
+                      {SITE.phone}
+                      <ArrowUpRight strokeWidth={1.6} className="size-3.5" />
+                    </a>
+                    <p className="mt-1 text-[0.8125rem] text-muted">
+                      Message the secretariat on WhatsApp
+                    </p>
+                  </div>
                 </div>
               </address>
             </Reveal>

@@ -10,7 +10,7 @@ export function Directory() {
           eyebrow="Member directory"
           title="Our business"
           accent="community."
-          copy="A working directory, not a logo wall. Search by company, filter by sector, location or membership type."
+          copy="A working register, not a logo wall — every member company, who represents it and the category they hold."
         />
 
         <Reveal className="mt-14" y={22}>

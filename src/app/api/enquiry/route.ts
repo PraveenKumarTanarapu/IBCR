@@ -22,6 +22,6 @@ export async function POST(request: Request) {
   await deliver("enquiry", result.data);
 
   return json({
-    message: `Thank you, ${result.data.name.split(" ")[0]}. Your enquiry has reached the IBCR secretariat — we usually reply within two working days.`,
+    message: `Thank you, ${result.data.name.split(" ")[0]}. Your enquiry has gone to info@ibcr.rw — the secretariat usually replies within two working days.`,
   });
 }

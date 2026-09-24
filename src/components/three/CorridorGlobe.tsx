@@ -1,33 +1,41 @@
 "use client";
 
-import { useMemo, useRef } from "react";
-import { Canvas, useFrame, type ThreeElements } from "@react-three/fiber";
+import { Suspense, useMemo, useRef } from "react";
+import { Canvas, useFrame, useLoader, type ThreeElements } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 import { useReducedMotion } from "motion/react";
+
+/**
+ * The corridor globe: a real world map on a sphere, with the Chamber's routes
+ * drawn over it.
+ *
+ * Geography comes from `public/textures/world-map.png`, generated offline from
+ * Natural Earth by `tools/media/worldmap.mjs`. That file is two masks rather
+ * than a picture — red is land, green is national borders — so the colours are
+ * mixed here and stay in the design system instead of being baked in.
+ */
 
 /* --------------------------------------------------------------- helpers */
 
 const CITIES = {
   delhi: [28.61, 77.21],
   mumbai: [19.08, 72.88],
-  bengaluru: [12.97, 77.59],
   ahmedabad: [23.02, 72.57],
   kigali: [-1.94, 29.87],
-  dubai: [25.2, 55.27],
-  nairobi: [-1.29, 36.82],
 } as const;
 
+/** Kigali to the three Indian cities the Chamber runs its corridor through. */
 const ROUTES: [keyof typeof CITIES, keyof typeof CITIES, number][] = [
-  ["delhi", "kigali", 0.6],
-  ["mumbai", "kigali", 0.43],
-  ["bengaluru", "kigali", 0.33],
-  ["ahmedabad", "kigali", 0.52],
-  ["mumbai", "dubai", 0.2],
-  ["dubai", "kigali", 0.26],
-  ["kigali", "nairobi", 0.12],
+  ["delhi", "kigali", 0.34],
+  ["mumbai", "kigali", 0.22],
+  ["ahmedabad", "kigali", 0.28],
 ];
 
+/**
+ * Latitude/longitude to a point on the sphere, in the frame three.js maps an
+ * equirectangular texture onto: u = 0 at 180°W, v = 0 at the north pole.
+ */
 function latLon(lat: number, lon: number, radius: number) {
   const phi = (90 - lat) * (Math.PI / 180);
   const theta = (lon + 180) * (Math.PI / 180);
@@ -38,7 +46,6 @@ function latLon(lat: number, lon: number, radius: number) {
   );
 }
 
-/** Position of a named city on the sphere. */
 function city(key: keyof typeof CITIES, radius: number) {
   const [lat, lon] = CITIES[key];
   return latLon(lat, lon, radius);
@@ -64,73 +71,86 @@ function useDiscTexture() {
 
 /* ----------------------------------------------------------------- parts */
 
-function PointShell() {
-  const map = useDiscTexture();
+/**
+ * The world.
+ *
+ * Shading is deliberately shallow — enough for the sphere to read as a solid
+ * object, not so much that a grey ball lands on a white page. The limb is
+ * carried by the rim light rather than by darkening the ocean.
+ */
+function World() {
+  const map = useLoader(THREE.TextureLoader, "/textures/world-map.png");
 
-  const { positions, colors, sizes } = useMemo(() => {
-    const COUNT = 6500;
-    const positions = new Float32Array(COUNT * 3);
-    const colors = new Float32Array(COUNT * 3);
-    const sizes = new Float32Array(COUNT);
-    const golden = Math.PI * (3 - Math.sqrt(5));
-    const a = new THREE.Color("#8ea4c4");
-    const b = new THREE.Color("#4d6d9b");
-    const c = new THREE.Color("#c9a227");
-    for (let i = 0; i < COUNT; i++) {
-      const y = 1 - (i / (COUNT - 1)) * 2;
-      const r = Math.sqrt(Math.max(0, 1 - y * y));
-      const th = golden * i;
-      positions.set([Math.cos(th) * r, y, Math.sin(th) * r], i * 3);
-      const t = (Math.sin(i * 12.9898) * 43758.5453) % 1;
-      const v = t < 0 ? t + 1 : t;
-      const col = v > 0.96 ? c : v > 0.6 ? b : a;
-      colors.set([col.r, col.g, col.b], i * 3);
-      sizes[i] = v > 0.96 ? 0.03 : 0.012 + v * 0.008;
-    }
-    return { positions, colors, sizes };
-  }, []);
+  const material = useMemo(() => {
+    // The loader caches and shares its texture, so configure a clone rather
+    // than reaching back into what the hook returned.
+    const tex = map.clone();
+    tex.colorSpace = THREE.NoColorSpace;
+    tex.anisotropy = 8;
+    tex.minFilter = THREE.LinearMipmapLinearFilter;
+    tex.magFilter = THREE.LinearFilter;
+    tex.wrapS = THREE.RepeatWrapping;
+    tex.needsUpdate = true;
+
+    return new THREE.ShaderMaterial({
+      uniforms: {
+        uMap: { value: tex },
+        uOcean: { value: new THREE.Color("#ffffff") },
+        uLand: { value: new THREE.Color("#12294d") },
+        uBorder: { value: new THREE.Color("#5b7aa8") },
+        uLight: { value: new THREE.Vector3(-0.45, 0.6, 0.85).normalize() },
+      },
+      vertexShader: `
+        varying vec2 vUv;
+        varying vec3 vN;
+        void main(){
+          vUv = uv;
+          vN = normalize(normalMatrix * normal);
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }`,
+      fragmentShader: `
+        uniform sampler2D uMap;
+        uniform vec3 uOcean;
+        uniform vec3 uLand;
+        uniform vec3 uBorder;
+        uniform vec3 uLight;
+        varying vec2 vUv;
+        varying vec3 vN;
+        void main(){
+          vec3 m = texture2D(uMap, vUv).rgb;
+          float land = smoothstep(0.32, 0.68, m.r);
+          vec3 col = mix(uOcean, uLand, land);
+          col = mix(col, uBorder, m.g * 0.8 * land);
+          float d = clamp(dot(normalize(vN), normalize(uLight)), 0.0, 1.0);
+          gl_FragColor = vec4(col * (0.86 + 0.14 * d), 1.0);
+        }`,
+    });
+  }, [map]);
 
   return (
-    <points>
-      <bufferGeometry>
-        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
-        <bufferAttribute attach="attributes-color" args={[colors, 3]} />
-        <bufferAttribute attach="attributes-aSize" args={[sizes, 1]} />
-      </bufferGeometry>
-      <shaderMaterial
-        transparent
-        depthWrite={false}
-        vertexColors
-        uniforms={{ uMap: { value: map }, uScale: { value: 340 } }}
-        vertexShader={`
-          attribute float aSize;
-          varying vec3 vC;
-          uniform float uScale;
-          void main(){
-            vC = color;
-            vec4 mv = modelViewMatrix * vec4(position, 1.0);
-            gl_PointSize = max(1.0, aSize * uScale / -mv.z);
-            gl_Position = projectionMatrix * mv;
-          }`}
-        fragmentShader={`
-          uniform sampler2D uMap;
-          varying vec3 vC;
-          void main(){
-            vec4 t = texture2D(uMap, gl_PointCoord);
-            gl_FragColor = vec4(vC, t.a * 0.95);
-          }`}
-      />
-    </points>
+    <mesh material={material}>
+      <sphereGeometry args={[1, 96, 96]} />
+    </mesh>
   );
 }
 
-function Arc({ from, to, lift, index }: { from: THREE.Vector3; to: THREE.Vector3; lift: number; index: number }) {
+function Arc({
+  from,
+  to,
+  lift,
+  index,
+}: {
+  from: THREE.Vector3;
+  to: THREE.Vector3;
+  lift: number;
+  index: number;
+}) {
   const material = useRef<THREE.ShaderMaterial>(null);
 
   const geometry = useMemo(() => {
     const mid = from.clone().add(to).normalize().multiplyScalar(1 + lift);
     const curve = new THREE.QuadraticBezierCurve3(from, mid, to);
-    return new THREE.TubeGeometry(curve, 90, 0.005, 6, false);
+    return new THREE.TubeGeometry(curve, 90, 0.006, 6, false);
   }, [from, to, lift]);
 
   useFrame(({ clock }) => {
@@ -156,11 +176,11 @@ function Arc({ from, to, lift, index }: { from: THREE.Vector3; to: THREE.Vector3
           uniform float uTime; uniform float uOffset; uniform vec3 uA; uniform vec3 uB;
           varying vec2 vUv;
           void main(){
-            float base = 0.5 + 0.18 * sin(6.2831853 * (uTime + uOffset));
+            float base = 0.62 + 0.16 * sin(6.2831853 * (uTime + uOffset));
             float head = fract(uTime + uOffset);
             float d = vUv.x - head; d = d - floor(d + 0.5);
             float pulse = exp(-pow(d / 0.09, 2.0));
-            float edge = smoothstep(0.0, 0.06, vUv.x) * smoothstep(1.0, 0.94, vUv.x);
+            float edge = smoothstep(0.0, 0.05, vUv.x) * smoothstep(1.0, 0.95, vUv.x);
             gl_FragColor = vec4(mix(uA, uB, pulse), (base + pulse) * edge);
           }`}
       />
@@ -173,26 +193,21 @@ function Marker({ position, color }: { position: THREE.Vector3; color: string })
   const ref = useRef<THREE.Sprite>(null);
   useFrame(({ clock }) => {
     if (ref.current) {
-      ref.current.scale.setScalar(0.05 + 0.016 * (0.5 + 0.5 * Math.sin(clock.elapsedTime * 1.6)));
+      ref.current.scale.setScalar(0.045 + 0.014 * (0.5 + 0.5 * Math.sin(clock.elapsedTime * 1.6)));
     }
   });
   return (
-    <sprite ref={ref} position={position} scale={0.05}>
-      <spriteMaterial
-        map={map}
-        color={color}
-        transparent
-        opacity={0.95}
-        depthWrite={false}
-      />
+    <sprite ref={ref} position={position} scale={0.045}>
+      <spriteMaterial map={map} color={color} transparent opacity={0.95} depthWrite={false} />
     </sprite>
   );
 }
 
+/** Atmosphere: what gives the limb its edge without darkening the map. */
 function Rim() {
-  const uniforms = useMemo(() => ({ uColor: { value: new THREE.Color("#7f96b8") } }), []);
+  const uniforms = useMemo(() => ({ uColor: { value: new THREE.Color("#6f8bb3") } }), []);
   return (
-    <mesh scale={1.06}>
+    <mesh scale={1.045}>
       <sphereGeometry args={[1, 64, 64]} />
       <shaderMaterial
         transparent
@@ -202,9 +217,19 @@ function Rim() {
         vertexShader={`varying vec3 vN; varying vec3 vP;
           void main(){ vN = normalize(normalMatrix * normal); vec4 mv = modelViewMatrix * vec4(position,1.0); vP = mv.xyz; gl_Position = projectionMatrix * mv; }`}
         fragmentShader={`uniform vec3 uColor; varying vec3 vN; varying vec3 vP;
-          void main(){ float f = pow(1.0 - abs(dot(normalize(vN), normalize(-vP))), 3.0);
-          gl_FragColor = vec4(uColor, f * 0.55); }`}
+          void main(){ float f = pow(1.0 - abs(dot(normalize(vN), normalize(-vP))), 3.2);
+          gl_FragColor = vec4(uColor, f * 0.5); }`}
       />
+    </mesh>
+  );
+}
+
+/** White sphere under the map, so the globe is never see-through while loading. */
+function Blank() {
+  return (
+    <mesh>
+      <sphereGeometry args={[0.995, 48, 48]} />
+      <meshBasicMaterial color="#ffffff" />
     </mesh>
   );
 }
@@ -216,8 +241,8 @@ function Globe({ spin }: { spin: boolean }) {
     () =>
       ROUTES.map(([a, b, lift], i) => ({
         key: `${a}-${b}`,
-        from: city(a, 1.004),
-        to: city(b, 1.004),
+        from: city(a, 1.002),
+        to: city(b, 1.002),
         lift,
         index: i,
       })),
@@ -225,26 +250,26 @@ function Globe({ spin }: { spin: boolean }) {
   );
 
   useFrame((_, delta) => {
-    if (spin && group.current) group.current.rotation.y += delta * 0.045;
+    if (spin && group.current) group.current.rotation.y += delta * 0.04;
   });
 
-  const groupProps: ThreeElements["group"] = { rotation: [0.06, -2.45, -0.22] };
+  // Opens on the corridor: Africa on the left, India on the right.
+  const groupProps: ThreeElements["group"] = { rotation: [0.16, -2.58, -0.08] };
 
   return (
     <group ref={group} {...groupProps}>
-      <mesh>
-        <sphereGeometry args={[0.985, 64, 64]} />
-        <meshBasicMaterial color="#ffffff" />
-      </mesh>
+      <Blank />
+      <Suspense fallback={null}>
+        <World />
+      </Suspense>
       <Rim />
-      <PointShell />
       {arcs.map((arc) => (
         <Arc key={arc.key} from={arc.from} to={arc.to} lift={arc.lift} index={arc.index} />
       ))}
-      <Marker position={city("delhi", 1.01)} color="#c9a227" />
-      <Marker position={city("mumbai", 1.01)} color="#c9a227" />
-      <Marker position={city("bengaluru", 1.01)} color="#c9a227" />
-      <Marker position={city("kigali", 1.01)} color="#1a56b8" />
+      <Marker position={city("delhi", 1.008)} color="#c9a227" />
+      <Marker position={city("mumbai", 1.008)} color="#c9a227" />
+      <Marker position={city("ahmedabad", 1.008)} color="#c9a227" />
+      <Marker position={city("kigali", 1.008)} color="#1a56b8" />
     </group>
   );
 }

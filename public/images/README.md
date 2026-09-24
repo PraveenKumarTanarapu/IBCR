@@ -9,8 +9,9 @@ plate, a set of initials, or the original masthead motif — so nothing looks
 broken while you are collecting assets. Drop a file in and it takes over with
 no code change.
 
-`.jpg` throughout: the paths carry the extension, so a `.png` or `.webp` saved
-under one of these names will not be found.
+`.jpg` throughout, except partner logos which are `.png`: the paths carry the
+extension, so a file saved under one of these names with a different one will
+not be found.
 
 ---
 
@@ -62,7 +63,30 @@ Folder: `public/images/board/` — shown on `/about#leadership`.
 Until a portrait is there, the tile shows that member's initials on a drawn
 plate, and the name list and details panel work exactly the same.
 
-## 3. Opportunity sectors — **5 to upload**
+## 3. Partner logos — **10 optional**
+
+Folder: `public/images/partners/` — shown in the Strategic Partners marquee.
+
+| File                                | Institution                  |
+| ----------------------------------- | ---------------------------- |
+| `high-commission-of-india.png`      | High Commission of India     |
+| `rwanda-development-board.png`      | Rwanda Development Board     |
+| `private-sector-federation.png`     | Private Sector Federation    |
+| `rwanda-revenue-authority.png`      | Rwanda Revenue Authority     |
+| `ficci.png`                         | FICCI                        |
+| `cii.png`                           | CII                          |
+| `bank-of-kigali.png`                | Bank of Kigali               |
+| `norrsken-east-africa.png`          | Norrsken East Africa         |
+| `kigali-chamber-of-commerce.png`    | Kigali Chamber of Commerce   |
+| `exim-bank-of-india.png`            | EXIM Bank of India           |
+
+Square-ish PNG with a transparent background, around 200×200. The tile is 48px
+so fine detail will not survive — a mark works better than a full lockup. A
+tile with no logo shows the institution's initials instead.
+
+Use each institution's own approved artwork; do not redraw or recolour it.
+
+## 4. Opportunity sectors — **5 to upload**
 
 Folder: `public/images/opportunities/`
 
@@ -80,7 +104,7 @@ Folder: `public/images/opportunities/`
 Landscape-leaning, around 1200×900. Shown desaturated until hover, so pick
 frames that read in greyscale.
 
-## 4. Service cards — **2 to upload**
+## 5. Service cards — **2 to upload**
 
 Folder: `public/images/services/`
 
@@ -96,7 +120,7 @@ Folder: `public/images/services/`
 Portrait, 5:7 — 640×896 is the size shipped here. Crop before exporting: the
 card fills, it does not letterbox.
 
-## 5. Why IBCR
+## 6. Why IBCR
 
 | File                       | Used by                     | Status     |
 | -------------------------- | --------------------------- | ---------- |

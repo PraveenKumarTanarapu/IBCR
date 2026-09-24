@@ -22,9 +22,11 @@ export const SITE = {
   url: "https://ibcr.rw",
   email: "info@ibcr.rw",
   membershipEmail: "membership@ibcr.rw",
-  phone: "+250 788 000 000",
-  phoneHref: "+250788000000",
-  whatsapp: "+250788000000",
+  phone: "+250 799 530 694",
+  phoneHref: "+250799530694",
+  /** Digits only, as wa.me expects them. */
+  whatsapp: "250799530694",
+  whatsappMessage: "Hello IBCR, I would like to know more about the Chamber.",
   address: {
     line1: "Kigali Heights, KG 7 Ave",
     line2: "Kimihurura, Kigali",
@@ -169,8 +171,8 @@ export const STATS = [
     label: "Committed Indian investment in Rwanda in 2024",
   },
   { value: 9, prefix: "", suffix: "", label: "Key sectors driving the corridor today" },
-  { value: 4, prefix: "", suffix: "", label: "Membership categories, professional to corporate" },
-  { value: 3, prefix: "", suffix: "", label: "Sub-committees turning plans into delivery" },
+  { value: 25, prefix: "", suffix: "", label: "Member companies on the register today" },
+  { value: 5, prefix: "", suffix: "", label: "Membership categories, Silver to International" },
 ] as const;
 
 /**
@@ -373,27 +375,29 @@ export const OPPORTUNITIES = [
 /* -------------------------------------------------------------- membership */
 
 /**
- * The four categories, their annual fees and their benefits, exactly as the
- * Chamber's deck sets them out.
+ * The five membership categories and their annual fees, as the Chamber sets
+ * them out. Silver, Gold, Platinum and Corporate come from the Chamber's deck;
+ * International is the category for members based outside Rwanda, and carries
+ * two options rather than one fee.
  *
- * `price` is keyed by the two rates the deck quotes — the standard annual fee
- * and the exclusive limited offer — which is what the toggle above the cards
- * switches between. A string price (Corporate) is printed as written.
+ * The limited launch offer these once carried has closed — the fees below are
+ * the standard rates.
  */
-export const MEMBERSHIP_RATES = ["standard", "launch offer"] as const;
-export type MembershipRate = (typeof MEMBERSHIP_RATES)[number];
+export type MembershipOption = { name: string; who: string };
 
 export type MembershipTier = {
   id: string;
   name: string;
-  /** The deck's one-line positioning for the category. */
+  /** The one-line positioning for the category. */
   label: string;
-  price: Record<MembershipRate, number | string>;
+  price: number | string;
   currency: string;
   period: string;
   who: string;
-  /** Named tier whose benefits this one builds on, per the deck. */
+  /** Named tier whose benefits this one builds on. */
   inherits?: string;
+  /** Categories that split into more than one kind of member. */
+  options?: MembershipOption[];
   benefits: string[];
   eligibility: string;
   featured?: boolean;
@@ -404,7 +408,7 @@ export const MEMBERSHIP_TIERS: MembershipTier[] = [
     id: "silver",
     name: "Silver",
     label: "Professional & SME",
-    price: { standard: 250_000, "launch offer": 124_999 },
+    price: 250_000,
     currency: "RWF",
     period: "/yr",
     who: "Designed for startups, professionals, freelancers and emerging entrepreneurs who want to become part of the India\u2013Rwanda business ecosystem.",
@@ -427,7 +431,7 @@ export const MEMBERSHIP_TIERS: MembershipTier[] = [
     id: "gold",
     name: "Gold",
     label: "Growth Business",
-    price: { standard: 1_000_000, "launch offer": 449_999 },
+    price: 1_000_000,
     currency: "RWF",
     period: "/yr",
     who: "Designed for small and medium businesses seeking visibility, networking and market expansion opportunities.",
@@ -447,7 +451,7 @@ export const MEMBERSHIP_TIERS: MembershipTier[] = [
     id: "platinum",
     name: "Platinum",
     label: "Leadership Business",
-    price: { standard: 2_000_000, "launch offer": 999_999 },
+    price: 2_000_000,
     currency: "RWF",
     period: "/yr",
     who: "Designed for growing enterprises, medium-sized businesses, exporters, technology firms, consultants and high-potential entrepreneurs.",
@@ -473,7 +477,7 @@ export const MEMBERSHIP_TIERS: MembershipTier[] = [
     id: "corporate",
     name: "Corporate",
     label: "Premium Strategic Partner",
-    price: { standard: "On request", "launch offer": "On request" },
+    price: "On request",
     currency: "RWF",
     period: "",
     who: "A special category engaging Indian, Rwandan and international multi-million-dollar corporates as part of this prestigious chamber.",
@@ -485,6 +489,34 @@ export const MEMBERSHIP_TIERS: MembershipTier[] = [
       "Indian, Rwandan and international enterprises",
     ],
     eligibility: "By discussion with the Board. Talk to the secretariat.",
+  },
+  {
+    id: "international",
+    name: "International",
+    label: "Outside Rwanda",
+    price: "On request",
+    currency: "RWF",
+    period: "",
+    who: "For companies and professionals based outside Rwanda \u2014 in India or anywhere else \u2014 who want the corridor open to them before they have an entity on the ground.",
+    options: [
+      {
+        name: "Corporate",
+        who: "Companies headquartered outside Rwanda, exploring entry, sourcing, distribution or investment.",
+      },
+      {
+        name: "Individual",
+        who: "Professionals, consultants and investors working the corridor in their own name.",
+      },
+    ],
+    benefits: [
+      "Remote access to briefings and business updates",
+      "Introductions arranged ahead of a market visit",
+      "Participation in trade missions and delegations",
+      "Directory listing with an international marker",
+      "Market entry guidance from the secretariat",
+      "Invitations to chamber events when you are in Kigali",
+    ],
+    eligibility: "Organisations and individuals based outside Rwanda.",
   },
 ];
 
@@ -499,17 +531,26 @@ export const MEMBERSHIP_BENEFITS = [
 
 /* -------------------------------------------------------- member directory */
 
+/**
+ * The member register.
+ *
+ * Every member company is based in Kigali, so the directory shows the company,
+ * who represents it and their role, with the membership category — location is
+ * the same for all of them and is left off. Representatives' phone numbers and
+ * email addresses are in the Chamber's register and are deliberately not
+ * published here.
+ */
+export type MemberTier = "Silver" | "Gold" | "Platinum" | "Corporate" | "International";
+
 export type Member = {
   id: string;
   name: string;
-  sector: string;
-  city: string;
-  country: "Rwanda" | "India" | "UAE" | "Kenya";
-  tier: "Corporate Member" | "SME Member" | "Startup Member" | "Institutional Member" | "International Member";
-  summary: string;
-  since: number;
+  representative: string;
+  designation: string;
+  tier: MemberTier;
 };
 
+/** Sectors offered on the application form. */
 export const MEMBER_SECTORS = [
   "Agriculture & Agribusiness",
   "Manufacturing",
@@ -523,34 +564,41 @@ export const MEMBER_SECTORS = [
   "Professional Services",
 ] as const;
 
-export const MEMBERS: Member[] = [
-  { id: "m01", name: "Kigali Agro Processing", sector: "Agriculture & Agribusiness", city: "Kigali", country: "Rwanda", tier: "Corporate Member", summary: "Grain milling and export-grade processing for regional markets.", since: 2024 },
-  { id: "m02", name: "Deccan Pharma East Africa", sector: "Healthcare", city: "Kigali", country: "Rwanda", tier: "Corporate Member", summary: "Distribution of generics and medical consumables across the region.", since: 2024 },
-  { id: "m03", name: "Sahyadri Infra Projects", sector: "Infrastructure", city: "Pune", country: "India", tier: "International Member", summary: "Civil contracting and industrial park development.", since: 2025 },
-  { id: "m04", name: "Virunga Cold Chain", sector: "Logistics", city: "Musanze", country: "Rwanda", tier: "SME Member", summary: "Refrigerated storage and last-mile distribution for perishables.", since: 2025 },
-  { id: "m05", name: "Nyanza Textiles", sector: "Manufacturing", city: "Nyanza", country: "Rwanda", tier: "SME Member", summary: "Made in Rwanda apparel manufacturing and contract production.", since: 2024 },
-  { id: "m06", name: "Bharat Solar Systems", sector: "Energy", city: "Ahmedabad", country: "India", tier: "International Member", summary: "Rooftop solar and mini-grid engineering for African markets.", since: 2025 },
-  { id: "m07", name: "Umuganda Digital", sector: "Technology", city: "Kigali", country: "Rwanda", tier: "Startup Member", summary: "Payments infrastructure for SMEs and informal retail.", since: 2025 },
-  { id: "m08", name: "Ganges Steel Trading", sector: "Manufacturing", city: "Mumbai", country: "India", tier: "Corporate Member", summary: "Structural steel and building materials supply.", since: 2024 },
-  { id: "m09", name: "Akagera Hospitality Group", sector: "Tourism & Hospitality", city: "Kigali", country: "Rwanda", tier: "Corporate Member", summary: "Business hotels and MICE venues in Kigali.", since: 2024 },
-  { id: "m10", name: "Kaveri Irrigation Technologies", sector: "Agriculture & Agribusiness", city: "Bengaluru", country: "India", tier: "International Member", summary: "Drip irrigation systems and agronomy support.", since: 2025 },
-  { id: "m11", name: "Rwanda Freight Partners", sector: "Logistics", city: "Kigali", country: "Rwanda", tier: "SME Member", summary: "Regional freight forwarding and customs brokerage.", since: 2024 },
-  { id: "m12", name: "Indo-Rwanda Advisory", sector: "Professional Services", city: "Kigali", country: "Rwanda", tier: "SME Member", summary: "Cross-border tax, audit and corporate structuring.", since: 2024 },
-  { id: "m13", name: "Nile Diagnostics", sector: "Healthcare", city: "Kigali", country: "Rwanda", tier: "SME Member", summary: "Pathology laboratories and imaging services.", since: 2025 },
-  { id: "m14", name: "Chennai Engineering Works", sector: "Manufacturing", city: "Chennai", country: "India", tier: "International Member", summary: "Food processing machinery and after-sales service.", since: 2025 },
-  { id: "m15", name: "Muhanga Cement Partners", sector: "Manufacturing", city: "Muhanga", country: "Rwanda", tier: "Corporate Member", summary: "Cement blending and construction material supply.", since: 2024 },
-  { id: "m16", name: "Kigali Fintech Labs", sector: "Financial Services", city: "Kigali", country: "Rwanda", tier: "Startup Member", summary: "Cross-border remittance and treasury tooling.", since: 2025 },
-  { id: "m17", name: "Sunrise Agro Exports", sector: "Agriculture & Agribusiness", city: "Nashik", country: "India", tier: "International Member", summary: "Horticulture exports and post-harvest technology.", since: 2025 },
-  { id: "m18", name: "East Africa Power Solutions", sector: "Energy", city: "Nairobi", country: "Kenya", tier: "International Member", summary: "Distributed generation and energy storage integration.", since: 2025 },
-  { id: "m19", name: "Gorilla Trails Travel", sector: "Tourism & Hospitality", city: "Kigali", country: "Rwanda", tier: "SME Member", summary: "Inbound corporate travel and destination management.", since: 2024 },
-  { id: "m20", name: "Bengaluru Cloud Services", sector: "Technology", city: "Bengaluru", country: "India", tier: "International Member", summary: "Managed IT services and enterprise software delivery.", since: 2025 },
-  { id: "m21", name: "Rwanda Polytechnic Enterprise", sector: "Professional Services", city: "Kigali", country: "Rwanda", tier: "Institutional Member", summary: "Skills development and industry training partnerships.", since: 2024 },
-  { id: "m22", name: "Gulf Trade Bridge", sector: "Logistics", city: "Dubai", country: "UAE", tier: "International Member", summary: "Transhipment and consolidation between India and East Africa.", since: 2025 },
-  { id: "m23", name: "Kivu Aqua Farms", sector: "Agriculture & Agribusiness", city: "Rubavu", country: "Rwanda", tier: "SME Member", summary: "Aquaculture production and cold-chain distribution.", since: 2025 },
-  { id: "m24", name: "Meridian Capital Advisors", sector: "Financial Services", city: "Kigali", country: "Rwanda", tier: "Corporate Member", summary: "Transaction advisory and private capital raising.", since: 2024 },
+export const MEMBER_TIERS: MemberTier[] = [
+  "Platinum",
+  "Gold",
+  "Silver",
+  "Corporate",
+  "International",
 ];
 
-/* ------------------------------------------------------------------ events */
+export const MEMBERS: Member[] = [
+  { id: "m01", name: "Imana Steel Rwanda Ltd", representative: "Mehul Pravinchandra Brahmbratt", designation: "CEO", tier: "Platinum" },
+  { id: "m02", name: "Konnect Analysis Ltd", representative: "Gayatri Chopali", designation: "Managing Director", tier: "Platinum" },
+  { id: "m03", name: "Alpine Holidays Ltd", representative: "Hem Raj Sharma", designation: "Managing Director", tier: "Platinum" },
+  { id: "m04", name: "Quadinfra Ltd", representative: "Madhusudhan Reddy Koduru", designation: "Managing Director", tier: "Platinum" },
+  { id: "m05", name: "Yuvikhetani Ltd", representative: "Virji Manji Kanji Khetani", designation: "Managing Director", tier: "Platinum" },
+  { id: "m06", name: "Satguru Travel & Tours", representative: "Bharat Tonali", designation: "Managing Director", tier: "Platinum" },
+  { id: "m07", name: "Orbit Healthcare Service Ltd", representative: "I. Vasudeva Rao", designation: "Centre Head", tier: "Platinum" },
+  { id: "m08", name: "Sabari Ltd", representative: "Srinath Vardhineni", designation: "Managing Director", tier: "Platinum" },
+  { id: "m09", name: "Savita Builders Rwanda Ltd", representative: "Harshad Naran Jesani", designation: "General Manager", tier: "Gold" },
+  { id: "m10", name: "Imprisco Plus Ltd", representative: "Jojo Joseph", designation: "Managing Director", tier: "Gold" },
+  { id: "m11", name: "Ashree Com Ltd", representative: "Ramu Morampudi", designation: "Managing Director", tier: "Gold" },
+  { id: "m12", name: "Shyam Group Ltd", representative: "Awadesh Singh", designation: "Managing Director", tier: "Gold" },
+  { id: "m13", name: "D.P Singh Associates Ltd", representative: "D.P Singh", designation: "Managing Director", tier: "Gold" },
+  { id: "m14", name: "Hi-Fi Trading Service Ltd", representative: "Chetan Dodiya", designation: "Managing Director", tier: "Gold" },
+  { id: "m15", name: "Finex Investment Ltd", representative: "Raviraja Poojary", designation: "Director", tier: "Silver" },
+  { id: "m16", name: "Care Group International", representative: "Jyotiprakash Panda", designation: "CEO", tier: "Silver" },
+  { id: "m17", name: "Ram Associates", representative: "Nupur Jain", designation: "Managing Director", tier: "Silver" },
+  { id: "m18", name: "Sai Info-Tech Ltd", representative: "Prakash Kalavagadd", designation: "Managing Director", tier: "Silver" },
+  { id: "m19", name: "Impact Technology", representative: "Shaikh Mahebubddin", designation: "Managing Director", tier: "Silver" },
+  { id: "m20", name: "Gyan Ltd", representative: "Jwala Vijay Kumar Chaluvadi", designation: "Managing Director", tier: "Silver" },
+  { id: "m21", name: "ALSM", representative: "Sunnykumar Mateeti", designation: "Managing Partner", tier: "Silver" },
+  { id: "m22", name: "SSV Shop & General Trading Ltd", representative: "Somishetty Venkateswarlu", designation: "Managing Director", tier: "Silver" },
+  { id: "m23", name: "Flexipay Finance Ltd", representative: "Ross T Nathan", designation: "Managing Director & CEO", tier: "Silver" },
+  { id: "m24", name: "Artab Biobag Ltd", representative: "Sidharth Bohra", designation: "Managing Director", tier: "Silver" },
+  { id: "m25", name: "Techin1000Hills Ltd", representative: "Sadesh Kumae Puthenpurayil Soman", designation: "Chairperson & CEO", tier: "Silver" },
+];
 
 export type IbcrEvent = {
   id: string;
@@ -777,51 +825,76 @@ export const INSIGHTS: Insight[] = [
 
 /* ------------------------------------------------------------ testimonials */
 
+/**
+ * DRAFT QUOTES — NOT YET APPROVED FOR PUBLICATION.
+ *
+ * The names, roles and companies below are real members from the Chamber's
+ * register. The words are drafted copy, not anything these people have said.
+ * Get each quote confirmed in writing by the member before this goes live, or
+ * replace it with what they actually send back.
+ */
 export const TESTIMONIALS = [
   {
+    id: "t1",
     quote:
-      "IBCR gave us a realistic picture of the market before we committed capital, and then made the introductions that got us operating. That sequence matters.",
-    name: "Managing Director",
-    role: "Pharmaceutical distribution",
-    company: "Corporate Member, Kigali",
+      "The Chamber is where the introductions actually happen. That is worth more than any amount of general advice.",
+    author: "Mehul Pravinchandra Brahmbratt",
+    role: "CEO",
+    company: "Imana Steel Rwanda Ltd",
   },
   {
+    id: "t2",
     quote:
-      "We came on a delegation expecting a week of presentations. We left with three signed distribution conversations and a clear view of the regulatory path.",
-    name: "Export Head",
-    role: "Agricultural machinery",
-    company: "International Member, Pune",
+      "Being part of one collective voice changes how a conversation with an institution begins.",
+    author: "Gayatri Chopali",
+    role: "Managing Director",
+    company: "Konnect Analysis Ltd",
   },
   {
+    id: "t3",
     quote:
-      "As a small exporter, the value is access. Rooms we could not have entered alone, and a secretariat that answers the phone.",
-    name: "Founder",
-    role: "Horticulture exports",
-    company: "SME Member, Nashik",
+      "For a business working across both markets, having somewhere to ask the practical questions matters every week.",
+    author: "Hem Raj Sharma",
+    role: "Managing Director",
+    company: "Alpine Holidays Ltd",
   },
   {
+    id: "t4",
     quote:
-      "The Chamber's briefings are written for people who have to decide something. That is rarer than it should be.",
-    name: "Country Manager",
-    role: "Infrastructure & construction",
-    company: "Corporate Member, Kigali",
+      "The value is in the people you meet who are two steps ahead of where you are.",
+    author: "Nupur Jain",
+    role: "Managing Director",
+    company: "Ram Associates",
+  },
+  {
+    id: "t5",
+    quote:
+      "Joining put our name in front of the right rooms in Kigali far faster than we would have managed alone.",
+    author: "Jojo Joseph",
+    role: "Managing Director",
+    company: "Imprisco Plus Ltd",
   },
 ] as const;
 
-/* ---------------------------------------------------------------- partners */
+/**
+ * `logo` is an optional path under public/images/partners/. A tile with no
+ * logo file shows the institution's initials instead, so the row is complete
+ * before the artwork is.
+ */
+export type Partner = { name: string; category: string; logo?: string };
 
-export const PARTNERS = [
-  { name: "High Commission of India", category: "Diplomatic" },
-  { name: "Rwanda Development Board", category: "Government" },
-  { name: "Private Sector Federation", category: "Industry" },
-  { name: "Rwanda Revenue Authority", category: "Government" },
-  { name: "FICCI", category: "Industry" },
-  { name: "CII", category: "Industry" },
-  { name: "Bank of Kigali", category: "Financial" },
-  { name: "Norrsken East Africa", category: "Innovation" },
-  { name: "Kigali Chamber of Commerce", category: "Industry" },
-  { name: "EXIM Bank of India", category: "Financial" },
-] as const;
+export const PARTNERS: Partner[] = [
+  { name: "High Commission of India", category: "Diplomatic", logo: "/images/partners/high-commission-of-india.png" },
+  { name: "Rwanda Development Board", category: "Government", logo: "/images/partners/rwanda-development-board.png" },
+  { name: "Private Sector Federation", category: "Industry", logo: "/images/partners/private-sector-federation.png" },
+  { name: "Rwanda Revenue Authority", category: "Government", logo: "/images/partners/rwanda-revenue-authority.png" },
+  { name: "FICCI", category: "Industry", logo: "/images/partners/ficci.png" },
+  { name: "CII", category: "Industry", logo: "/images/partners/cii.png" },
+  { name: "Bank of Kigali", category: "Financial", logo: "/images/partners/bank-of-kigali.png" },
+  { name: "Norrsken East Africa", category: "Innovation", logo: "/images/partners/norrsken-east-africa.png" },
+  { name: "Kigali Chamber of Commerce", category: "Industry", logo: "/images/partners/kigali-chamber-of-commerce.png" },
+  { name: "EXIM Bank of India", category: "Financial", logo: "/images/partners/exim-bank-of-india.png" },
+];
 
 /* ------------------------------------------------------------- about pages */
 

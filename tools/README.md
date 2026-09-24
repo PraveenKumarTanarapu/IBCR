@@ -11,6 +11,7 @@ Build-time and QA helpers. None of this ships to the browser.
 | `serve.mjs`   | Tiny static server (ES modules need an http origin; `file://` is blocked)   |
 | `preview.mjs` | Renders a few sample frames per scene for a quick look                      |
 | `capture.mjs` | Full render → JPEG frames → H.264 MP4 + poster in `public/video`            |
+| `worldmap.mjs`| Natural Earth → `public/textures/world-map.png` for the corridor globe       |
 
 ```bash
 npm run media:preview                 # sample frames

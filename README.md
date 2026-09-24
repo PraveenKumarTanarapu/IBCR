@@ -147,9 +147,26 @@ Each scene's `update(t)` takes normalised progress, so the last frame joins back
 first and the loop is invisible. Output is ~6 MB total for all three clips; a poster frame
 sits underneath the video so there is never a blank hero.
 
-The same corridor scene also runs **live** in WebGL in the India × Rwanda section
-(`components/three/`), where it is draggable. It only mounts once it is near the viewport,
-so the three.js bundle and the GPU context are never paid for above the fold.
+## The globe
+
+The India × Rwanda section runs a **real world map** in WebGL
+(`components/three/CorridorGlobe.tsx`), draggable, with the Chamber's routes
+drawn from Kigali to Delhi, Mumbai and Ahmedabad.
+
+Geography is Natural Earth at 1:50m, rasterised offline by
+`tools/media/worldmap.mjs` into `public/textures/world-map.png`:
+
+```bash
+node tools/media/worldmap.mjs     # → public/textures/world-map.png
+```
+
+That file is two masks rather than a picture — red is land, green is national
+borders — so the colours are mixed in the shader and stay in the design system.
+Change `uLand`, `uOcean` or `uBorder` in the component and nothing needs
+regenerating; regenerate only to change the resolution or the source data.
+
+The globe only mounts once it is near the viewport, so the three.js bundle and
+the GPU context are never paid for above the fold.
 
 ---
 
@@ -175,6 +192,25 @@ drawn plate.
 
 Both read from `src/lib/content.ts` (`MEMBERSHIP_TIERS`, `BOARD`), which now
 carries the Chamber's verified categories, fees, board, mission and vision.
+
+**`components/ui/integration-hero.tsx`** drives *Our strategic partners*: two
+rows of circular tiles drifting in opposite directions over a dotted ground.
+Each row is doubled and travels exactly half its width, so the loop has no
+seam; the keyframes live in `globals.css` beside the ones the rest of the site
+uses. A partner with no logo file shows their initials.
+
+**`components/ui/clean-testimonial.tsx`** drives *Testimonials*: one quote at a
+time, advanced by clicking anywhere in the panel, with the cursor replaced by a
+magnetic "Next" disc. That swap only happens where a real pointer exists, and
+the same action is a focusable button, so it works from the keyboard and on
+touch without one.
+
+**The footer is revealed from underneath.** `.footer-reveal` in `globals.css`
+gives the footer a `clip-path`, which makes it the containing block for its own
+fixed child; the contact section then slides up off it as you reach the bottom
+of the page. Below `lg` — and under `prefers-reduced-motion` — the footer stays
+in normal flow, because a pinned footer taller than the screen would simply
+clip.
 
 **`components/layout/PageHeroMedia.tsx`** puts a photograph behind an inner
 page's masthead — veiled in white and faded towards the copy, so the page still
@@ -256,14 +292,23 @@ failure, which the UI surfaces inline.
 
 ### Wiring the forms up
 
-`src/lib/server/submissions.ts` currently records submissions to the server log. To deliver
-them somewhere real, either:
+Every submission goes to **info@ibcr.rw**. `src/lib/server/submissions.ts`
+always writes the record to the server log, and emails it when a key is
+present:
 
-1. Set `IBCR_SUBMISSION_WEBHOOK` to a URL (Zapier, Make, a CRM inbox) — every submission is
-   POSTed there as `{ kind, receivedAt, data }`; or
-2. Replace the body of `deliver()` with your mail transport or database write.
+| Variable                  | Purpose                                                       |
+| ------------------------- | ------------------------------------------------------------- |
+| `IBCR_RESEND_API_KEY`     | **Required to receive email.** A Resend API key.                |
+| `IBCR_SUBMISSION_EMAIL`   | Where submissions are sent. Defaults to `info@ibcr.rw`.         |
+| `IBCR_SUBMISSION_FROM`    | The From address. Defaults to `IBCR Website <website@ibcr.rw>`. |
+| `IBCR_SUBMISSION_WEBHOOK` | Optional. Also POSTs `{ kind, receivedAt, to, data }` to a URL. |
 
-Nothing else needs to change.
+Until `IBCR_RESEND_API_KEY` is set, forms still validate, still succeed and
+still record — but nothing arrives in the inbox. Set the key (and verify the
+sending domain with the provider) before launch. The sender's own address is
+set as `reply_to`, so replying from the inbox goes straight back to them.
+
+Any other transport works the same way: replace the body of `email()`.
 
 ---
 
@@ -281,11 +326,21 @@ still open — six page backgrounds, seven board portraits, five opportunity
 sectors and two service cards. Until they are dropped in, each renders a drawn
 plate, a set of initials or the masthead motif rather than a broken image.
 
-**Content from the deck.** Membership categories and fees, the board, the
-mission and vision statements, the key sectors and the sub-committees come
-from the Chamber's presentation and are verified. Members, testimonials,
-events, insight articles and the secretariat units are still sample content —
-`src/lib/content.ts` says which is which at the top of the file.
+**Verified content.** Membership categories and fees, the board, the mission
+and vision statements, the key sectors and the sub-committees come from the
+Chamber's presentation. The 25 member companies come from the Chamber's
+membership register. Events, insight articles and the secretariat units are
+still sample content — `src/lib/content.ts` says which is which at the top of
+the file.
+
+**Testimonial quotes are drafts and are not approved.** The names, roles and
+companies are real members; the words are placeholder copy. Get each quote
+confirmed in writing by that member, or replace it with what they send back,
+before this goes live.
+
+**Member contact details are deliberately not published.** The register holds a
+phone number and email address for each representative; the directory shows
+only the company, the representative, their role and the membership category.
 
 The photographs currently in `public/images/` were supplied for the build and
 are stock frames, one of them still watermarked. Clear the licensing, or

@@ -3,19 +3,9 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { ArrowUpRight, MapPin, Search, X } from "lucide-react";
-import { MEMBERS, MEMBER_SECTORS, type Member } from "@/lib/content";
+import { ArrowUpRight, Search, X } from "lucide-react";
+import { MEMBERS, MEMBER_TIERS, type Member } from "@/lib/content";
 import { cn } from "@/lib/utils";
-
-const TIERS = [
-  "Corporate Member",
-  "SME Member",
-  "Startup Member",
-  "Institutional Member",
-  "International Member",
-] as const;
-
-const COUNTRIES = ["Rwanda", "India", "UAE", "Kenya"] as const;
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -27,8 +17,6 @@ export function MemberDirectory({
   showAllLink?: boolean;
 }) {
   const [query, setQuery] = useState("");
-  const [sector, setSector] = useState<string | null>(null);
-  const [country, setCountry] = useState<string | null>(null);
   const [tier, setTier] = useState<string | null>(null);
   const [expanded, setExpanded] = useState(false);
   const reduced = useReducedMotion();
@@ -36,27 +24,22 @@ export function MemberDirectory({
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     return MEMBERS.filter((m) => {
-      if (sector && m.sector !== sector) return false;
-      if (country && m.country !== country) return false;
       if (tier && m.tier !== tier) return false;
       if (!q) return true;
       return (
         m.name.toLowerCase().includes(q) ||
-        m.sector.toLowerCase().includes(q) ||
-        m.city.toLowerCase().includes(q) ||
-        m.summary.toLowerCase().includes(q)
+        m.representative.toLowerCase().includes(q) ||
+        m.designation.toLowerCase().includes(q)
       );
     });
-  }, [query, sector, country, tier]);
+  }, [query, tier]);
 
-  const active = Boolean(query || sector || country || tier);
+  const active = Boolean(query || tier);
   const limit = initialLimit && !expanded && !active ? initialLimit : filtered.length;
   const visible = filtered.slice(0, limit);
 
   const reset = () => {
     setQuery("");
-    setSector(null);
-    setCountry(null);
     setTier(null);
   };
 
@@ -79,7 +62,7 @@ export function MemberDirectory({
               type="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search company, sector or city…"
+              placeholder="Search company, representative or role…"
               className="h-12 w-full rounded-full border border-hairline-strong bg-white pr-4 pl-11 text-[0.9375rem] text-navy-900 outline-none transition-[border-color,box-shadow] duration-300 placeholder:text-muted/70 focus:border-navy-700 focus:shadow-[0_0_0_3px_rgba(17,54,112,0.1)]"
             />
           </div>
@@ -89,10 +72,8 @@ export function MemberDirectory({
           </p>
         </div>
 
-        <div className="mt-5 space-y-3 border-t border-hairline pt-5">
-          <FilterRow label="Sector" value={sector} onChange={setSector} options={MEMBER_SECTORS} />
-          <FilterRow label="Location" value={country} onChange={setCountry} options={COUNTRIES} />
-          <FilterRow label="Membership" value={tier} onChange={setTier} options={TIERS} />
+        <div className="mt-5 border-t border-hairline pt-5">
+          <FilterRow label="Category" value={tier} onChange={setTier} options={MEMBER_TIERS} />
         </div>
 
         {active ? (
@@ -215,22 +196,21 @@ export function MemberCard({ member }: { member: Member }) {
         >
           {initials}
         </span>
-        <div className="min-w-0">
-          <h3 className="truncate text-[1.0625rem] leading-snug font-semibold tracking-tight text-navy-900">
+        <div className="min-w-0 flex-1">
+          <h3 className="text-[1.0625rem] leading-snug font-semibold tracking-tight text-navy-900">
             {member.name}
           </h3>
-          <p className="mt-0.5 text-[0.8125rem] text-muted">{member.sector}</p>
         </div>
+        <span className="label-mono shrink-0 rounded-full border border-hairline px-2.5 py-1 text-[0.5625rem] text-gold-600">
+          {member.tier}
+        </span>
       </div>
 
-      <p className="mt-4 flex-1 text-[0.875rem] leading-[1.6] text-muted">{member.summary}</p>
-
-      <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-hairline pt-4">
-        <span className="inline-flex items-center gap-1.5 text-[0.75rem] text-muted">
-          <MapPin strokeWidth={1.5} className="size-3.5 text-gold-600" aria-hidden />
-          {member.city}, {member.country}
-        </span>
-        <span className="label-mono text-[0.5625rem] text-navy-900/45">{member.tier}</span>
+      <div className="mt-5 flex-1 border-t border-hairline pt-4">
+        <p className="text-[0.9375rem] leading-snug font-medium text-navy-900">
+          {member.representative}
+        </p>
+        <p className="mt-1 text-[0.8125rem] text-muted">{member.designation}</p>
       </div>
     </article>
   );

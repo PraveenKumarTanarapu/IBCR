@@ -27,6 +27,12 @@ export default function ContactPage() {
           <ButtonLink href={`tel:${SITE.phoneHref}`} variant="outline">
             {SITE.phone}
           </ButtonLink>
+          <ButtonLink
+            href={`https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(SITE.whatsappMessage)}`}
+            variant="outline"
+          >
+            WhatsApp
+          </ButtonLink>
         </div>
       </PageHero>
 

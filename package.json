@@ -36,7 +36,9 @@
     "eslint-config-next": "16.3.5",
     "playwright": "^1.57.0",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "topojson-client": "^3.1.0",
+    "typescript": "^5",
+    "world-atlas": "^2.0.2"
   },
-  "description": "Indian Business Chamber in Rwanda \u2014 premium institutional website"
+  "description": "Indian Business Chamber in Rwanda — premium institutional website"
 }
