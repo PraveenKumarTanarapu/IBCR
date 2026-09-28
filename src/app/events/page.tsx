@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 
 export default function EventsPage() {
   const flagship = EVENTS.find((e) => e.flagship);
-  const upcoming = EVENTS.filter((e) => e.status === "upcoming" && !e.flagship);
+  const upcoming = EVENTS.filter((e) => e.status === "upcoming" && e.id !== flagship?.id);
   const past = EVENTS.filter((e) => e.status === "past");
 
   return (
@@ -63,8 +63,10 @@ export default function EventsPage() {
                     <ul className="mt-7 flex flex-wrap gap-x-8 gap-y-3 text-[0.875rem] text-muted">
                       <li className="flex items-center gap-2">
                         <CalendarDays strokeWidth={1.5} className="size-4 text-gold" aria-hidden />
-                        {formatLongDate(flagship.date)}
-                        {flagship.endDate ? ` – ${formatLongDate(flagship.endDate)}` : ""}
+                        {flagship.dateLabel ??
+                          `${formatLongDate(flagship.date)}${
+                            flagship.endDate ? ` – ${formatLongDate(flagship.endDate)}` : ""
+                          }`}
                       </li>
                       <li className="flex items-center gap-2">
                         <MapPin strokeWidth={1.5} className="size-4 text-gold" aria-hidden />

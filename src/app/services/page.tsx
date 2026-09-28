@@ -11,6 +11,7 @@ import {
 import { PageHero } from "@/components/layout/PageHero";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
 import { ButtonLink } from "@/components/ui/Button";
+import { SectionBackdrop } from "@/components/ui/SectionBackdrop";
 import { Section, SectionHeading } from "@/components/ui/Section";
 import { SERVICES } from "@/lib/content";
 
@@ -61,9 +62,10 @@ export default function ServicesPage() {
             key={service.id}
             id={service.id}
             divided={index > 0}
-            className="py-16 md:py-20"
+            className="overflow-hidden py-16 md:py-20"
           >
-            <div className="container-page">
+            <SectionBackdrop image={service.image} side={index % 2 === 0 ? "right" : "left"} />
+            <div className="container-page relative">
               <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
                 <div className="lg:col-span-5">
                   <Reveal>

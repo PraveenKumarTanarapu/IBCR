@@ -205,6 +205,22 @@ magnetic "Next" disc. That swap only happens where a real pointer exists, and
 the same action is a focusable button, so it works from the keyboard and on
 touch without one.
 
+**`components/ui/logo-clouds.tsx`** drives the member logo wall, on the
+homepage under the partners marquee and again on `/membership#member-logos`.
+Each mark wipes away left-to-right and back on a timer, staggered across the
+grid, so the wall refreshes without moving. A company with no logo file shows
+its initials — which matters more here than anywhere else, since a half-filled
+logo wall reads as a half-empty chamber. The wipe never runs under reduced
+motion.
+
+**`components/ui/SectionBackdrop.tsx`** puts a photograph behind a full-width
+section, veiled in white and faded from alternating sides. Two places use it,
+and both reuse images the site already has rather than adding new slots: each
+service section on `/services` takes that service's own card photograph, and
+each sector section on `/india-rwanda#opportunities` takes that sector's own
+card photograph. The corridor page shows the eight sectors in long form; the
+homepage keeps the compact card grid, so the two read as detail and preview.
+
 **The footer is revealed from underneath.** `.footer-reveal` in `globals.css`
 gives the footer a `clip-path`, which makes it the containing block for its own
 fixed child; the contact section then slides up off it as you reach the bottom
@@ -292,7 +308,8 @@ failure, which the UI surfaces inline.
 
 ### Wiring the forms up
 
-Every submission goes to **info@ibcr.rw**. `src/lib/server/submissions.ts`
+Every submission goes to **info@ibcr.rw** — the site has one inbox, used for
+enquiries, membership and press alike. `src/lib/server/submissions.ts`
 always writes the record to the server log, and emails it when a key is
 present:
 

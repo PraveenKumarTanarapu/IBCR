@@ -65,12 +65,9 @@ export function ContactSection() {
                     >
                       {SITE.email}
                     </a>
-                    <a
-                      href={`mailto:${SITE.membershipEmail}`}
-                      className="link-underline block text-[0.875rem] text-muted"
-                    >
-                      {SITE.membershipEmail}
-                    </a>
+                    <p className="text-[0.875rem] text-muted">
+                      Enquiries, membership and press
+                    </p>
                   </div>
                 </div>
 

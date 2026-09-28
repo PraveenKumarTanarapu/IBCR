@@ -9,6 +9,7 @@ import { Directory } from "@/components/home/Directory";
 import { InsightsSection } from "@/components/home/InsightsSection";
 import { Testimonials } from "@/components/home/Testimonials";
 import { Partners } from "@/components/home/Partners";
+import { MemberLogos } from "@/components/home/MemberLogos";
 import { FinalCta } from "@/components/home/FinalCta";
 import { ContactSection } from "@/components/home/ContactSection";
 import { SITE } from "@/lib/content";
@@ -32,6 +33,7 @@ export default function HomePage() {
       <InsightsSection />
       <Testimonials />
       <Partners />
+      <MemberLogos divided />
       <FinalCta />
       <ContactSection />
     </>

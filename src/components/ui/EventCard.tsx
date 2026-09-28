@@ -28,18 +28,28 @@ export function EventCard({ event }: { event: IbcrEvent }) {
       <p className="mt-3 flex-1 text-[0.875rem] leading-[1.6] text-muted">{event.summary}</p>
 
       <ul className="mt-5 space-y-1.5 border-t border-hairline pt-4 text-[0.75rem] text-muted">
-        <li className="flex items-center gap-2">
-          <CalendarDays strokeWidth={1.5} className="size-3.5 text-gold-600" aria-hidden />
-          {formatDate(event.date)}
-          {event.endDate ? ` – ${formatDate(event.endDate)}` : ""}
+        <li className="flex items-start gap-2">
+          <CalendarDays
+            strokeWidth={1.5}
+            className="mt-px size-3.5 shrink-0 text-gold-600"
+            aria-hidden
+          />
+          <span>
+            {event.dateLabel ??
+              `${formatDate(event.date)}${event.endDate ? ` – ${formatDate(event.endDate)}` : ""}`}
+          </span>
         </li>
-        <li className="flex items-center gap-2">
-          <Clock strokeWidth={1.5} className="size-3.5 text-gold-600" aria-hidden />
-          {event.time}
-        </li>
-        <li className="flex items-center gap-2">
-          <MapPin strokeWidth={1.5} className="size-3.5 text-gold-600" aria-hidden />
-          {event.venue}, {event.city}
+        {event.time ? (
+          <li className="flex items-center gap-2">
+            <Clock strokeWidth={1.5} className="size-3.5 text-gold-600" aria-hidden />
+            {event.time}
+          </li>
+        ) : null}
+        <li className="flex items-start gap-2">
+          <MapPin strokeWidth={1.5} className="mt-px size-3.5 shrink-0 text-gold-600" aria-hidden />
+          <span>
+            {event.venue}, {event.city}
+          </span>
         </li>
       </ul>
 

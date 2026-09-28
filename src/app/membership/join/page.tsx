@@ -100,10 +100,10 @@ export default async function JoinPage(props: PageProps<"/membership/join">) {
                 <p className="mt-10 border-t border-hairline pt-6 text-[0.875rem] leading-relaxed text-muted">
                   Prefer to talk first? Email{" "}
                   <a
-                    href={`mailto:${SITE.membershipEmail}`}
+                    href={`mailto:${SITE.email}`}
                     className="font-medium text-navy-800 underline decoration-gold/60 underline-offset-4"
                   >
-                    {SITE.membershipEmail}
+                    {SITE.email}
                   </a>{" "}
                   or call{" "}
                   <a

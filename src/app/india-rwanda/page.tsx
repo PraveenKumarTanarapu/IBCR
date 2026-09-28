@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/layout/PageHero";
-import { OpportunityGrid } from "@/components/home/Opportunities";
+import { OpportunitySections } from "@/components/home/OpportunitySections";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
 import { GlobeStage } from "@/components/three/GlobeStage";
 import { ButtonLink } from "@/components/ui/Button";
@@ -136,7 +136,7 @@ export default function IndiaRwandaPage() {
       </Section>
 
       {/* --------------------------------------------------- opportunities */}
-      <Section id="opportunities">
+      <Section id="opportunities" className="pb-0 md:pb-0 lg:pb-0">
         <div className="container-page">
           <SectionHeading
             eyebrow="Investment opportunities"
@@ -144,20 +144,10 @@ export default function IndiaRwandaPage() {
             accent="meets ambition."
             copy="Eight sectors where Rwandan demand and Indian capability line up most cleanly today."
           />
-          <Reveal className="mt-14" y={26}>
-            <OpportunityGrid />
-          </Reveal>
-
-          <Reveal className="mt-14 flex flex-wrap gap-3" delay={0.06}>
-            <ButtonLink href="/contact" size="lg" withArrow>
-              Discuss an opportunity
-            </ButtonLink>
-            <ButtonLink href="/services#investment-advisory" variant="outline" size="lg">
-              Investment advisory
-            </ButtonLink>
-          </Reveal>
         </div>
       </Section>
+
+      <OpportunitySections />
     </>
   );
 }

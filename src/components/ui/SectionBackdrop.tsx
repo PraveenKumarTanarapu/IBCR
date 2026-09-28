@@ -1,0 +1,52 @@
+"use client";
+
+import { useState } from "react";
+import { cn } from "@/lib/utils";
+
+/**
+ * A photograph behind a full-width section, veiled in white.
+ *
+ * Same idea as the page mastheads: the image is ground, not a banner, so the
+ * page still reads white and navy body copy keeps its contrast. `side` decides
+ * which half of the frame stays legible — alternate it down a page and the
+ * photography carries the rhythm rather than fighting the text.
+ *
+ * A missing file removes the layer entirely rather than leaving a broken
+ * image, so an unsupplied photograph costs nothing.
+ */
+export function SectionBackdrop({
+  image,
+  side = "right",
+  className,
+}: {
+  image?: string;
+  side?: "left" | "right";
+  className?: string;
+}) {
+  const [failed, setFailed] = useState(false);
+  if (!image || failed) return null;
+
+  return (
+    <div aria-hidden className={cn("pointer-events-none absolute inset-0", className)}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={image}
+        alt=""
+        loading="lazy"
+        onError={() => setFailed(true)}
+        className="absolute inset-0 size-full object-cover"
+      />
+      <div className="absolute inset-0 bg-white/80" />
+      <div
+        className={cn(
+          "absolute inset-0",
+          side === "right"
+            ? "bg-[linear-gradient(to_right,rgba(255,255,255,0.98)_0%,rgba(255,255,255,0.9)_45%,rgba(255,255,255,0.42)_100%)]"
+            : "bg-[linear-gradient(to_left,rgba(255,255,255,0.98)_0%,rgba(255,255,255,0.9)_45%,rgba(255,255,255,0.42)_100%)]",
+        )}
+      />
+      <div className="absolute inset-x-0 top-0 h-24 bg-[linear-gradient(to_bottom,#ffffff,rgba(255,255,255,0))]" />
+      <div className="absolute inset-x-0 bottom-0 h-24 bg-[linear-gradient(to_top,#ffffff,rgba(255,255,255,0))]" />
+    </div>
+  );
+}

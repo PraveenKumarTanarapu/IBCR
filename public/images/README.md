@@ -1,135 +1,194 @@
-# Image assets
+# Image sitemap
 
-Photography for the site. Filenames are referenced from `src/lib/content.ts`,
-`src/components/home/WhyIbcrCorridor.tsx` and the `image` prop on each page's
-`PageHero`, so the names below have to match exactly.
+Every image the site can use, where it appears, and what to export. Filenames
+are referenced from `src/lib/content.ts` and the components, so they have to
+match exactly.
 
-Every slot degrades on its own until the file is present — a drawn corridor
-plate, a set of initials, or the original masthead motif — so nothing looks
-broken while you are collecting assets. Drop a file in and it takes over with
-no code change.
+**Nothing here is blocking.** Every slot degrades on its own — a drawn corridor
+plate, a set of initials, the masthead motif, or simply no background — so the
+site is complete without any of them and each file takes over the moment it
+lands. No code change is needed.
 
-`.jpg` throughout, except partner logos which are `.png`: the paths carry the
-extension, so a file saved under one of these names with a different one will
-not be found.
+**Extensions matter.** `.jpg` everywhere except logos, which are `.png` with a
+transparent background. A file saved under one of these names with a different
+extension will not be found.
 
 ---
 
-## 1. Page backgrounds — **6 to upload**
+## Summary
 
-Folder: `public/images/heroes/`
+| # | Set                  | Folder                      | Files | Status        |
+| - | -------------------- | --------------------------- | ----- | ------------- |
+| 1 | Page backgrounds     | `images/heroes/`            | 6     | 6 to upload   |
+| 2 | Board portraits      | `images/board/`             | 7     | 7 to upload   |
+| 3 | Member logos         | `images/members/`           | 25    | 25 to upload  |
+| 4 | Partner logos        | `images/partners/`          | 10    | 10 to upload  |
+| 5 | Opportunity sectors  | `images/opportunities/`     | 8     | 5 to upload   |
+| 6 | Service photographs  | `images/services/`          | 6     | 2 to upload   |
+| 7 | Why IBCR             | `images/`                   | 1     | ✅ in place    |
 
-| File                        | Page           |
-| --------------------------- | -------------- |
-| `about.jpg`                 | /about         |
-| `membership.jpg`            | /membership    |
-| `services.jpg`              | /services      |
-| `india-rwanda.jpg`          | /india-rwanda  |
-| `events.jpg`                | /events        |
-| `insights.jpg`              | /insights      |
+Sets 5 and 6 each do double duty — see their notes.
 
-The masthead veils the photograph in white and fades it out towards the
-headline, so it reads as ground rather than as a banner. That means:
+---
 
-- **Landscape, at least 2000px wide**, 16:9 or wider. Only the top ~560px of
-  the frame is seen on a desktop screen.
-- **Keep the subject on the right.** The left 45% sits under the copy and is
-  faded almost to white.
-- Avoid busy or high-contrast detail — the veil flattens it into noise.
-- Under ~500KB each. These load above the fold on every inner page.
+## 1. Page backgrounds — 6 to upload
 
-Until a file is there, the page keeps the drawn corridor motif it has today.
+`public/images/heroes/` · behind the masthead of each inner page.
 
-## 2. Board portraits — **7 to upload**
+| File               | Page          |
+| ------------------ | ------------- |
+| `about.jpg`        | /about        |
+| `membership.jpg`   | /membership   |
+| `services.jpg`     | /services     |
+| `india-rwanda.jpg` | /india-rwanda |
+| `events.jpg`       | /events       |
+| `insights.jpg`     | /insights     |
 
-Folder: `public/images/board/` — shown on `/about#leadership`.
+Landscape, at least 2000px wide, 16:9 or wider. Only the top ~560px is seen on
+a desktop screen. **Keep the subject on the right** — the left 45% sits under
+the headline and is faded nearly to white. Avoid busy, high-contrast detail;
+the white veil flattens it into noise. Under ~500KB.
 
-| File                                  | Member                                                      |
-| ------------------------------------- | ----------------------------------------------------------- |
-| `mangesh-kumar-verma.jpg`             | Mr. Mangesh Kumar Verma — Chairman                           |
-| `suman-alla.jpg`                      | Mr. Suman Alla — Vice Chairman                               |
-| `tiwari-himanshu.jpg`                 | Mr. Tiwari Himanshu — Treasurer & Director, Corp. Governance |
-| `manoj-thaipparampil-skariah.jpg`     | Mr. Manoj Thaipparampil Skariah — General Secretary          |
-| `thomas-binoy.jpg`                    | Mr. Thomas Binoy — Director, Membership                      |
-| `harlalka-natwarlal-murarilal.jpg`    | Mr. Harlalka Natwarlal Murarilal — Director, PR & Events     |
-| `palaparthy-vinay.jpg`                | Mr. Palaparthy Vinay — Director, Investment & Intl. Trading  |
+Falls back to: the drawn corridor motif.
 
-- **Portrait, roughly 4:5**, about 800×1000px. Head and shoulders, face in the
-  upper half — the tiles crop from the centre.
-- They sit in greyscale until pointed at, so a plain, even background works
-  best; a busy one reads as grey mush.
-- Under ~250KB each.
+## 2. Board portraits — 7 to upload
 
-Until a portrait is there, the tile shows that member's initials on a drawn
-plate, and the name list and details panel work exactly the same.
+`public/images/board/` · the portrait wall on `/about#leadership`.
 
-## 3. Partner logos — **10 optional**
+| File                               | Member                                      |
+| ---------------------------------- | ------------------------------------------- |
+| `mangesh-kumar-verma.jpg`          | Mr. Mangesh Kumar Verma — Chairman           |
+| `suman-alla.jpg`                   | Mr. Suman Alla — Vice Chairman               |
+| `tiwari-himanshu.jpg`              | Mr. Tiwari Himanshu — Treasurer              |
+| `manoj-thaipparampil-skariah.jpg`  | Mr. Manoj Thaipparampil Skariah — Gen. Sec.  |
+| `thomas-binoy.jpg`                 | Mr. Thomas Binoy — Director, Membership      |
+| `harlalka-natwarlal-murarilal.jpg` | Mr. Harlalka Natwarlal Murarilal — PR        |
+| `palaparthy-vinay.jpg`             | Mr. Palaparthy Vinay — Investment            |
 
-Folder: `public/images/partners/` — shown in the Strategic Partners marquee.
+Portrait, roughly 4:5, about 800×1000. Head and shoulders, face in the upper
+half — the tiles crop from the centre. They sit in greyscale until pointed at,
+so a plain, even background reads best. Under ~250KB.
 
-| File                                | Institution                  |
-| ----------------------------------- | ---------------------------- |
-| `high-commission-of-india.png`      | High Commission of India     |
-| `rwanda-development-board.png`      | Rwanda Development Board     |
-| `private-sector-federation.png`     | Private Sector Federation    |
-| `rwanda-revenue-authority.png`      | Rwanda Revenue Authority     |
-| `ficci.png`                         | FICCI                        |
-| `cii.png`                           | CII                          |
-| `bank-of-kigali.png`                | Bank of Kigali               |
-| `norrsken-east-africa.png`          | Norrsken East Africa         |
-| `kigali-chamber-of-commerce.png`    | Kigali Chamber of Commerce   |
-| `exim-bank-of-india.png`            | EXIM Bank of India           |
+Falls back to: the member's initials on a drawn plate.
 
-Square-ish PNG with a transparent background, around 200×200. The tile is 48px
-so fine detail will not survive — a mark works better than a full lockup. A
-tile with no logo shows the institution's initials instead.
+## 3. Member logos — 25 to upload
 
-Use each institution's own approved artwork; do not redraw or recolour it.
+`public/images/members/` · the logo wall on the homepage and on
+`/membership#member-logos`.
 
-## 4. Opportunity sectors — **5 to upload**
+| File                                     | Company                        |
+| ---------------------------------------- | ------------------------------ |
+| `imana-steel-rwanda-ltd.png`             | Imana Steel Rwanda Ltd         |
+| `konnect-analysis-ltd.png`               | Konnect Analysis Ltd           |
+| `alpine-holidays-ltd.png`                | Alpine Holidays Ltd            |
+| `quadinfra-ltd.png`                      | Quadinfra Ltd                  |
+| `yuvikhetani-ltd.png`                    | Yuvikhetani Ltd                |
+| `satguru-travel-and-tours.png`           | Satguru Travel & Tours         |
+| `orbit-healthcare-service-ltd.png`       | Orbit Healthcare Service Ltd   |
+| `sabari-ltd.png`                         | Sabari Ltd                     |
+| `savita-builders-rwanda-ltd.png`         | Savita Builders Rwanda Ltd     |
+| `imprisco-plus-ltd.png`                  | Imprisco Plus Ltd              |
+| `ashree-com-ltd.png`                     | Ashree Com Ltd                 |
+| `shyam-group-ltd.png`                    | Shyam Group Ltd                |
+| `d-p-singh-associates-ltd.png`           | D.P Singh Associates Ltd       |
+| `hi-fi-trading-service-ltd.png`          | Hi-Fi Trading Service Ltd      |
+| `finex-investment-ltd.png`               | Finex Investment Ltd           |
+| `care-group-international.png`           | Care Group International       |
+| `ram-associates.png`                     | Ram Associates                 |
+| `sai-info-tech-ltd.png`                  | Sai Info-Tech Ltd              |
+| `impact-technology.png`                  | Impact Technology              |
+| `gyan-ltd.png`                           | Gyan Ltd                       |
+| `alsm.png`                               | ALSM                           |
+| `ssv-shop-and-general-trading-ltd.png`   | SSV Shop & General Trading Ltd |
+| `flexipay-finance-ltd.png`               | Flexipay Finance Ltd           |
+| `artab-biobag-ltd.png`                   | Artab Biobag Ltd               |
+| `techin1000hills-ltd.png`                | Techin1000Hills Ltd            |
 
-Folder: `public/images/opportunities/`
+PNG with a transparent background, roughly 400×160, the mark trimmed to its
+own edges. Displayed at 40px tall inside a 6.5rem tile, so a wordmark works
+better than a detailed crest. Under ~60KB each.
 
-| File                  | Sector                          | Status     |
-| --------------------- | ------------------------------- | ---------- |
-| `agriculture.jpg`     | 01 Agriculture & Agribusiness   | ✅ in place |
-| `manufacturing.jpg`   | 02 Manufacturing                | ✅ in place |
-| `infrastructure.jpg`  | 03 Infrastructure               | to upload  |
-| `healthcare.jpg`      | 04 Healthcare                   | ✅ in place |
-| `technology.jpg`      | 05 Technology & Innovation      | to upload  |
-| `tourism.jpg`         | 06 Tourism & Hospitality        | to upload  |
-| `energy.jpg`          | 07 Energy                       | to upload  |
-| `logistics.jpg`       | 08 Logistics                    | to upload  |
+Falls back to: the company's initials.
 
-Landscape-leaning, around 1200×900. Shown desaturated until hover, so pick
-frames that read in greyscale.
+## 4. Partner logos — 10 to upload
 
-## 5. Service cards — **2 to upload**
+`public/images/partners/` · the marquee on the homepage and on `/about#partners`.
 
-Folder: `public/images/services/`
+| File                             | Institution                |
+| -------------------------------- | -------------------------- |
+| `high-commission-of-india.png`   | High Commission of India   |
+| `rwanda-development-board.png`   | Rwanda Development Board   |
+| `private-sector-federation.png`  | Private Sector Federation  |
+| `rwanda-revenue-authority.png`   | Rwanda Revenue Authority   |
+| `ficci.png`                      | FICCI                      |
+| `cii.png`                        | CII                        |
+| `bank-of-kigali.png`             | Bank of Kigali             |
+| `norrsken-east-africa.png`       | Norrsken East Africa       |
+| `kigali-chamber-of-commerce.png` | Kigali Chamber of Commerce |
+| `exim-bank-of-india.png`         | EXIM Bank of India         |
 
-| File                          | Card                     | Status     |
-| ----------------------------- | ------------------------ | ---------- |
-| `market-entry.jpg`            | 01 Market Entry          | ✅ in place |
-| `trade-facilitation.jpg`      | 02 Trade Facilitation    | ✅ in place |
-| `investment-advisory.jpg`     | 03 Investment Advisory   | to upload  |
-| `business-delegations.jpg`    | 04 Business Delegations  | ✅ in place |
-| `business-intelligence.jpg`   | 05 Business Intelligence | to upload  |
-| `advocacy-policy.jpg`         | 06 Advocacy & Policy     | ✅ in place |
+Square-ish PNG, transparent, around 200×200. The tile is 48px, so a mark works
+better than a full lockup. Use each institution's own approved artwork — do not
+redraw or recolour it.
 
-Portrait, 5:7 — 640×896 is the size shipped here. Crop before exporting: the
-card fills, it does not letterbox.
+Falls back to: the institution's initials.
 
-## 6. Why IBCR
+## 5. Opportunity sectors — 5 to upload
 
-| File                       | Used by                     | Status     |
-| -------------------------- | --------------------------- | ---------- |
-| `images/kigali-night.jpg`  | Why IBCR (parallax feature) | ✅ in place |
+`public/images/opportunities/` · **used twice.** As the card face in the
+homepage grid, and as the section background on `/india-rwanda#opportunities`,
+where each sector gets a full-width section.
+
+| File                 | Sector                     | Status      |
+| -------------------- | -------------------------- | ----------- |
+| `agriculture.jpg`    | 01 Agriculture             | ✅ in place  |
+| `manufacturing.jpg`  | 02 Manufacturing           | ✅ in place  |
+| `infrastructure.jpg` | 03 Infrastructure          | to upload   |
+| `healthcare.jpg`     | 04 Healthcare              | ✅ in place  |
+| `technology.jpg`     | 05 Technology & Innovation | to upload   |
+| `tourism.jpg`        | 06 Tourism & Hospitality   | to upload   |
+| `energy.jpg`         | 07 Energy                  | to upload   |
+| `logistics.jpg`      | 08 Logistics               | to upload   |
+
+Landscape, around 1600×1000 (larger than before, since they now also run
+full-width). On the card they are shown desaturated until hover, so pick
+frames that read in greyscale; as a section background they sit under a white
+veil, so avoid fussy detail. Under ~400KB.
+
+Falls back to: a drawn corridor plate on the card, and no background on the
+section.
+
+## 6. Service photographs — 2 to upload
+
+`public/images/services/` · **used twice.** As the card face in the What We Do
+fan on the homepage, and as the section background for that service on
+`/services`.
+
+| File                         | Service                  | Status      |
+| ---------------------------- | ------------------------ | ----------- |
+| `market-entry.jpg`           | 01 Market Entry          | ✅ in place  |
+| `trade-facilitation.jpg`     | 02 Trade Facilitation    | ✅ in place  |
+| `investment-advisory.jpg`    | 03 Investment Advisory   | to upload   |
+| `business-delegations.jpg`   | 04 Business Delegations  | ✅ in place  |
+| `business-intelligence.jpg`  | 05 Business Intelligence | to upload   |
+| `advocacy-policy.jpg`        | 06 Advocacy & Policy     | ✅ in place  |
+
+Portrait, 5:7 — 640×896 is what the four in place use. The fan card fills, it
+does not letterbox, so crop before exporting. Under ~150KB.
+
+Falls back to: a drawn corridor plate on the card, and no background on the
+section.
+
+## 7. Why IBCR
+
+| File                      | Used by                     | Status     |
+| ------------------------- | --------------------------- | ---------- |
+| `images/kigali-night.jpg` | Why IBCR (parallax feature) | ✅ in place |
 
 Landscape, 4:3 or wider, at least 1600px across.
 
 ---
 
-**Licensing.** The photographs currently in place are stock frames supplied
-for the build, one of them still watermarked. Clear the licensing or replace
-them with the Chamber's own photography before launch.
+**Licensing.** The photographs currently in place are stock frames supplied for
+the build, one of them still watermarked. Clear the licensing or replace them
+with the Chamber's own photography before launch.

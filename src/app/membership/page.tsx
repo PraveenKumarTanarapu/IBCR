@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { PageHero } from "@/components/layout/PageHero";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
 import { ButtonLink } from "@/components/ui/Button";
+import { MemberLogos } from "@/components/home/MemberLogos";
 import { PricingSection } from "@/components/ui/pricing-section";
 import { Section, SectionHeading } from "@/components/ui/Section";
 import {
@@ -158,8 +159,10 @@ export default function MembershipPage() {
         </div>
       </Section>
 
+      <MemberLogos divided />
+
       {/* ----------------------------------------------------------- how to */}
-      <Section divided>
+      <Section>
         <div className="container-page">
           <SectionHeading eyebrow="Process" title="How joining" accent="works." />
           <RevealGroup className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">

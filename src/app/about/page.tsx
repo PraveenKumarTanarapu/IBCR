@@ -3,8 +3,15 @@ import { PageHero } from "@/components/layout/PageHero";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
 import { ButtonLink } from "@/components/ui/Button";
 import { Section, SectionHeading } from "@/components/ui/Section";
+import { LogoMarquee, type MarqueeItem } from "@/components/ui/integration-hero";
 import { TeamShowcase } from "@/components/ui/team-showcase";
 import { BOARD, MISSION, PARTNERS, SITE, TEAM, VALUES, VISION } from "@/lib/content";
+
+const PARTNER_ITEMS: MarqueeItem[] = PARTNERS.map((partner) => ({
+  name: partner.name,
+  category: partner.category,
+  logo: partner.logo,
+}));
 
 export const metadata: Metadata = {
   title: "About the Chamber",
@@ -160,7 +167,7 @@ export default function AboutPage() {
       </Section>
 
       {/* -------------------------------------------------------- partners */}
-      <Section id="partners">
+      <Section id="partners" className="overflow-hidden">
         <div className="container-page">
           <SectionHeading
             eyebrow="Partners"
@@ -168,23 +175,13 @@ export default function AboutPage() {
             accent="work alongside."
             copy="Diplomatic missions, government agencies, industry bodies and financial institutions in both markets."
           />
+        </div>
 
-          <RevealGroup className="mt-14 grid gap-px overflow-hidden rounded-[var(--radius-card)] bg-hairline sm:grid-cols-2 lg:grid-cols-5">
-            {PARTNERS.map((partner) => (
-              <RevealItem noShift
-                key={partner.name}
-                className="flex min-h-[7.5rem] flex-col justify-center bg-white p-6 transition-colors duration-500 hover:bg-white"
-              >
-                <p className="text-[0.9375rem] leading-snug font-semibold tracking-tight text-navy-900/85">
-                  {partner.name}
-                </p>
-                <p className="label-mono mt-2 text-[0.5625rem] text-navy-900/35">
-                  {partner.category}
-                </p>
-              </RevealItem>
-            ))}
-          </RevealGroup>
+        <Reveal className="mt-14" delay={0.06}>
+          <LogoMarquee items={PARTNER_ITEMS} />
+        </Reveal>
 
+        <div className="container-page">
           <Reveal className="mt-14 flex flex-wrap gap-3" delay={0.06}>
             <ButtonLink href="/membership/join" withArrow>
               Become a Member
