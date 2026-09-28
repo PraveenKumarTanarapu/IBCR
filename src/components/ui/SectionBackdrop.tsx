@@ -4,12 +4,15 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 /**
- * A photograph behind a full-width section, veiled in white.
+ * A photograph behind a full-width section, revealed on hover.
  *
- * Same idea as the page mastheads: the image is ground, not a banner, so the
- * page still reads white and navy body copy keeps its contrast. `side` decides
- * which half of the frame stays legible — alternate it down a page and the
- * photography carries the rhythm rather than fighting the text.
+ * At rest the frame is desaturated and almost entirely veiled — the page still
+ * reads as white, which is the whole design. Pointing at the section lifts the
+ * veil, brings the colour back and eases the image in, the same move the
+ * investment-opportunity cards make. The section supplies the `group` class.
+ *
+ * `side` decides which half stays legible under the copy; alternate it down a
+ * page and the photography carries the rhythm rather than fighting the text.
  *
  * A missing file removes the layer entirely rather than leaving a broken
  * image, so an unsupplied photograph costs nothing.
@@ -34,9 +37,19 @@ export function SectionBackdrop({
         alt=""
         loading="lazy"
         onError={() => setFailed(true)}
-        className="absolute inset-0 size-full object-cover"
+        className={cn(
+          "absolute inset-0 size-full object-cover",
+          "transition-[filter,transform,opacity] duration-[900ms] ease-[var(--ease-out-quint)]",
+          "opacity-45 saturate-0 md:group-hover:scale-[1.03] md:group-hover:opacity-100 md:group-hover:saturate-100",
+        )}
       />
-      <div className="absolute inset-0 bg-white/80" />
+      {/* Veil: heavy at rest, lifted on hover. */}
+      <div
+        className={cn(
+          "absolute inset-0 bg-white/90 transition-opacity duration-[900ms] ease-[var(--ease-out-quint)]",
+          "md:group-hover:opacity-[0.78]",
+        )}
+      />
       <div
         className={cn(
           "absolute inset-0",

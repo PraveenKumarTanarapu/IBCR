@@ -62,7 +62,7 @@ export default function ServicesPage() {
             key={service.id}
             id={service.id}
             divided={index > 0}
-            className="overflow-hidden py-16 md:py-20"
+            className="group overflow-hidden py-16 md:py-20"
           >
             <SectionBackdrop image={service.image} side={index % 2 === 0 ? "right" : "left"} />
             <div className="container-page relative">

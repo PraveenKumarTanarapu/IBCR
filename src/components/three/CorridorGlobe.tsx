@@ -276,15 +276,26 @@ function Globe({ spin }: { spin: boolean }) {
 
 /* ------------------------------------------------------------------ root */
 
-export default function CorridorGlobe() {
+export default function CorridorGlobe({ onReady }: { onReady?: () => void }) {
   const reduced = useReducedMotion();
 
   return (
     <Canvas
+      onCreated={({ gl }) => {
+        // One frame is on screen; the stage can drop its poster.
+        gl.domElement.addEventListener("webglcontextlost", (e) => e.preventDefault());
+        requestAnimationFrame(() => onReady?.());
+      }}
       dpr={[1, 1.8]}
       gl={{ antialias: true, alpha: true, powerPreference: "low-power" }}
       camera={{ fov: 34, position: [0, 0.18, 3.9] }}
-      frameloop={reduced ? "demand" : "always"}
+      /*
+       * Always, even under reduced motion. On demand the scene could settle
+       * before the map texture resolved and then never draw again, which left
+       * a blank white sphere; the spin is what reduced motion switches off,
+       * not the renderer.
+       */
+      frameloop="always"
       style={{ touchAction: "pan-y" }}
     >
       <Globe spin={!reduced} />

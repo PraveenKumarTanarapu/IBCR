@@ -18,7 +18,9 @@ export const metadata: Metadata = {
 
 export default function EventsPage() {
   const flagship = EVENTS.find((e) => e.flagship);
-  const upcoming = EVENTS.filter((e) => e.status === "upcoming" && e.id !== flagship?.id);
+  const upcoming = EVENTS.filter(
+    (e) => e.status === "upcoming" && e.id !== flagship?.id,
+  );
   const past = EVENTS.filter((e) => e.status === "past");
 
   return (
@@ -47,7 +49,10 @@ export default function EventsPage() {
           <div className="container-page">
             <Reveal>
               <article className="relative overflow-hidden rounded-[var(--radius-card)] border border-gold/55 bg-white">
-                <span className="absolute inset-x-0 top-0 h-[3px] bg-gold" aria-hidden />
+                <span
+                  className="absolute inset-x-0 top-0 h-[3px] bg-gold"
+                  aria-hidden
+                />
 
                 <div className="relative grid gap-10 p-8 md:p-12 lg:grid-cols-12 lg:items-center">
                   <div className="lg:col-span-8">
@@ -60,19 +65,35 @@ export default function EventsPage() {
                     <p className="mt-4 max-w-xl text-[1rem] leading-[1.65] text-muted">
                       {flagship.summary}
                     </p>
-                    <ul className="mt-7 flex flex-wrap gap-x-8 gap-y-3 text-[0.875rem] text-muted">
-                      <li className="flex items-center gap-2">
-                        <CalendarDays strokeWidth={1.5} className="size-4 text-gold" aria-hidden />
-                        {flagship.dateLabel ??
-                          `${formatLongDate(flagship.date)}${
-                            flagship.endDate ? ` – ${formatLongDate(flagship.endDate)}` : ""
-                          }`}
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <MapPin strokeWidth={1.5} className="size-4 text-gold" aria-hidden />
-                        {flagship.venue}, {flagship.city}
-                      </li>
-                    </ul>
+                    {flagship.hideSchedule ? (
+                      <p className="label-mono mt-7 text-navy-900/40">
+                        Dates to be announced
+                      </p>
+                    ) : (
+                      <ul className="mt-7 flex flex-wrap gap-x-8 gap-y-3 text-[0.875rem] text-muted">
+                        <li className="flex items-center gap-2">
+                          <CalendarDays
+                            strokeWidth={1.5}
+                            className="size-4 text-gold"
+                            aria-hidden
+                          />
+                          {flagship.dateLabel ??
+                            `${formatLongDate(flagship.date)}${
+                              flagship.endDate
+                                ? ` – ${formatLongDate(flagship.endDate)}`
+                                : ""
+                            }`}
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <MapPin
+                            strokeWidth={1.5}
+                            className="size-4 text-gold"
+                            aria-hidden
+                          />
+                          {flagship.venue}, {flagship.city}
+                        </li>
+                      </ul>
+                    )}
                   </div>
                   <div className="lg:col-span-4 lg:text-right">
                     <ButtonLink href="#register" size="lg" withArrow>
@@ -89,7 +110,11 @@ export default function EventsPage() {
       {/* -------------------------------------------------------- upcoming */}
       <Section className="pt-4">
         <div className="container-page">
-          <SectionHeading eyebrow="Upcoming" title="Also in the" accent="diary." />
+          <SectionHeading
+            eyebrow="Upcoming"
+            title="Also in the"
+            accent="diary."
+          />
           <RevealGroup className="mt-12 grid gap-5 md:grid-cols-3">
             {upcoming.map((event) => (
               <RevealItem key={event.id}>
@@ -106,7 +131,7 @@ export default function EventsPage() {
           <div className="grid gap-14 lg:grid-cols-12 lg:gap-16">
             <div className="lg:col-span-5">
               <SectionHeading
-                    eyebrow="Registration"
+                eyebrow="Registration"
                 title="Reserve your"
                 accent="place."
                 copy="Members are confirmed first. Non-members are welcome at most events, subject to capacity."
@@ -114,8 +139,12 @@ export default function EventsPage() {
               <Reveal delay={0.12}>
                 <ul className="mt-10 space-y-4 border-t border-hairline pt-8 text-[0.875rem] text-muted">
                   <li>Confirmation is sent by email within one working day.</li>
-                  <li>Delegation programmes require a short eligibility call.</li>
-                  <li>Cancellations are welcome up to 48 hours before an event.</li>
+                  <li>
+                    Delegation programmes require a short eligibility call.
+                  </li>
+                  <li>
+                    Cancellations are welcome up to 48 hours before an event.
+                  </li>
                 </ul>
               </Reveal>
             </div>
@@ -132,7 +161,11 @@ export default function EventsPage() {
       {/* ------------------------------------------------------------ past */}
       <Section id="past" divided>
         <div className="container-page">
-          <SectionHeading eyebrow="Past events" title="What we have" accent="already run." />
+          <SectionHeading
+            eyebrow="Past events"
+            title="What we have"
+            accent="already run."
+          />
           <RevealGroup className="mt-12 grid gap-5 md:grid-cols-3">
             {past.map((event) => (
               <RevealItem key={event.id}>

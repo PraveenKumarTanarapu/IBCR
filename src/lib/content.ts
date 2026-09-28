@@ -610,6 +610,8 @@ export type IbcrEvent = {
   /** Overrides the formatted date range when the Chamber quotes it in full. */
   dateLabel?: string;
   time?: string;
+  /** Hides the date, time and venue line — for an event not yet scheduled. */
+  hideSchedule?: boolean;
   venue: string;
   city: string;
   type: "Launch" | "Forum" | "Delegation" | "Roundtable" | "Networking" | "Webinar";
@@ -620,6 +622,22 @@ export type IbcrEvent = {
 };
 
 export const EVENTS: IbcrEvent[] = [
+  {
+    id: "e1",
+    slug: "ibcr-business-investment-forum-2026",
+    title: "IBCR Business & Investment Forum 2026",
+    date: "2026-03-12",
+    endDate: "2026-03-13",
+    venue: "Kigali Convention Centre",
+    city: "Kigali",
+    type: "Forum",
+    summary:
+      "The Chamber's flagship gathering: two days of sector sessions, curated B2B meetings and institutional dialogue on the India\u2013Rwanda corridor.",
+    flagship: true,
+    /** The banner runs on the title and the invitation alone — dates to follow. */
+    hideSchedule: true,
+    status: "upcoming",
+  },
   {
     id: "e0",
     slug: "ibcr-grand-launch",
@@ -635,99 +653,21 @@ export const EVENTS: IbcrEvent[] = [
     status: "upcoming",
   },
   {
-    id: "e1",
-    slug: "ibcr-business-investment-forum-2026",
-    title: "IBCR Business & Investment Forum 2026",
-    date: "2026-03-12",
-    endDate: "2026-03-13",
-    dateLabel: "Thursday, 12 March 2026 – Friday, 13 March 2026",
-    venue: "Kigali Convention Centre",
-    city: "Kigali",
-    type: "Forum",
-    summary:
-      "The Chamber's flagship gathering: two days of sector sessions, curated B2B meetings and institutional dialogue on the India–Rwanda corridor.",
-    flagship: true,
-    status: "upcoming",
-  },
-  {
     id: "e2",
-    slug: "agribusiness-value-chain-roundtable",
-    title: "Agribusiness Value Chain Roundtable",
-    date: "2026-01-29",
-    time: "14:00 – 17:00 CAT",
-    venue: "Kigali Heights",
-    city: "Kigali",
-    type: "Roundtable",
-    summary: "Processors, exporters and technology providers on closing the post-harvest gap.",
-    status: "upcoming",
-  },
-  {
-    id: "e3",
-    slug: "india-rwanda-trade-mission-mumbai",
-    title: "India–Rwanda Trade Mission: Mumbai",
-    date: "2026-02-17",
-    endDate: "2026-02-20",
-    time: "Full programme",
-    venue: "Multiple venues",
-    city: "Mumbai",
-    type: "Delegation",
-    summary: "An outbound delegation of Rwandan enterprises meeting Indian manufacturers and investors.",
-    status: "upcoming",
-  },
-  {
-    id: "e4",
-    slug: "members-evening-kigali",
-    title: "Members' Evening — Kigali",
-    date: "2026-02-05",
-    time: "18:30 – 21:00 CAT",
-    venue: "Norrsken House Kigali",
+    slug: "ibcr-exclusive-members-meeting",
+    title: "IBCR Exclusive Members Meeting",
+    date: "2026-07-01",
+    dateLabel: "Wednesday, 1 July 2026",
+    time: "09:00 \u2013 11:30 CAT",
+    venue: "Four Points by Sheraton Kigali",
     city: "Kigali",
     type: "Networking",
-    summary: "An informal evening for members, partners and invited guests.",
-    status: "upcoming",
-  },
-  {
-    id: "e5",
-    slug: "doing-business-in-rwanda-webinar",
-    title: "Doing Business in Rwanda: A Practical Briefing",
-    date: "2025-11-14",
-    time: "12:00 – 13:15 CAT",
-    venue: "Online",
-    city: "Online",
-    type: "Webinar",
-    summary: "Registration, licensing, tax and hiring — the questions Indian companies ask most.",
+    summary:
+      "The Chamber's members in one room: registration and networking breakfast, welcome by the General Secretary, the Chairman's opening remarks, member introductions, the Vice Chairman's roadmap presentation, remarks from the Guest of Honour from the High Commission of India, and an open floor on member suggestions and expectations.",
     status: "past",
-    attendance: "180 participants",
-  },
-  {
-    id: "e6",
-    slug: "healthcare-investment-roundtable",
-    title: "Healthcare Investment Roundtable",
-    date: "2025-09-24",
-    time: "15:00 – 18:00 CAT",
-    venue: "Kigali Marriott Hotel",
-    city: "Kigali",
-    type: "Roundtable",
-    summary: "Hospital groups, diagnostics providers and pharmaceutical distributors on scaling capacity.",
-    status: "past",
-    attendance: "60 delegates",
-  },
-  {
-    id: "e7",
-    slug: "ibcr-founding-members-reception",
-    title: "IBCR Founding Members' Reception",
-    date: "2025-06-19",
-    time: "18:00 – 21:00 CAT",
-    venue: "Kigali Serena Hotel",
-    city: "Kigali",
-    type: "Networking",
-    summary: "The launch of the Chamber and its founding member cohort.",
-    status: "past",
-    attendance: "120 guests",
+    attendance: "Members only",
   },
 ];
-
-/* ---------------------------------------------------------------- insights */
 
 export type Insight = {
   id: string;
@@ -909,7 +849,6 @@ export const PARTNERS: Partner[] = [
   { name: "CII", category: "Industry", logo: "/images/partners/cii.png" },
   { name: "Bank of Kigali", category: "Financial", logo: "/images/partners/bank-of-kigali.png" },
   { name: "Norrsken East Africa", category: "Innovation", logo: "/images/partners/norrsken-east-africa.png" },
-  { name: "Kigali Chamber of Commerce", category: "Industry", logo: "/images/partners/kigali-chamber-of-commerce.png" },
   { name: "EXIM Bank of India", category: "Financial", logo: "/images/partners/exim-bank-of-india.png" },
 ];
 

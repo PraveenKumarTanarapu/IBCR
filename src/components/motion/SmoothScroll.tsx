@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -17,6 +17,7 @@ import { usePathname } from "next/navigation";
  */
 export function SmoothScroll() {
   const pathname = usePathname();
+  const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -39,6 +40,7 @@ export function SmoothScroll() {
       touchMultiplier: 1.4,
       lerp: 0.11,
     });
+    lenisRef.current = lenis;
 
     lenis.on("scroll", ScrollTrigger.update);
     const raf = (time: number) => lenis.raf(time * 1000);
@@ -67,12 +69,26 @@ export function SmoothScroll() {
       gsap.ticker.remove(raf);
       ScrollTrigger.getAll().forEach((t) => t.kill());
       lenis.destroy();
+      lenisRef.current = null;
     };
   }, []);
 
-  // Route changes should land at the top, without an inertial slide.
+  /**
+   * Route changes land at the top.
+   *
+   * `window.scrollTo` alone is not enough while Lenis is running: it keeps its
+   * own target position and puts the page back where it was on the next frame,
+   * so arriving from the footer of one page dropped you into the middle of the
+   * next. Reset Lenis itself, immediately, and only fall back to the window
+   * when Lenis is switched off (reduced motion, coarse pointers).
+   */
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
+    const lenis = lenisRef.current;
+    if (lenis) {
+      lenis.scrollTo(0, { immediate: true, force: true });
+    } else {
+      window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
+    }
     ScrollTrigger.refresh();
   }, [pathname]);
 

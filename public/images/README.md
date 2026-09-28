@@ -22,7 +22,7 @@ extension will not be found.
 | 1 | Page backgrounds     | `images/heroes/`            | 6     | 6 to upload   |
 | 2 | Board portraits      | `images/board/`             | 7     | 7 to upload   |
 | 3 | Member logos         | `images/members/`           | 25    | 25 to upload  |
-| 4 | Partner logos        | `images/partners/`          | 10    | 10 to upload  |
+| 4 | Partner logos        | `images/partners/`          | 9     | 9 to upload   |
 | 5 | Opportunity sectors  | `images/opportunities/`     | 8     | 5 to upload   |
 | 6 | Service photographs  | `images/services/`          | 6     | 2 to upload   |
 | 7 | Why IBCR             | `images/`                   | 1     | ✅ in place    |
@@ -110,7 +110,7 @@ better than a detailed crest. Under ~60KB each.
 
 Falls back to: the company's initials.
 
-## 4. Partner logos — 10 to upload
+## 4. Partner logos — 9 to upload
 
 `public/images/partners/` · the marquee on the homepage and on `/about#partners`.
 
@@ -124,7 +124,6 @@ Falls back to: the company's initials.
 | `cii.png`                        | CII                        |
 | `bank-of-kigali.png`             | Bank of Kigali             |
 | `norrsken-east-africa.png`       | Norrsken East Africa       |
-| `kigali-chamber-of-commerce.png` | Kigali Chamber of Commerce |
 | `exim-bank-of-india.png`         | EXIM Bank of India         |
 
 Square-ish PNG, transparent, around 200×200. The tile is 48px, so a mark works
@@ -186,6 +185,17 @@ section.
 | `images/kigali-night.jpg` | Why IBCR (parallax feature) | ✅ in place |
 
 Landscape, 4:3 or wider, at least 1600px across.
+
+## Generated — do not replace by hand
+
+| File                        | What it is                                          |
+| --------------------------- | --------------------------------------------------- |
+| `images/globe-poster.png`   | A still of the corridor globe, shown until WebGL draws |
+| `textures/world-map.png`    | The land and border masks the globe samples           |
+
+Both come out of the repo rather than a camera. Regenerate the texture with
+`node tools/media/worldmap.mjs`; re-capture the poster only if the globe's
+resting rotation or colours change.
 
 ---
 

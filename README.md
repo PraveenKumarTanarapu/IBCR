@@ -166,7 +166,15 @@ Change `uLand`, `uOcean` or `uBorder` in the component and nothing needs
 regenerating; regenerate only to change the resolution or the source data.
 
 The globe only mounts once it is near the viewport, so the three.js bundle and
-the GPU context are never paid for above the fold.
+the GPU context are never paid for above the fold. A poster frame
+(`public/images/globe-poster.png`, a still of the same scene) sits underneath
+and is what you see first — the map is legible immediately rather than after
+the bundle, the context and a 2048px texture have all arrived, and it stays
+put if WebGL never starts. The canvas fades over it on its first frame.
+
+The renderer runs `frameloop="always"` even under reduced motion: on demand the
+scene could settle before the texture resolved and then never draw again,
+leaving a blank sphere. Reduced motion switches off the spin, not the renderer.
 
 ---
 

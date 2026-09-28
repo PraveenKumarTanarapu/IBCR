@@ -14,7 +14,10 @@ export function EventCard({ event }: { event: IbcrEvent }) {
             {day.getUTCDate()}
           </span>
           <span className="label-mono mt-1 text-[0.5625rem] text-gold-600">
-            {day.toLocaleDateString("en-GB", { month: "short", timeZone: "UTC" })}
+            {day.toLocaleDateString("en-GB", {
+              month: "short",
+              timeZone: "UTC",
+            })}
           </span>
         </div>
         <span className="label-mono rounded-full border border-hairline px-3 py-1 text-[0.5625rem] text-muted">
@@ -25,33 +28,49 @@ export function EventCard({ event }: { event: IbcrEvent }) {
       <h3 className="mt-6 text-[1.125rem] leading-snug font-semibold tracking-tight text-navy-900">
         {event.title}
       </h3>
-      <p className="mt-3 flex-1 text-[0.875rem] leading-[1.6] text-muted">{event.summary}</p>
+      <p className="mt-3 flex-1 text-[0.875rem] leading-[1.6] text-muted">
+        {event.summary}
+      </p>
 
-      <ul className="mt-5 space-y-1.5 border-t border-hairline pt-4 text-[0.75rem] text-muted">
-        <li className="flex items-start gap-2">
-          <CalendarDays
-            strokeWidth={1.5}
-            className="mt-px size-3.5 shrink-0 text-gold-600"
-            aria-hidden
-          />
-          <span>
-            {event.dateLabel ??
-              `${formatDate(event.date)}${event.endDate ? ` – ${formatDate(event.endDate)}` : ""}`}
-          </span>
-        </li>
-        {event.time ? (
-          <li className="flex items-center gap-2">
-            <Clock strokeWidth={1.5} className="size-3.5 text-gold-600" aria-hidden />
-            {event.time}
+      {event.hideSchedule ? (
+        <p className="label-mono mt-5 border-t border-hairline pt-4 text-[0.5625rem] text-navy-900/40">
+          Dates to be announced
+        </p>
+      ) : (
+        <ul className="mt-5 space-y-1.5 border-t border-hairline pt-4 text-[0.75rem] text-muted">
+          <li className="flex items-start gap-2">
+            <CalendarDays
+              strokeWidth={1.5}
+              className="mt-px size-3.5 shrink-0 text-gold-600"
+              aria-hidden
+            />
+            <span>
+              {event.dateLabel ??
+                `${formatDate(event.date)}${event.endDate ? ` – ${formatDate(event.endDate)}` : ""}`}
+            </span>
           </li>
-        ) : null}
-        <li className="flex items-start gap-2">
-          <MapPin strokeWidth={1.5} className="mt-px size-3.5 shrink-0 text-gold-600" aria-hidden />
-          <span>
-            {event.venue}, {event.city}
-          </span>
-        </li>
-      </ul>
+          {event.time ? (
+            <li className="flex items-center gap-2">
+              <Clock
+                strokeWidth={1.5}
+                className="size-3.5 text-gold-600"
+                aria-hidden
+              />
+              {event.time}
+            </li>
+          ) : null}
+          <li className="flex items-start gap-2">
+            <MapPin
+              strokeWidth={1.5}
+              className="mt-px size-3.5 shrink-0 text-gold-600"
+              aria-hidden
+            />
+            <span>
+              {event.venue}, {event.city}
+            </span>
+          </li>
+        </ul>
+      )}
 
       {event.status === "upcoming" ? (
         <Link

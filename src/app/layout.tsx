@@ -3,6 +3,7 @@ import { Manrope, Instrument_Serif, JetBrains_Mono } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
+import { StructuredData } from "@/components/seo/StructuredData";
 import { SITE } from "@/lib/content";
 import "./globals.css";
 
@@ -70,6 +71,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${manrope.variable} ${instrument.variable} ${jetbrains.variable} antialiased`}
     >
+      <head>
+        <StructuredData />
+      </head>
       <body className="flex min-h-dvh flex-col bg-white">
         <SmoothScroll />
         <a

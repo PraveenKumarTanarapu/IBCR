@@ -20,7 +20,7 @@ export function OpportunitySections() {
           key={item.id}
           id={item.id}
           divided={index > 0}
-          className="overflow-hidden py-14 md:py-16"
+          className="group overflow-hidden py-14 md:py-16"
         >
           <SectionBackdrop image={item.image} side={index % 2 === 0 ? "right" : "left"} />
 
