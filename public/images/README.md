@@ -15,6 +15,35 @@ extension will not be found.
 
 ---
 
+## How to add an image
+
+There is no upload screen — the site reads images straight off disk. Adding one
+is copying a file into the right folder with the right name.
+
+1. **Find the folder.** Everything lives under `public/images/` inside the
+   project. The sets below say which sub-folder each image belongs in.
+2. **Name the file exactly** as the table says, lower-case, including the
+   extension. `agriculture.jpg` works; `Agriculture.JPG` and `agriculture.png`
+   do not.
+3. **Copy it in.** Drag it into the folder in Finder, Explorer or your editor.
+4. **Refresh the page.** In `npm run dev` the image appears on the next
+   refresh — no restart. For the live site, commit the file and deploy:
+
+   ```bash
+   git add public/images
+   git commit -m "Add member logos"
+   git push
+   ```
+
+The path in the table maps directly to the URL: `public/images/board/suman-alla.jpg`
+is served at `/images/board/suman-alla.jpg`. If a picture does not show up,
+open that URL in the browser — a 404 means the name or the folder is wrong.
+
+**Checking your work.** Every slot falls back to something deliberate, so a
+missing file never breaks the page; it just means the drawn plate is still
+showing. That also makes it easy to see what has landed: if the plate is gone,
+the file is being read.
+
 ## Summary
 
 | # | Set                  | Folder                      | Files | Status        |
@@ -25,7 +54,8 @@ extension will not be found.
 | 4 | Partner logos        | `images/partners/`          | 9     | 9 to upload   |
 | 5 | Opportunity sectors  | `images/opportunities/`     | 8     | 5 to upload   |
 | 6 | Service photographs  | `images/services/`          | 6     | 2 to upload   |
-| 7 | Why IBCR             | `images/`                   | 1     | ✅ in place    |
+| 7 | Insight articles     | `images/insights/`          | 6     | 6 to upload   |
+| 8 | Why IBCR             | `images/`                   | 1     | ✅ in place    |
 
 Sets 5 and 6 each do double duty — see their notes.
 
@@ -178,7 +208,31 @@ does not letterbox, so crop before exporting. Under ~150KB.
 Falls back to: a drawn corridor plate on the card, and no background on the
 section.
 
-## 7. Why IBCR
+## 7. Insight articles — 6 to upload
+
+`public/images/insights/` · the card on `/insights`, and the masthead of the
+article itself. One file does both.
+
+| File                                             | Article                                            |
+| ------------------------------------------------ | -------------------------------------------------- |
+| `rwanda-as-a-gateway-to-east-africa.jpg`          | Rwanda as a gateway: what the numbers actually say  |
+| `ibcr-announces-investment-forum-2026.jpg`        | IBCR announces the Business & Investment Forum 2026 |
+| `india-rwanda-trade-in-review.jpg`                | India–Rwanda trade in review                        |
+| `manufacturing-in-rwanda-a-practical-checklist.jpg` | Manufacturing in Rwanda: a practical setup checklist |
+| `why-advocacy-matters-for-smaller-members.jpg`    | Why advocacy matters for smaller members            |
+| `digital-payments-and-the-sme-gap.jpg`            | Digital payments and the SME gap                    |
+
+Landscape, 16:10 or wider, around 1600×1000. The featured card crops to 16:10
+and the rest to 3:2, so keep the subject central. Behind the article masthead
+the same file is veiled in white, so avoid busy detail. Under ~300KB.
+
+The filename is the article's slug — the last part of its URL. Add an article
+in `src/lib/content.ts` and its image goes in here under the same slug.
+
+Falls back to: the drawn corridor plate on the card, and the masthead motif on
+the article.
+
+## 8. Why IBCR
 
 | File                      | Used by                     | Status     |
 | ------------------------- | --------------------------- | ---------- |

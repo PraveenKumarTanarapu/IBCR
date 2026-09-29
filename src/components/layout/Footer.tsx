@@ -35,12 +35,10 @@ export function Footer() {
                 <div className="lg:col-span-5">
                   <IbcrMark className="w-[132px]" />
                   <p className="mt-7 max-w-sm text-[1.0625rem] leading-[1.6] text-muted">
-                    Connecting India and Rwanda through trade, investment,
-                    partnerships and opportunity.
+                    Connecting India and Rwanda through trade, investment, partnerships and
+                    opportunity.
                   </p>
-                  <p className="label-mono mt-6 text-gold-600">
-                    {SITE.tagline}
-                  </p>
+                  <p className="label-mono mt-6 text-gold-600">{SITE.tagline}</p>
                 </div>
 
                 <div className="lg:col-span-3">
@@ -82,10 +80,7 @@ export function Footer() {
                   <h3 className="label-mono text-navy-900/45">Connect</h3>
                   <ul className="mt-5 space-y-4 text-[0.9375rem]">
                     <li className="flex gap-3 text-body">
-                      <MapPin
-                        strokeWidth={1.5}
-                        className="mt-0.5 size-4 shrink-0 text-gold"
-                      />
+                      <MapPin strokeWidth={1.5} className="mt-0.5 size-4 shrink-0 text-gold" />
                       <span>
                         {SITE.address.line1}
                         <br />
@@ -151,8 +146,7 @@ export function Footer() {
                     <span className="accent-serif text-gold-600">monthly.</span>
                   </h3>
                   <p className="mt-3 max-w-md text-[0.9375rem] leading-relaxed text-muted">
-                    Sector intelligence, policy movement and Chamber
-                    programming. No noise.
+                    Sector intelligence, policy movement and Chamber programming. No noise.
                   </p>
                   <NewsletterForm className="mt-6" />
                 </div>
@@ -165,26 +159,17 @@ export function Footer() {
                 </p>
                 <ul className="flex flex-wrap gap-6">
                   <li>
-                    <Link
-                      href="/privacy"
-                      className="transition-colors hover:text-navy-900"
-                    >
+                    <Link href="/privacy" className="transition-colors hover:text-navy-900">
                       Privacy Policy
                     </Link>
                   </li>
                   <li>
-                    <Link
-                      href="/terms"
-                      className="transition-colors hover:text-navy-900"
-                    >
+                    <Link href="/terms" className="transition-colors hover:text-navy-900">
                       Terms
                     </Link>
                   </li>
                   <li>
-                    <Link
-                      href="/cookies"
-                      className="transition-colors hover:text-navy-900"
-                    >
+                    <Link href="/cookies" className="transition-colors hover:text-navy-900">
                       Cookies
                     </Link>
                   </li>

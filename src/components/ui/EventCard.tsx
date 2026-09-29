@@ -28,9 +28,7 @@ export function EventCard({ event }: { event: IbcrEvent }) {
       <h3 className="mt-6 text-[1.125rem] leading-snug font-semibold tracking-tight text-navy-900">
         {event.title}
       </h3>
-      <p className="mt-3 flex-1 text-[0.875rem] leading-[1.6] text-muted">
-        {event.summary}
-      </p>
+      <p className="mt-3 flex-1 text-[0.875rem] leading-[1.6] text-muted">{event.summary}</p>
 
       {event.hideSchedule ? (
         <p className="label-mono mt-5 border-t border-hairline pt-4 text-[0.5625rem] text-navy-900/40">
@@ -51,11 +49,7 @@ export function EventCard({ event }: { event: IbcrEvent }) {
           </li>
           {event.time ? (
             <li className="flex items-center gap-2">
-              <Clock
-                strokeWidth={1.5}
-                className="size-3.5 text-gold-600"
-                aria-hidden
-              />
+              <Clock strokeWidth={1.5} className="size-3.5 text-gold-600" aria-hidden />
               {event.time}
             </li>
           ) : null}

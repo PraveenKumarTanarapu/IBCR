@@ -672,6 +672,8 @@ export const EVENTS: IbcrEvent[] = [
 export type Insight = {
   id: string;
   slug: string;
+  /** Article image; falls back to the drawn corridor plate. */
+  image?: string;
   category: "IBCR News" | "Market Intelligence" | "India–Rwanda Trade" | "Reports";
   title: string;
   date: string;
@@ -685,6 +687,7 @@ export const INSIGHTS: Insight[] = [
   {
     id: "i1",
     slug: "rwanda-as-a-gateway-to-east-africa",
+    image: "/images/insights/rwanda-as-a-gateway-to-east-africa.jpg",
     category: "Market Intelligence",
     title: "Rwanda as a gateway: what the numbers actually say",
     date: "2026-01-20",
@@ -702,6 +705,7 @@ export const INSIGHTS: Insight[] = [
   {
     id: "i2",
     slug: "ibcr-announces-investment-forum-2026",
+    image: "/images/insights/ibcr-announces-investment-forum-2026.jpg",
     category: "IBCR News",
     title: "IBCR announces the Business & Investment Forum 2026",
     date: "2026-01-08",
@@ -718,6 +722,7 @@ export const INSIGHTS: Insight[] = [
   {
     id: "i3",
     slug: "india-rwanda-trade-in-review",
+    image: "/images/insights/india-rwanda-trade-in-review.jpg",
     category: "India–Rwanda Trade",
     title: "India–Rwanda trade in review: composition, not just volume",
     date: "2025-12-11",
@@ -734,6 +739,7 @@ export const INSIGHTS: Insight[] = [
   {
     id: "i4",
     slug: "manufacturing-in-rwanda-a-practical-checklist",
+    image: "/images/insights/manufacturing-in-rwanda-a-practical-checklist.jpg",
     category: "Reports",
     title: "Manufacturing in Rwanda: a practical setup checklist",
     date: "2025-11-27",
@@ -750,6 +756,7 @@ export const INSIGHTS: Insight[] = [
   {
     id: "i5",
     slug: "why-advocacy-matters-for-smaller-members",
+    image: "/images/insights/why-advocacy-matters-for-smaller-members.jpg",
     category: "IBCR News",
     title: "Why advocacy matters most for smaller members",
     date: "2025-11-06",
@@ -766,6 +773,7 @@ export const INSIGHTS: Insight[] = [
   {
     id: "i6",
     slug: "digital-payments-and-the-sme-gap",
+    image: "/images/insights/digital-payments-and-the-sme-gap.jpg",
     category: "Market Intelligence",
     title: "Digital payments and the SME gap",
     date: "2025-10-15",

@@ -45,6 +45,7 @@ export default async function InsightPage(props: PageProps<"/insights/[slug]">) 
     description: insight.summary,
     datePublished: insight.date,
     articleSection: insight.category,
+    ...(insight.image ? { image: `${SITE.url}${insight.image}` } : {}),
     publisher: { "@type": "Organization", name: SITE.name },
   };
 
@@ -56,6 +57,7 @@ export default async function InsightPage(props: PageProps<"/insights/[slug]">) 
       />
 
       <PageHero
+        image={insight.image}
         eyebrow={insight.category}
         title={insight.title}
         copy={insight.summary}

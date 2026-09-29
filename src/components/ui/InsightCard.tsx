@@ -1,11 +1,15 @@
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import type { Insight } from "@/lib/content";
 import { cn, formatDate } from "@/lib/utils";
 
 /**
- * Article thumbnails are drawn, not photographed: a white plate with a hairline
- * corridor motif, tinted only by a thin accent rule per category.
+ * An article thumbnail takes a photograph when one has been supplied, and
+ * falls back to a drawn plate — a white ground with the hairline corridor
+ * motif — when it has not. Either way a thin accent rule marks the category.
  */
 const CATEGORY_RULE: Record<Insight["category"], string> = {
   "IBCR News": "bg-royal",
@@ -15,6 +19,9 @@ const CATEGORY_RULE: Record<Insight["category"], string> = {
 };
 
 export function InsightCard({ insight, featured }: { insight: Insight; featured?: boolean }) {
+  const [failed, setFailed] = useState(false);
+  const photo = insight.image && !failed;
+
   return (
     <article className="group h-full">
       <Link href={`/insights/${insight.slug}`} className="flex h-full flex-col">
@@ -29,33 +36,44 @@ export function InsightCard({ insight, featured }: { insight: Insight; featured?
             aria-hidden
           />
 
-          <svg
-            viewBox="0 0 400 240"
-            preserveAspectRatio="none"
-            aria-hidden
-            className="absolute inset-0 size-full text-navy-900/12 transition-transform duration-700 ease-[var(--ease-out-quint)] group-hover:scale-[1.03]"
-          >
-            <path
-              d="M-20 210 C 90 90, 250 70, 420 130"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1"
+          {photo ? (
+            /* eslint-disable-next-line @next/next/no-img-element */
+            <img
+              src={insight.image}
+              alt=""
+              loading="lazy"
+              onError={() => setFailed(true)}
+              className="absolute inset-0 size-full object-cover transition-transform duration-700 ease-[var(--ease-out-quint)] group-hover:scale-[1.04]"
             />
-            <path
-              d="M-20 235 C 110 140, 260 120, 420 175"
-              fill="none"
-              stroke="var(--color-gold)"
-              strokeOpacity="0.55"
-              strokeWidth="1"
-            />
-            <path
-              d="M-20 185 C 80 60, 260 30, 420 90"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="0.8"
-              strokeDasharray="3 9"
-            />
-          </svg>
+          ) : (
+            <svg
+              viewBox="0 0 400 240"
+              preserveAspectRatio="none"
+              aria-hidden
+              className="absolute inset-0 size-full text-navy-900/12 transition-transform duration-700 ease-[var(--ease-out-quint)] group-hover:scale-[1.03]"
+            >
+              <path
+                d="M-20 210 C 90 90, 250 70, 420 130"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1"
+              />
+              <path
+                d="M-20 235 C 110 140, 260 120, 420 175"
+                fill="none"
+                stroke="var(--color-gold)"
+                strokeOpacity="0.55"
+                strokeWidth="1"
+              />
+              <path
+                d="M-20 185 C 80 60, 260 30, 420 90"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="0.8"
+                strokeDasharray="3 9"
+              />
+            </svg>
+          )}
 
           <span className="label-mono absolute bottom-5 left-5 rounded-full border border-hairline bg-white px-3 py-1.5 text-[0.5625rem] text-muted">
             {insight.category}
