@@ -317,25 +317,68 @@ failure, which the UI surfaces inline.
 ### Wiring the forms up
 
 Every submission goes to **info@ibcr.rw** — the site has one inbox, used for
-enquiries, membership and press alike. `src/lib/server/submissions.ts`
-always writes the record to the server log, and emails it when a key is
-present:
+enquiries, membership and press alike. `src/lib/server/submissions.ts` always
+writes the record to the server log, and emails it through the first transport
+that is configured.
 
-| Variable                  | Purpose                                                       |
-| ------------------------- | ------------------------------------------------------------- |
-| `IBCR_RESEND_API_KEY`     | **Required to receive email.** A Resend API key.                |
-| `IBCR_SUBMISSION_EMAIL`   | Where submissions are sent. Defaults to `info@ibcr.rw`.         |
-| `IBCR_SUBMISSION_FROM`    | The From address. Defaults to `IBCR Website <website@ibcr.rw>`. |
-| `IBCR_SUBMISSION_WEBHOOK` | Optional. Also POSTs `{ kind, receivedAt, to, data }` to a URL. |
+### Option 1 — SMTP (a normal mailbox: Zoho, Google Workspace, cPanel)
 
-Until `IBCR_RESEND_API_KEY` is set, forms still validate, still succeed and
-still record — but nothing arrives in the inbox. Set the key (and verify the
-sending domain with the provider) before launch. The sender's own address is
-set as `reply_to`, so replying from the inbox goes straight back to them.
+```bash
+cp .env.example .env.local        # then fill it in
+```
 
-Any other transport works the same way: replace the body of `email()`.
+```ini
+IBCR_SMTP_HOST=smtp.zoho.com
+IBCR_SMTP_PORT=465
+IBCR_SMTP_USER=info@ibcr.rw
+IBCR_SMTP_PASS=<app password>
+```
 
----
+`IBCR_SMTP_PASS` is an **app password**, not the mailbox login. In Zoho:
+Settings → Security → App Passwords → Generate. Port 465 is implicit TLS; 587
+upgrades with STARTTLS, and the code picks the right mode from the port.
+
+### Option 2 — Resend (an API key instead of a mailbox)
+
+```ini
+IBCR_RESEND_API_KEY=re_...
+```
+
+Only used when the SMTP values are unset. The sending domain has to be
+verified with Resend first.
+
+### Everything else
+
+| Variable                  | Purpose                                                        |
+| ------------------------- | -------------------------------------------------------------- |
+| `IBCR_SUBMISSION_EMAIL`   | Where submissions are sent. Defaults to `info@ibcr.rw`.          |
+| `IBCR_SUBMISSION_FROM`    | The From address. Must be one the SMTP account may send as.      |
+| `IBCR_SUBMISSION_WEBHOOK` | Optional. Also POSTs `{ kind, receivedAt, to, data }` to a URL.  |
+
+**Restart after editing.** Next.js reads env files at startup, so changing
+`.env.local` while `npm run dev` is running does nothing until you stop and
+start it again. On a host, set the same variables in its dashboard and
+redeploy.
+
+**How to tell whether it sent.** Every submission logs a line. On success:
+
+```
+[ibcr:submission] emailed info@ibcr.rw over SMTP
+```
+
+With nothing configured, the form still validates and still says thank you —
+but the log says so plainly:
+
+```
+[ibcr:submission] NOT EMAILED — no transport configured. Set IBCR_SMTP_HOST...
+```
+
+If that is the line you see, the credentials have not reached the running
+server. A failing transport logs the provider's own error instead, which is
+usually an authentication or a From-address rejection.
+
+The sender's address is set as `reply_to`, so replying from the inbox goes
+straight back to them.
 
 ## Replacing sample content
 

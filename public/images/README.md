@@ -54,7 +54,7 @@ the file is being read.
 | 4 | Partner logos        | `images/partners/`          | 9     | 9 to upload   |
 | 5 | Opportunity sectors  | `images/opportunities/`     | 8     | 5 to upload   |
 | 6 | Service photographs  | `images/services/`          | 6     | 2 to upload   |
-| 7 | Insight articles     | `images/insights/`          | 6     | 6 to upload   |
+| 7 | Insight articles     | `images/insights/`          | 6     | 5 to upload   |
 | 8 | Why IBCR             | `images/`                   | 1     | ✅ in place    |
 
 Sets 5 and 6 each do double duty — see their notes.
@@ -208,14 +208,14 @@ does not letterbox, so crop before exporting. Under ~150KB.
 Falls back to: a drawn corridor plate on the card, and no background on the
 section.
 
-## 7. Insight articles — 6 to upload
+## 7. Insight articles — 5 to upload
 
 `public/images/insights/` · the card on `/insights`, and the masthead of the
 article itself. One file does both.
 
 | File                                             | Article                                            |
 | ------------------------------------------------ | -------------------------------------------------- |
-| `rwanda-as-a-gateway-to-east-africa.jpg`          | Rwanda as a gateway: what the numbers actually say  |
+| `rwanda-as-a-gateway-to-east-africa.jpg`          | Rwanda as a gateway (Market Intelligence) — ✅ in place |
 | `ibcr-announces-investment-forum-2026.jpg`        | IBCR announces the Business & Investment Forum 2026 |
 | `india-rwanda-trade-in-review.jpg`                | India–Rwanda trade in review                        |
 | `manufacturing-in-rwanda-a-practical-checklist.jpg` | Manufacturing in Rwanda: a practical setup checklist |

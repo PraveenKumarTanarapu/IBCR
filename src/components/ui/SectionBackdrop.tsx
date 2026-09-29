@@ -39,23 +39,28 @@ export function SectionBackdrop({
         onError={() => setFailed(true)}
         className={cn(
           "absolute inset-0 size-full object-cover",
-          "transition-[filter,transform,opacity] duration-[900ms] ease-[var(--ease-out-quint)]",
-          "opacity-45 saturate-0 md:group-hover:scale-[1.03] md:group-hover:opacity-100 md:group-hover:saturate-100",
+          "transition-[filter,transform] duration-[900ms] ease-[var(--ease-out-quint)]",
+          "saturate-[0.35] md:group-hover:scale-[1.04] md:group-hover:saturate-100",
         )}
       />
-      {/* Veil: heavy at rest, lifted on hover. */}
+      {/*
+        Veil. Two layers do the work: a flat one that lifts on hover, and a
+        fixed gradient that keeps the copy side readable whatever the hover
+        state. Between them the photograph is clearly legible at rest and
+        comes fully forward under the cursor.
+      */}
       <div
         className={cn(
-          "absolute inset-0 bg-white/90 transition-opacity duration-[900ms] ease-[var(--ease-out-quint)]",
-          "md:group-hover:opacity-[0.78]",
+          "absolute inset-0 bg-white/80 transition-opacity duration-[900ms] ease-[var(--ease-out-quint)]",
+          "md:group-hover:opacity-[0.58]",
         )}
       />
       <div
         className={cn(
           "absolute inset-0",
           side === "right"
-            ? "bg-[linear-gradient(to_right,rgba(255,255,255,0.98)_0%,rgba(255,255,255,0.9)_45%,rgba(255,255,255,0.42)_100%)]"
-            : "bg-[linear-gradient(to_left,rgba(255,255,255,0.98)_0%,rgba(255,255,255,0.9)_45%,rgba(255,255,255,0.42)_100%)]",
+            ? "bg-[linear-gradient(to_right,rgba(255,255,255,0.97)_0%,rgba(255,255,255,0.86)_42%,rgba(255,255,255,0.3)_100%)]"
+            : "bg-[linear-gradient(to_left,rgba(255,255,255,0.97)_0%,rgba(255,255,255,0.86)_42%,rgba(255,255,255,0.3)_100%)]",
         )}
       />
       <div className="absolute inset-x-0 top-0 h-24 bg-[linear-gradient(to_bottom,#ffffff,rgba(255,255,255,0))]" />
