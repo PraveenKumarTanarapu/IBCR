@@ -9,8 +9,41 @@
  * here is the real reason the contact form is silent — this just shows it in
  * two seconds instead of after filling in a form.
  */
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import nodemailer from "nodemailer";
 import { smtpOptions } from "../src/lib/server/smtp.mjs";
+
+/**
+ * Read .env.local ourselves rather than relying on `node --env-file`, which
+ * only exists on newer Node versions and fails the whole command on older
+ * ones. Values already in the environment win, so you can still override any
+ * of them inline for a one-off test.
+ */
+function loadEnv() {
+  const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+  for (const name of [".env.local", ".env"]) {
+    const file = path.join(root, name);
+    if (!fs.existsSync(file)) continue;
+    for (const line of fs.readFileSync(file, "utf8").split("\n")) {
+      const match = /^\s*([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*)$/.exec(line);
+      if (!match) continue;
+      const key = match[1];
+      let value = match[2].trim();
+      if (
+        (value.startsWith('"') && value.endsWith('"')) ||
+        (value.startsWith("'") && value.endsWith("'"))
+      ) {
+        value = value.slice(1, -1);
+      }
+      if (process.env[key] === undefined) process.env[key] = value;
+    }
+    console.log(`  read   ${name}`);
+  }
+}
+
+loadEnv();
 
 const host = process.env.IBCR_SMTP_HOST;
 const port = Number(process.env.IBCR_SMTP_PORT || 465);

@@ -10,7 +10,7 @@
     "typecheck": "next typegen && tsc --noEmit",
     "media:preview": "node tools/media/preview.mjs",
     "media:render": "node tools/media/capture.mjs",
-    "mail:test": "node --env-file-if-exists=.env.local tools/mail-test.mjs"
+    "mail:test": "node tools/mail-test.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.8",
