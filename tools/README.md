@@ -4,14 +4,14 @@ Build-time and QA helpers. None of this ships to the browser.
 
 ## `media/` — hero footage renderer
 
-| File          | Purpose                                                                    |
-| ------------- | -------------------------------------------------------------------------- |
-| `scenes.mjs`  | Three deterministic, seamlessly-looping three.js scenes (`update(t)`, 0..1) |
-| `render.html` | Harness page — imports three from `node_modules` via an import map          |
-| `serve.mjs`   | Tiny static server (ES modules need an http origin; `file://` is blocked)   |
-| `preview.mjs` | Renders a few sample frames per scene for a quick look                      |
-| `capture.mjs` | Full render → JPEG frames → H.264 MP4 + poster in `public/video`            |
-| `worldmap.mjs`| Natural Earth → `public/textures/world-map.png` for the corridor globe       |
+| File           | Purpose                                                                     |
+| -------------- | --------------------------------------------------------------------------- |
+| `scenes.mjs`   | Three deterministic, seamlessly-looping three.js scenes (`update(t)`, 0..1) |
+| `render.html`  | Harness page — imports three from `node_modules` via an import map          |
+| `serve.mjs`    | Tiny static server (ES modules need an http origin; `file://` is blocked)   |
+| `preview.mjs`  | Renders a few sample frames per scene for a quick look                      |
+| `capture.mjs`  | Full render → JPEG frames → H.264 MP4 + poster in `public/video`            |
+| `worldmap.mjs` | Natural Earth → `public/textures/world-map.png` for the corridor globe      |
 
 ```bash
 npm run media:preview                 # sample frames
@@ -49,17 +49,31 @@ npm run mail:test you@example.com   # somewhere else
 Connection options live in `src/lib/server/smtp.mjs` — plain JavaScript so the
 site and this script share one definition rather than drifting apart.
 
+## Deployment
+
+`deploy-bundle.mjs` packages a finished build for the live server: the compiled
+`.next`, `public/`, `server.js`, and a `package.json` pinned to the versions the
+build was made against. No `node_modules` (the host installs its own) and no
+build cache.
+
+```bash
+npm run build
+npm run deploy:bundle   # → deploy/ibcr-app.zip
+```
+
+See `DEPLOY.md` in the project root for what to do with the zip.
+
 ## QA helpers
 
-| File              | Purpose                                                    |
-| ----------------- | ---------------------------------------------------------- |
-| `pageshots.mjs`   | Screenshot pages at a given viewport (`FULL=1` for tall)    |
-| `scrollshots.mjs` | Screenshot at specific scroll offsets — most reliable       |
-| `slice.mjs`       | Slice a tall screenshot into readable chunks                |
-| `measure.mjs`     | Report document and per-section heights                     |
-| `find404.mjs`     | List failing network requests on a page                     |
-| `shot.mjs`        | Screenshot any file or URL                                  |
-| `hovershot.mjs`   | A section at rest, then with one element hovered            |
+| File              | Purpose                                                  |
+| ----------------- | -------------------------------------------------------- |
+| `pageshots.mjs`   | Screenshot pages at a given viewport (`FULL=1` for tall) |
+| `scrollshots.mjs` | Screenshot at specific scroll offsets — most reliable    |
+| `slice.mjs`       | Slice a tall screenshot into readable chunks             |
+| `measure.mjs`     | Report document and per-section heights                  |
+| `find404.mjs`     | List failing network requests on a page                  |
+| `shot.mjs`        | Screenshot any file or URL                               |
+| `hovershot.mjs`   | A section at rest, then with one element hovered         |
 
 ```bash
 SHOT_DIR=/tmp/shots node tools/scrollshots.mjs / 0 2900 8000

@@ -19,6 +19,8 @@
 
 # production
 /build
+# packaged build for the live server — regenerate with npm run deploy:bundle
+/deploy/
 
 # misc
 .DS_Store

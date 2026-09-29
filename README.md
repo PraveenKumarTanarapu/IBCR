@@ -10,15 +10,15 @@ Rwanda.
 
 ## Stack
 
-| Layer      | Choice                                                                 |
-| ---------- | ---------------------------------------------------------------------- |
-| Framework  | Next.js 16 (App Router, React 19, TypeScript, Turbopack)                |
-| Styling    | Tailwind CSS v4 with a token-first `@theme` design system               |
-| Motion     | Motion (Framer Motion) for reveals · GSAP ScrollTrigger for scrubbing   |
-| Scrolling  | Lenis, synced to GSAP's ticker                                          |
-| 3D         | three.js via React Three Fiber + drei                                   |
-| Icons      | lucide-react                                                            |
-| Hero media | three.js scenes rendered offline to MP4 (see `tools/media`)             |
+| Layer      | Choice                                                                |
+| ---------- | --------------------------------------------------------------------- |
+| Framework  | Next.js 16 (App Router, React 19, TypeScript, Turbopack)              |
+| Styling    | Tailwind CSS v4 with a token-first `@theme` design system             |
+| Motion     | Motion (Framer Motion) for reveals · GSAP ScrollTrigger for scrubbing |
+| Scrolling  | Lenis, synced to GSAP's ticker                                        |
+| 3D         | three.js via React Three Fiber + drei                                 |
+| Icons      | lucide-react                                                          |
+| Hero media | three.js scenes rendered offline to MP4 (see `tools/media`)           |
 
 No CSS framework overrides, no component library — the UI is bespoke.
 
@@ -34,10 +34,11 @@ npm run dev        # http://localhost:3000
 Other scripts:
 
 ```bash
-npm run build      # production build
-npm run start      # serve the production build
-npm run lint       # eslint (flat config)
-npm run typecheck  # next typegen && tsc --noEmit
+npm run build          # production build
+npm run start          # serve the production build
+npm run lint           # eslint (flat config)
+npm run typecheck      # next typegen && tsc --noEmit
+npm run deploy:bundle  # package the build for the live server
 ```
 
 ---
@@ -67,7 +68,7 @@ the white headline to read against it.
 - **Instrument Serif** (italic) — the editorial accent inside a heading, one phrase at a time
 - **JetBrains Mono** — eyebrows, numerals and metadata (`.label-mono`)
 
-**Motion** — the rule is *premium, subtle, purposeful*. Reveals are 0.7s with an
+**Motion** — the rule is _premium, subtle, purposeful_. Reveals are 0.7s with an
 `ease-out-expo` curve, hovers are 300ms, parallax is a few percent. Everything collapses to
 a plain fade under `prefers-reduced-motion`, and Lenis switches itself off entirely for
 reduced-motion visitors and coarse pointers.
@@ -124,11 +125,11 @@ The footage is **not** stock. `tools/media/scenes.mjs` defines three determinist
 seamlessly-looping three.js scenes — `corridor` is the one the hero uses; the other two are
 rendered spares you can swap in by pointing `HERO.video` at them in `src/lib/content.ts`:
 
-| Scene       | What it shows                                              |
-| ----------- | ---------------------------------------------------------- |
-| `corridor`  | A point-shell globe with live trade arcs, India → Kigali    |
-| `filaments` | Light filaments streaming through a navy field              |
-| `lattice`   | A drifting network lattice with gold hubs                   |
+| Scene       | What it shows                                            |
+| ----------- | -------------------------------------------------------- |
+| `corridor`  | A point-shell globe with live trade arcs, India → Kigali |
+| `filaments` | Light filaments streaming through a navy field           |
+| `lattice`   | A drifting network lattice with gold hubs                |
 
 They are rendered headlessly and encoded to H.264:
 
@@ -201,13 +202,13 @@ drawn plate.
 Both read from `src/lib/content.ts` (`MEMBERSHIP_TIERS`, `BOARD`), which now
 carries the Chamber's verified categories, fees, board, mission and vision.
 
-**`components/ui/integration-hero.tsx`** drives *Our strategic partners*: two
+**`components/ui/integration-hero.tsx`** drives _Our strategic partners_: two
 rows of circular tiles drifting in opposite directions over a dotted ground.
 Each row is doubled and travels exactly half its width, so the loop has no
 seam; the keyframes live in `globals.css` beside the ones the rest of the site
 uses. A partner with no logo file shows their initials.
 
-**`components/ui/clean-testimonial.tsx`** drives *Testimonials*: one quote at a
+**`components/ui/clean-testimonial.tsx`** drives _Testimonials_: one quote at a
 time, advanced by clicking anywhere in the panel, with the cursor replaced by a
 magnetic "Next" disc. That swap only happens where a real pointer exists, and
 the same action is a focusable button, so it works from the keyboard and on
@@ -247,7 +248,7 @@ one; until the file is supplied each falls back to the drawn corridor motif.
 
 All three live in `components/ui/` and are used on the homepage.
 
-**`parallax-scroll-feature-section.tsx`** drives *Why IBCR* and *The Corridor*.
+**`parallax-scroll-feature-section.tsx`** drives _Why IBCR_ and _The Corridor_.
 Each row scrubs a media panel in from the left while the copy column drifts
 upward, so the two settle together. Media is either an image or an arbitrary
 node — the corridor row passes the live WebGL globe through it. Rows alternate
@@ -260,14 +261,14 @@ resolves the transforms to their resting values rather than dropping the
 `style` prop — removing the prop leaves the last `opacity: 0` painted on the
 element and hides the media permanently.
 
-**`card-fan-carousel.tsx`** drives *What We Do*: the six services fan out as a
+**`card-fan-carousel.tsx`** drives _What We Do_: the six services fan out as a
 deck on entry, lift individually on hover, and compress on narrow viewports.
 GSAP owns the transforms; the layout height and the card footprint come from
 the `.fan-layout` / `.fan-card` rules in `globals.css` — the breakpoints there
 must stay in step with `getHeightMultiplier` in the component. Past seven cards
 it paginates itself with arrows and dots.
 
-**`color-change-card.tsx`** drives *Investment opportunities*, on the homepage
+**`color-change-card.tsx`** drives _Investment opportunities_, on the homepage
 and again on `/india-rwanda#opportunities` — both render `OpportunityGrid`
 from `components/home/Opportunities.tsx`, so the two can never drift apart.
 Each sector sits behind a desaturated photograph that resolves to full colour
@@ -303,12 +304,12 @@ A standalone `public/brand/ibcr-logo.svg` is available for decks and email signa
 
 Four forms post JSON to route handlers under `src/app/api/`:
 
-| Endpoint               | Used by                       |
-| ---------------------- | ----------------------------- |
-| `/api/enquiry`         | Contact form                  |
-| `/api/membership`      | Membership application        |
-| `/api/events/register` | Event registration            |
-| `/api/newsletter`      | Footer subscription           |
+| Endpoint               | Used by                |
+| ---------------------- | ---------------------- |
+| `/api/enquiry`         | Contact form           |
+| `/api/membership`      | Membership application |
+| `/api/events/register` | Event registration     |
+| `/api/newsletter`      | Footer subscription    |
 
 Every handler validates field-by-field, checks a honeypot, and rate-limits by client IP
 (6 requests per minute). They return `{ message }` on success and `{ error }` with a 4xx on
@@ -331,7 +332,7 @@ npm run mail:test                 # prove it before trusting the form
 **InMotion / cPanel.** The mail server that hosts the mailbox is also the
 relay, so nothing extra needs buying or verifying. Get the exact values from
 cPanel → Email Accounts → the row for `info@ibcr.rw` → **Connect Devices** →
-*Mail Client Manual Settings*, and use the **Secure SSL/TLS** column:
+_Mail Client Manual Settings_, and use the **Secure SSL/TLS** column:
 
 ```ini
 IBCR_SMTP_HOST=mail.ibcr.rw     # or the server hostname cPanel shows
@@ -352,7 +353,7 @@ IBCR_SMTP_PORT=25
 ```
 
 **Other providers.** Zoho is `smtp.zoho.com:465` and Google Workspace is
-`smtp.gmail.com:465`; both want an *app password* rather than the login.
+`smtp.gmail.com:465`; both want an _app password_ rather than the login.
 
 ### Option 2 — Resend (an API key instead of a mailbox)
 
@@ -365,11 +366,11 @@ verified with Resend first.
 
 ### Everything else
 
-| Variable                  | Purpose                                                        |
-| ------------------------- | -------------------------------------------------------------- |
-| `IBCR_SUBMISSION_EMAIL`   | Where submissions are sent. Defaults to `info@ibcr.rw`.          |
-| `IBCR_SUBMISSION_FROM`    | The From address. Must be one the SMTP account may send as.      |
-| `IBCR_SUBMISSION_WEBHOOK` | Optional. Also POSTs `{ kind, receivedAt, to, data }` to a URL.  |
+| Variable                  | Purpose                                                         |
+| ------------------------- | --------------------------------------------------------------- |
+| `IBCR_SUBMISSION_EMAIL`   | Where submissions are sent. Defaults to `info@ibcr.rw`.         |
+| `IBCR_SUBMISSION_FROM`    | The From address. Must be one the SMTP account may send as.     |
+| `IBCR_SUBMISSION_WEBHOOK` | Optional. Also POSTs `{ kind, receivedAt, to, data }` to a URL. |
 
 **Restart after editing.** Next.js reads env files at startup, so changing
 `.env.local` while `npm run dev` is running does nothing until you stop and
@@ -413,6 +414,27 @@ passes both already.
 
 The sender's address is set as `reply_to`, so replying from the inbox goes
 straight back to them.
+
+---
+
+## Deployment
+
+The site needs a Node.js server: the four form endpoints are server routes, so a
+static upload cannot answer them. **[DEPLOY.md](DEPLOY.md)** is the step-by-step
+for cPanel hosting (InMotion), where that means an application created under
+Setup Node.js App.
+
+```bash
+npm run build          # compile
+npm run deploy:bundle  # → deploy/ibcr-app.zip, about 12 MB
+```
+
+The bundle carries the compiled site, `public/`, `server.js` and a `package.json`
+pinned to the versions the build was tested against. It deliberately leaves out
+`node_modules` — cPanel installs those itself — and the 65 MB build cache.
+
+`server.js` is the entry point Passenger runs. It is the same thing `next start`
+does, expressed as a file, because cPanel starts an app by running one file.
 
 ## Replacing sample content
 

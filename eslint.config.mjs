@@ -12,7 +12,15 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Packaged build output — compiled code, not source.
+    "deploy/**",
   ]),
+  {
+    // The production entry point is required by Passenger on the host, which
+    // loads it as CommonJS and does not put it through any compiler.
+    files: ["server.js"],
+    rules: { "@typescript-eslint/no-require-imports": "off" },
+  },
 ]);
 
 export default eslintConfig;

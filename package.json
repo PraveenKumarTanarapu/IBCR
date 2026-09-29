@@ -10,7 +10,8 @@
     "typecheck": "next typegen && tsc --noEmit",
     "media:preview": "node tools/media/preview.mjs",
     "media:render": "node tools/media/capture.mjs",
-    "mail:test": "node tools/mail-test.mjs"
+    "mail:test": "node tools/mail-test.mjs",
+    "deploy:bundle": "node tools/deploy-bundle.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.8",
@@ -43,5 +44,5 @@
     "typescript": "^5",
     "world-atlas": "^2.0.2"
   },
-  "description": "Indian Business Chamber in Rwanda \u2014 premium institutional website"
+  "description": "Indian Business Chamber in Rwanda — premium institutional website"
 }
