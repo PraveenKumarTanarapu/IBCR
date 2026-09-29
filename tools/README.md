@@ -35,6 +35,20 @@ Display 700 with opentype.js. `src/components/brand/IbcrMark.tsx` was generated 
 regenerate only if the letterforms need to change, and re-check the Chakra and sun
 positions against the artwork afterwards.
 
+## Mail
+
+`mail-test.mjs` opens the same SMTP connection the contact form opens, using
+`.env.local`, and reports what the mail server said. Run it before trusting
+the form, and whenever an enquiry does not arrive.
+
+```bash
+npm run mail:test                   # to IBCR_SUBMISSION_EMAIL
+npm run mail:test you@example.com   # somewhere else
+```
+
+Connection options live in `src/lib/server/smtp.mjs` — plain JavaScript so the
+site and this script share one definition rather than drifting apart.
+
 ## QA helpers
 
 | File              | Purpose                                                    |

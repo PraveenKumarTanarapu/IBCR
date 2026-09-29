@@ -321,22 +321,38 @@ enquiries, membership and press alike. `src/lib/server/submissions.ts` always
 writes the record to the server log, and emails it through the first transport
 that is configured.
 
-### Option 1 — SMTP (a normal mailbox: Zoho, Google Workspace, cPanel)
+### Option 1 — SMTP, through your own mailbox (recommended)
 
 ```bash
 cp .env.example .env.local        # then fill it in
+npm run mail:test                 # prove it before trusting the form
 ```
+
+**InMotion / cPanel.** The mail server that hosts the mailbox is also the
+relay, so nothing extra needs buying or verifying. Get the exact values from
+cPanel → Email Accounts → the row for `info@ibcr.rw` → **Connect Devices** →
+*Mail Client Manual Settings*, and use the **Secure SSL/TLS** column:
 
 ```ini
-IBCR_SMTP_HOST=smtp.zoho.com
-IBCR_SMTP_PORT=465
-IBCR_SMTP_USER=info@ibcr.rw
-IBCR_SMTP_PASS=<app password>
+IBCR_SMTP_HOST=mail.ibcr.rw     # or the server hostname cPanel shows
+IBCR_SMTP_PORT=465              # 587 if 465 is blocked
+IBCR_SMTP_USER=info@ibcr.rw     # the FULL address, not "info"
+IBCR_SMTP_PASS=<mailbox password>
 ```
 
-`IBCR_SMTP_PASS` is an **app password**, not the mailbox login. In Zoho:
-Settings → Security → App Passwords → Generate. Port 465 is implicit TLS; 587
-upgrades with STARTTLS, and the code picks the right mode from the port.
+The password is the mailbox's own password from cPanel → Email Accounts, not
+a cPanel login and not an app password — cPanel mailboxes do not use those.
+
+**If the site runs on the same InMotion server**, skip the credentials and
+relay locally. Nothing to authenticate and no port to be blocked:
+
+```ini
+IBCR_SMTP_HOST=localhost
+IBCR_SMTP_PORT=25
+```
+
+**Other providers.** Zoho is `smtp.zoho.com:465` and Google Workspace is
+`smtp.gmail.com:465`; both want an *app password* rather than the login.
 
 ### Option 2 — Resend (an API key instead of a mailbox)
 
@@ -360,13 +376,25 @@ verified with Resend first.
 start it again. On a host, set the same variables in its dashboard and
 redeploy.
 
-**How to tell whether it sent.** Every submission logs a line. On success:
+**Check it with the test script.** `npm run mail:test` reads `.env.local`,
+opens the same connection the site opens, and says what the mail server
+replied — in two seconds, without filling in a form:
 
 ```
-[ibcr:submission] emailed info@ibcr.rw over SMTP
+npm run mail:test                   # to IBCR_SUBMISSION_EMAIL
+npm run mail:test you@example.com   # somewhere else
 ```
 
-With nothing configured, the form still validates and still says thank you —
+It names the likely cause on failure: a rejected password, an unreachable
+host or port, or a From address the server will not accept.
+
+**How to tell whether the site sent.** Every submission logs a line. Success:
+
+```
+[ibcr:submission] emailed info@ibcr.rw over SMTP (mail.ibcr.rw:465)
+```
+
+With nothing configured the form still validates and still says thank you —
 but the log says so plainly:
 
 ```
@@ -374,8 +402,14 @@ but the log says so plainly:
 ```
 
 If that is the line you see, the credentials have not reached the running
-server. A failing transport logs the provider's own error instead, which is
-usually an authentication or a From-address rejection.
+server — usually an env file that was edited without restarting. A failing
+transport logs the mail server's own error instead, with the host and port it
+tried.
+
+**If it arrives in Spam**, the domain's SPF and DKIM records need to cover the
+sending server. In cPanel: Email → Email Deliverability → Repair for
+`ibcr.rw`. Sending through the same host that receives the mail usually
+passes both already.
 
 The sender's address is set as `reply_to`, so replying from the inbox goes
 straight back to them.

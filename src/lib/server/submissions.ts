@@ -1,5 +1,7 @@
 import "server-only";
 
+import { smtpOptions } from "./smtp.mjs";
+
 /**
  * Submission handling for the site's forms.
  *
@@ -126,23 +128,17 @@ async function email(kind: SubmissionKind, data: Validated, receivedAt: string) 
   const user = process.env.IBCR_SMTP_USER;
   const pass = process.env.IBCR_SMTP_PASS;
 
-  if (host && user && pass) {
+  if (host) {
     // Imported here so nodemailer stays out of any route that never sends.
     const nodemailer = (await import("nodemailer")).default;
     const port = Number(process.env.IBCR_SMTP_PORT || 465);
     try {
-      const transport = nodemailer.createTransport({
-        host,
-        port,
-        // 465 is implicit TLS; 587 upgrades with STARTTLS.
-        secure: port === 465,
-        auth: { user, pass },
-      });
+      const transport = nodemailer.createTransport(smtpOptions(host, port, user, pass));
       await transport.sendMail({ from, to: INBOX, subject, text, replyTo });
-      console.info(`[ibcr:submission] emailed ${INBOX} over SMTP`);
+      console.info(`[ibcr:submission] emailed ${INBOX} over SMTP (${host}:${port})`);
       return true;
     } catch (error) {
-      console.error("[ibcr:submission] SMTP send failed", error);
+      console.error(`[ibcr:submission] SMTP send failed (${host}:${port})`, error);
       return false;
     }
   }
@@ -175,8 +171,9 @@ async function email(kind: SubmissionKind, data: Validated, receivedAt: string) 
 
   console.warn(
     "[ibcr:submission] NOT EMAILED — no transport configured. " +
-      "Set IBCR_SMTP_HOST, IBCR_SMTP_USER and IBCR_SMTP_PASS (or IBCR_RESEND_API_KEY) " +
-      "in .env.local and restart the server. See README.md → Wiring the forms up.",
+      "Set IBCR_SMTP_HOST (plus IBCR_SMTP_USER and IBCR_SMTP_PASS unless relaying " +
+      "through localhost), or IBCR_RESEND_API_KEY, in .env.local and restart the " +
+      "server. Check it with `npm run mail:test`. See README.md → Wiring the forms up.",
   );
   return false;
 }
