@@ -377,12 +377,17 @@ export const OPPORTUNITIES = [
  * The five membership categories and their annual fees, as the Chamber sets
  * them out. Silver, Gold, Platinum and Corporate come from the Chamber's deck;
  * International is the category for members based outside Rwanda, and carries
- * two options rather than one fee.
+ * two fees of its own, quoted in USD rather than RWF.
  *
  * The limited launch offer these once carried has closed — the fees below are
  * the standard rates.
  */
-export type MembershipOption = { name: string; who: string };
+export type MembershipOption = {
+  name: string;
+  who: string;
+  /** Annual fee, pre-formatted — these are quoted in USD, not RWF. */
+  price?: string;
+};
 
 export type MembershipTier = {
   id: string;
@@ -493,17 +498,19 @@ export const MEMBERSHIP_TIERS: MembershipTier[] = [
     id: "international",
     name: "International",
     label: "Outside Rwanda",
-    price: "On request",
-    currency: "RWF",
+    price: "From USD 350",
+    currency: "USD",
     period: "",
     who: "For companies and professionals based outside Rwanda \u2014 in India or anywhere else \u2014 who want the corridor open to them before they have an entity on the ground.",
     options: [
       {
         name: "Corporate",
+        price: "USD 950/yr",
         who: "Companies headquartered outside Rwanda, exploring entry, sourcing, distribution or investment.",
       },
       {
         name: "Individual",
+        price: "USD 350/yr",
         who: "Professionals, consultants and investors working the corridor in their own name.",
       },
     ],
@@ -520,12 +527,30 @@ export const MEMBERSHIP_TIERS: MembershipTier[] = [
 ];
 
 export const MEMBERSHIP_BENEFITS = [
-  { title: "Access", copy: "Rooms, relationships and institutions that are hard to reach on your own." },
-  { title: "Visibility", copy: "A credible presence in front of buyers, investors and partners in both markets." },
-  { title: "Intelligence", copy: "Briefings, sector research and regulatory updates written for decision-makers." },
-  { title: "Representation", copy: "A collective voice on the issues that shape the operating environment." },
-  { title: "Matchmaking", copy: "Curated introductions to buyers, suppliers, distributors and co-investors." },
-  { title: "Soft landing", copy: "Practical help with registration, licensing, banking and hiring." },
+  {
+    title: "Access",
+    copy: "Rooms, relationships and institutions that are hard to reach on your own.",
+  },
+  {
+    title: "Visibility",
+    copy: "A credible presence in front of buyers, investors and partners in both markets.",
+  },
+  {
+    title: "Intelligence",
+    copy: "Briefings, sector research and regulatory updates written for decision-makers.",
+  },
+  {
+    title: "Representation",
+    copy: "A collective voice on the issues that shape the operating environment.",
+  },
+  {
+    title: "Matchmaking",
+    copy: "Curated introductions to buyers, suppliers, distributors and co-investors.",
+  },
+  {
+    title: "Soft landing",
+    copy: "Practical help with registration, licensing, banking and hiring.",
+  },
 ] as const;
 
 /* -------------------------------------------------------- member directory */
@@ -574,31 +599,206 @@ export const MEMBER_TIERS: MemberTier[] = [
 ];
 
 export const MEMBERS: Member[] = [
-  { id: "m01", name: "Imana Steel Rwanda Ltd", representative: "Mehul Pravinchandra Brahmbratt", designation: "CEO", tier: "Platinum", logo: "/images/members/imana-steel-rwanda-ltd.png" },
-  { id: "m02", name: "Konnect Analysis Ltd", representative: "Gayatri Chopali", designation: "Managing Director", tier: "Platinum", logo: "/images/members/konnect-analysis-ltd.png" },
-  { id: "m03", name: "Alpine Holidays Ltd", representative: "Hem Raj Sharma", designation: "Managing Director", tier: "Platinum", logo: "/images/members/alpine-holidays-ltd.png" },
-  { id: "m04", name: "Quadinfra Ltd", representative: "Madhusudhan Reddy Koduru", designation: "Managing Director", tier: "Platinum", logo: "/images/members/quadinfra-ltd.png" },
-  { id: "m05", name: "Yuvikhetani Ltd", representative: "Virji Manji Kanji Khetani", designation: "Managing Director", tier: "Platinum", logo: "/images/members/yuvikhetani-ltd.png" },
-  { id: "m06", name: "Satguru Travel & Tours", representative: "Bharat Tonali", designation: "Managing Director", tier: "Platinum", logo: "/images/members/satguru-travel-and-tours.png" },
-  { id: "m07", name: "Orbit Healthcare Service Ltd", representative: "I. Vasudeva Rao", designation: "Centre Head", tier: "Platinum", logo: "/images/members/orbit-healthcare-service-ltd.png" },
-  { id: "m08", name: "Sabari Ltd", representative: "Srinath Vardhineni", designation: "Managing Director", tier: "Platinum", logo: "/images/members/sabari-ltd.png" },
-  { id: "m09", name: "Savita Builders Rwanda Ltd", representative: "Harshad Naran Jesani", designation: "General Manager", tier: "Gold", logo: "/images/members/savita-builders-rwanda-ltd.png" },
-  { id: "m10", name: "Imprisco Plus Ltd", representative: "Jojo Joseph", designation: "Managing Director", tier: "Gold", logo: "/images/members/imprisco-plus-ltd.png" },
-  { id: "m11", name: "Ashree Com Ltd", representative: "Ramu Morampudi", designation: "Managing Director", tier: "Gold", logo: "/images/members/ashree-com-ltd.png" },
-  { id: "m12", name: "Shyam Group Ltd", representative: "Awadesh Singh", designation: "Managing Director", tier: "Gold", logo: "/images/members/shyam-group-ltd.png" },
-  { id: "m13", name: "D.P Singh Associates Ltd", representative: "D.P Singh", designation: "Managing Director", tier: "Gold", logo: "/images/members/d-p-singh-associates-ltd.png" },
-  { id: "m14", name: "Hi-Fi Trading Service Ltd", representative: "Chetan Dodiya", designation: "Managing Director", tier: "Gold", logo: "/images/members/hi-fi-trading-service-ltd.png" },
-  { id: "m15", name: "Finex Investment Ltd", representative: "Raviraja Poojary", designation: "Director", tier: "Silver", logo: "/images/members/finex-investment-ltd.png" },
-  { id: "m16", name: "Care Group International", representative: "Jyotiprakash Panda", designation: "CEO", tier: "Silver", logo: "/images/members/care-group-international.png" },
-  { id: "m17", name: "Ram Associates", representative: "Nupur Jain", designation: "Managing Director", tier: "Silver", logo: "/images/members/ram-associates.png" },
-  { id: "m18", name: "Sai Info-Tech Ltd", representative: "Prakash Kalavagadd", designation: "Managing Director", tier: "Silver", logo: "/images/members/sai-info-tech-ltd.png" },
-  { id: "m19", name: "Impact Technology", representative: "Shaikh Mahebubddin", designation: "Managing Director", tier: "Silver", logo: "/images/members/impact-technology.png" },
-  { id: "m20", name: "Gyan Ltd", representative: "Jwala Vijay Kumar Chaluvadi", designation: "Managing Director", tier: "Silver", logo: "/images/members/gyan-ltd.png" },
-  { id: "m21", name: "ALSM", representative: "Sunnykumar Mateeti", designation: "Managing Partner", tier: "Silver", logo: "/images/members/alsm.png" },
-  { id: "m22", name: "SSV Shop & General Trading Ltd", representative: "Somishetty Venkateswarlu", designation: "Managing Director", tier: "Silver", logo: "/images/members/ssv-shop-and-general-trading-ltd.png" },
-  { id: "m23", name: "Flexipay Finance Ltd", representative: "Ross T Nathan", designation: "Managing Director & CEO", tier: "Silver", logo: "/images/members/flexipay-finance-ltd.png" },
-  { id: "m24", name: "Artab Biobag Ltd", representative: "Sidharth Bohra", designation: "Managing Director", tier: "Silver", logo: "/images/members/artab-biobag-ltd.png" },
-  { id: "m25", name: "Techin1000Hills Ltd", representative: "Sadesh Kumae Puthenpurayil Soman", designation: "Chairperson & CEO", tier: "Silver", logo: "/images/members/techin1000hills-ltd.png" },
+  {
+    id: "m01",
+    name: "Imana Steel Rwanda Ltd",
+    representative: "Mehul Pravinchandra Brahmbratt",
+    designation: "CEO",
+    tier: "Platinum",
+    logo: "/images/members/imana-steel-rwanda-ltd.png",
+  },
+  {
+    id: "m02",
+    name: "Konnect Analysis Ltd",
+    representative: "Gayatri Chopali",
+    designation: "Managing Director",
+    tier: "Platinum",
+    logo: "/images/members/konnect-analysis-ltd.png",
+  },
+  {
+    id: "m03",
+    name: "Alpine Holidays Ltd",
+    representative: "Hem Raj Sharma",
+    designation: "Managing Director",
+    tier: "Platinum",
+    logo: "/images/members/alpine-holidays-ltd.png",
+  },
+  {
+    id: "m04",
+    name: "Quadinfra Ltd",
+    representative: "Madhusudhan Reddy Koduru",
+    designation: "Managing Director",
+    tier: "Platinum",
+    logo: "/images/members/quadinfra-ltd.png",
+  },
+  {
+    id: "m05",
+    name: "Yuvikhetani Ltd",
+    representative: "Virji Manji Kanji Khetani",
+    designation: "Managing Director",
+    tier: "Platinum",
+    logo: "/images/members/yuvikhetani-ltd.png",
+  },
+  {
+    id: "m06",
+    name: "Satguru Travel & Tours",
+    representative: "Bharat Tonali",
+    designation: "Managing Director",
+    tier: "Platinum",
+    logo: "/images/members/satguru-travel-and-tours.png",
+  },
+  {
+    id: "m07",
+    name: "Orbit Healthcare Service Ltd",
+    representative: "I. Vasudeva Rao",
+    designation: "Centre Head",
+    tier: "Platinum",
+    logo: "/images/members/orbit-healthcare-service-ltd.png",
+  },
+  {
+    id: "m08",
+    name: "Sabari Ltd",
+    representative: "Srinath Vardhineni",
+    designation: "Managing Director",
+    tier: "Platinum",
+    logo: "/images/members/sabari-ltd.png",
+  },
+  {
+    id: "m09",
+    name: "Savita Builders Rwanda Ltd",
+    representative: "Harshad Naran Jesani",
+    designation: "General Manager",
+    tier: "Gold",
+    logo: "/images/members/savita-builders-rwanda-ltd.png",
+  },
+  {
+    id: "m10",
+    name: "Imprisco Plus Ltd",
+    representative: "Jojo Joseph",
+    designation: "Managing Director",
+    tier: "Gold",
+    logo: "/images/members/imprisco-plus-ltd.png",
+  },
+  {
+    id: "m11",
+    name: "Ashree Com Ltd",
+    representative: "Ramu Morampudi",
+    designation: "Managing Director",
+    tier: "Gold",
+    logo: "/images/members/ashree-com-ltd.png",
+  },
+  {
+    id: "m12",
+    name: "Shyam Group Ltd",
+    representative: "Awadesh Singh",
+    designation: "Managing Director",
+    tier: "Gold",
+    logo: "/images/members/shyam-group-ltd.png",
+  },
+  {
+    id: "m13",
+    name: "D.P Singh Associates Ltd",
+    representative: "D.P Singh",
+    designation: "Managing Director",
+    tier: "Gold",
+    logo: "/images/members/d-p-singh-associates-ltd.png",
+  },
+  {
+    id: "m14",
+    name: "Hi-Fi Trading Service Ltd",
+    representative: "Chetan Dodiya",
+    designation: "Managing Director",
+    tier: "Gold",
+    logo: "/images/members/hi-fi-trading-service-ltd.png",
+  },
+  {
+    id: "m15",
+    name: "Finex Investment Ltd",
+    representative: "Raviraja Poojary",
+    designation: "Director",
+    tier: "Silver",
+    logo: "/images/members/finex-investment-ltd.png",
+  },
+  {
+    id: "m16",
+    name: "Care Group International",
+    representative: "Jyotiprakash Panda",
+    designation: "CEO",
+    tier: "Silver",
+    logo: "/images/members/care-group-international.png",
+  },
+  {
+    id: "m17",
+    name: "Ram Associates",
+    representative: "Nupur Jain",
+    designation: "Managing Director",
+    tier: "Silver",
+    logo: "/images/members/ram-associates.png",
+  },
+  {
+    id: "m18",
+    name: "Sai Info-Tech Ltd",
+    representative: "Prakash Kalavagadd",
+    designation: "Managing Director",
+    tier: "Silver",
+    logo: "/images/members/sai-info-tech-ltd.png",
+  },
+  {
+    id: "m19",
+    name: "Impact Technology",
+    representative: "Shaikh Mahebubddin",
+    designation: "Managing Director",
+    tier: "Silver",
+    logo: "/images/members/impact-technology.png",
+  },
+  {
+    id: "m20",
+    name: "Gyan Ltd",
+    representative: "Jwala Vijay Kumar Chaluvadi",
+    designation: "Managing Director",
+    tier: "Silver",
+    logo: "/images/members/gyan-ltd.png",
+  },
+  {
+    id: "m21",
+    name: "ALSM",
+    representative: "Sunnykumar Mateeti",
+    designation: "Managing Partner",
+    tier: "Silver",
+    logo: "/images/members/alsm.png",
+  },
+  {
+    id: "m22",
+    name: "SSV Shop & General Trading Ltd",
+    representative: "Somishetty Venkateswarlu",
+    designation: "Managing Director",
+    tier: "Silver",
+    logo: "/images/members/ssv-shop-and-general-trading-ltd.png",
+  },
+  {
+    id: "m23",
+    name: "Flexipay Finance Ltd",
+    representative: "Ross T Nathan",
+    designation: "Managing Director & CEO",
+    tier: "Silver",
+    logo: "/images/members/flexipay-finance-ltd.png",
+  },
+  {
+    id: "m24",
+    name: "Artab Biobag Ltd",
+    representative: "Sidharth Bohra",
+    designation: "Managing Director",
+    tier: "Silver",
+    logo: "/images/members/artab-biobag-ltd.png",
+  },
+  {
+    id: "m25",
+    name: "Techin1000Hills Ltd",
+    representative: "Sadesh Kumae Puthenpurayil Soman",
+    designation: "Chairperson & CEO",
+    tier: "Silver",
+    logo: "/images/members/techin1000hills-ltd.png",
+  },
 ];
 
 export type IbcrEvent = {
@@ -825,8 +1025,7 @@ export const TESTIMONIALS = [
   },
   {
     id: "t4",
-    quote:
-      "The value is in the people you meet who are two steps ahead of where you are.",
+    quote: "The value is in the people you meet who are two steps ahead of where you are.",
     author: "Nupur Jain",
     role: "Managing Director",
     company: "Ram Associates",
@@ -849,15 +1048,39 @@ export const TESTIMONIALS = [
 export type Partner = { name: string; category: string; logo?: string };
 
 export const PARTNERS: Partner[] = [
-  { name: "High Commission of India", category: "Diplomatic", logo: "/images/partners/high-commission-of-india.png" },
-  { name: "Rwanda Development Board", category: "Government", logo: "/images/partners/rwanda-development-board.png" },
-  { name: "Private Sector Federation", category: "Industry", logo: "/images/partners/private-sector-federation.png" },
-  { name: "Rwanda Revenue Authority", category: "Government", logo: "/images/partners/rwanda-revenue-authority.png" },
+  {
+    name: "High Commission of India",
+    category: "Diplomatic",
+    logo: "/images/partners/high-commission-of-india.png",
+  },
+  {
+    name: "Rwanda Development Board",
+    category: "Government",
+    logo: "/images/partners/rwanda-development-board.png",
+  },
+  {
+    name: "Private Sector Federation",
+    category: "Industry",
+    logo: "/images/partners/private-sector-federation.png",
+  },
+  {
+    name: "Rwanda Revenue Authority",
+    category: "Government",
+    logo: "/images/partners/rwanda-revenue-authority.png",
+  },
   { name: "FICCI", category: "Industry", logo: "/images/partners/ficci.png" },
   { name: "CII", category: "Industry", logo: "/images/partners/cii.png" },
   { name: "Bank of Kigali", category: "Financial", logo: "/images/partners/bank-of-kigali.png" },
-  { name: "Norrsken East Africa", category: "Innovation", logo: "/images/partners/norrsken-east-africa.png" },
-  { name: "EXIM Bank of India", category: "Financial", logo: "/images/partners/exim-bank-of-india.png" },
+  {
+    name: "Norrsken East Africa",
+    category: "Innovation",
+    logo: "/images/partners/norrsken-east-africa.png",
+  },
+  {
+    name: "EXIM Bank of India",
+    category: "Financial",
+    logo: "/images/partners/exim-bank-of-india.png",
+  },
 ];
 
 /* ------------------------------------------------------------- about pages */
@@ -1041,30 +1264,82 @@ export const INDUSTRY_LEADERSHIP = [
 ] as const;
 
 export const TEAM = [
-  { name: "Secretariat", role: "Member services", focus: "First point of contact for members and enquiries" },
-  { name: "Programmes", role: "Events & delegations", focus: "Forums, missions and B2B programming" },
-  { name: "Research", role: "Business intelligence", focus: "Briefings, sector research and publications" },
-  { name: "Communications", role: "Brand & outreach", focus: "Publications, media and digital channels" },
+  {
+    name: "Secretariat",
+    role: "Member services",
+    focus: "First point of contact for members and enquiries",
+  },
+  {
+    name: "Programmes",
+    role: "Events & delegations",
+    focus: "Forums, missions and B2B programming",
+  },
+  {
+    name: "Research",
+    role: "Business intelligence",
+    focus: "Briefings, sector research and publications",
+  },
+  {
+    name: "Communications",
+    role: "Brand & outreach",
+    focus: "Publications, media and digital channels",
+  },
 ] as const;
 
 /* ----------------------------------------------------------- india-rwanda */
 
 export const WHY_RWANDA = [
-  { title: "Gateway position", copy: "Access to the East African Community and a wider regional market from a single base." },
-  { title: "Reform record", copy: "A consistent, well-documented record of business-environment reform and predictable administration." },
-  { title: "Security & stability", copy: "One of the safest operating environments on the continent, with reliable institutions." },
-  { title: "Digital government", copy: "Online registration, licensing and tax filing that materially shortens setup time." },
-  { title: "Green ambition", copy: "A national agenda around clean energy, sustainable urbanism and climate-smart agriculture." },
-  { title: "Talent pipeline", copy: "A young workforce and a growing technical and vocational training system." },
+  {
+    title: "Gateway position",
+    copy: "Access to the East African Community and a wider regional market from a single base.",
+  },
+  {
+    title: "Reform record",
+    copy: "A consistent, well-documented record of business-environment reform and predictable administration.",
+  },
+  {
+    title: "Security & stability",
+    copy: "One of the safest operating environments on the continent, with reliable institutions.",
+  },
+  {
+    title: "Digital government",
+    copy: "Online registration, licensing and tax filing that materially shortens setup time.",
+  },
+  {
+    title: "Green ambition",
+    copy: "A national agenda around clean energy, sustainable urbanism and climate-smart agriculture.",
+  },
+  {
+    title: "Talent pipeline",
+    copy: "A young workforce and a growing technical and vocational training system.",
+  },
 ] as const;
 
 export const WHY_INDIA = [
-  { title: "Manufacturing depth", copy: "Cost-competitive capacity across pharmaceuticals, machinery, textiles and building materials." },
-  { title: "Technology & services", copy: "Global-scale IT services, engineering talent and digital public infrastructure experience." },
-  { title: "Development finance", copy: "Established lines of credit and project finance instruments active across Africa." },
-  { title: "Frugal innovation", copy: "Products engineered for price-sensitive markets — directly transferable to Rwanda." },
-  { title: "Diaspora networks", copy: "A long-established Indian business community across East Africa." },
-  { title: "Institutional links", copy: "Deep bilateral ties across trade bodies, universities and government agencies." },
+  {
+    title: "Manufacturing depth",
+    copy: "Cost-competitive capacity across pharmaceuticals, machinery, textiles and building materials.",
+  },
+  {
+    title: "Technology & services",
+    copy: "Global-scale IT services, engineering talent and digital public infrastructure experience.",
+  },
+  {
+    title: "Development finance",
+    copy: "Established lines of credit and project finance instruments active across Africa.",
+  },
+  {
+    title: "Frugal innovation",
+    copy: "Products engineered for price-sensitive markets — directly transferable to Rwanda.",
+  },
+  {
+    title: "Diaspora networks",
+    copy: "A long-established Indian business community across East Africa.",
+  },
+  {
+    title: "Institutional links",
+    copy: "Deep bilateral ties across trade bodies, universities and government agencies.",
+  },
 ] as const;
 
 /** The key sectors the Chamber names for the India–Rwanda relationship. */

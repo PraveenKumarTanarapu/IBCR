@@ -11,7 +11,8 @@ import type { MembershipTier } from "@/lib/content";
  * The featured category inverts to navy: on a white page that is the whole
  * hierarchy, so no card needs a coloured ring or a "most popular" claim. A
  * category that splits into more than one kind of member (International)
- * carries those options above its benefits rather than becoming two cards.
+ * carries those options, each with its own fee, above its benefits rather
+ * than becoming two cards.
  */
 
 const FORMAT = new Intl.NumberFormat("en-US");
@@ -55,13 +56,19 @@ export function PricingCard({ tier, className }: { tier: MembershipTier; classNa
               )}
             >
               <span
-                className={cn("text-[0.8125rem] font-medium", dark ? "text-white/55" : "text-muted")}
+                className={cn(
+                  "text-[0.8125rem] font-medium",
+                  dark ? "text-white/55" : "text-muted",
+                )}
               >
                 {tier.currency}
               </span>
               {FORMAT.format(tier.price as number)}
               <span
-                className={cn("text-[0.8125rem] font-medium", dark ? "text-white/55" : "text-muted")}
+                className={cn(
+                  "text-[0.8125rem] font-medium",
+                  dark ? "text-white/55" : "text-muted",
+                )}
               >
                 {tier.period}
               </span>
@@ -117,6 +124,7 @@ export function PricingCard({ tier, className }: { tier: MembershipTier; classNa
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 {option.name}
+                {option.price ? <span className="ml-auto tabular-nums">{option.price}</span> : null}
               </p>
               <p
                 className={cn(
