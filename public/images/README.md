@@ -56,6 +56,7 @@ the file is being read.
 | 6   | Service photographs | `images/services/`      | 6     | 2 to upload  |
 | 7   | Insight articles    | `images/insights/`      | 6     | 5 to upload  |
 | 8   | Why IBCR            | `images/`               | 1     | ✅ in place  |
+| 9   | Recognition         | `images/`               | 1     | ✅ in place  |
 
 Sets 5 and 6 each do double duty — see their notes.
 
@@ -257,6 +258,16 @@ the article.
 | `images/kigali-night.jpg` | Why IBCR (parallax feature) | ✅ in place |
 
 Landscape, 4:3 or wider, at least 1600px across.
+
+## 9. Recognition
+
+| File                               | Used by                              | Status      |
+| ---------------------------------- | ------------------------------------ | ----------- |
+| `images/state-emblem-of-india.png` | The recognition strip under the hero | ✅ in place |
+
+The State Emblem of India, as supplied by the Chamber: transparent PNG, drawn
+at 88px on desktop and 64px on phones. Use the High Commission's own artwork
+and never redraw or recolour it.
 
 ## Generated — do not replace by hand
 

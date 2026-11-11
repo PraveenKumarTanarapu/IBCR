@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/home/Hero";
+import { Recognition } from "@/components/home/Recognition";
 import { Glance } from "@/components/home/Glance";
 import { WhyIbcrCorridor } from "@/components/home/WhyIbcrCorridor";
 import { Services } from "@/components/home/Services";
@@ -24,6 +25,7 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <Recognition />
       <Glance />
       <WhyIbcrCorridor />
       <Services />
