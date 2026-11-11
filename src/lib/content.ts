@@ -727,6 +727,7 @@ export const MEMBERS: Member[] = [
   {
     id: "m15",
     name: "VR Industries",
+    representative: "Akit Patel",
     tier: "Gold",
     logo: "/images/members/vr-industries.png",
   },
