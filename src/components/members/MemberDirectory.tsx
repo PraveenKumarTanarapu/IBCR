@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ArrowUpRight, Search, X } from "lucide-react";
-import { MEMBERS, MEMBER_TIERS, type Member } from "@/lib/content";
+import { MEMBERS, MEMBER_TIERS, type InternationalMember, type Member } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -26,10 +26,8 @@ export function MemberDirectory({
     return MEMBERS.filter((m) => {
       if (tier && m.tier !== tier) return false;
       if (!q) return true;
-      return (
-        m.name.toLowerCase().includes(q) ||
-        m.representative.toLowerCase().includes(q) ||
-        m.designation.toLowerCase().includes(q)
+      return [m.name, m.representative, m.designation].some((field) =>
+        field?.toLowerCase().includes(q),
       );
     });
   }, [query, tier]);
@@ -180,12 +178,20 @@ function FilterRow({
   );
 }
 
-export function MemberCard({ member }: { member: Member }) {
+/**
+ * One register entry, used for both registers.
+ *
+ * An international member carries its option (Corporate or Individual) where a
+ * Kigali member carries its tier; the badge shows whichever applies. A company
+ * whose representative is not yet recorded says so rather than showing a gap.
+ */
+export function MemberCard({ member }: { member: Member | InternationalMember }) {
   const initials = member.name
     .split(" ")
     .slice(0, 2)
     .map((w) => w[0])
     .join("");
+  const badge = "tier" in member ? member.tier : member.option;
 
   return (
     <article className="group flex h-full flex-col rounded-[var(--radius-card)] border border-hairline bg-white p-6 transition-[border-color,transform,box-shadow] duration-500 ease-[var(--ease-out-quint)] hover:-translate-y-1 hover:border-hairline-strong hover:bg-hover">
@@ -202,15 +208,23 @@ export function MemberCard({ member }: { member: Member }) {
           </h3>
         </div>
         <span className="label-mono shrink-0 rounded-full border border-hairline px-2.5 py-1 text-[0.5625rem] text-gold-600">
-          {member.tier}
+          {badge}
         </span>
       </div>
 
       <div className="mt-5 flex-1 border-t border-hairline pt-4">
-        <p className="text-[0.9375rem] leading-snug font-medium text-navy-900">
-          {member.representative}
-        </p>
-        <p className="mt-1 text-[0.8125rem] text-muted">{member.designation}</p>
+        {member.representative ? (
+          <>
+            <p className="text-[0.9375rem] leading-snug font-medium text-navy-900">
+              {member.representative}
+            </p>
+            {member.designation ? (
+              <p className="mt-1 text-[0.8125rem] text-muted">{member.designation}</p>
+            ) : null}
+          </>
+        ) : (
+          <p className="text-[0.8125rem] text-muted">Representative to be confirmed</p>
+        )}
       </div>
     </article>
   );

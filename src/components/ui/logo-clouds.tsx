@@ -16,6 +16,10 @@ import { cn } from "@/lib/utils";
  * which matters more here than anywhere else on the site, since a half-filled
  * logo wall reads as a half-empty chamber.
  *
+ * The mark is given as much of the tile as the company name beneath it allows:
+ * the tile height is fixed, so the logo grows inside it rather than the wall
+ * growing around the logo.
+ *
  * Under reduced motion the wipe never runs; the wall is simply a static grid.
  */
 
@@ -128,7 +132,7 @@ function LogoItem({
       whileHover={{ y: -3, transition: { type: "spring", stiffness: 340, damping: 24 } }}
       className="flex h-[6.5rem] cursor-default flex-col items-center justify-center gap-2.5 rounded-[var(--radius-card)] border border-hairline bg-white px-4 text-center transition-colors duration-500 hover:border-hairline-strong"
     >
-      <span className="flex h-10 items-center justify-center">
+      <span className="flex h-14 items-center justify-center">
         {logo.logo && !failed ? (
           /* eslint-disable-next-line @next/next/no-img-element */
           <img
@@ -136,7 +140,7 @@ function LogoItem({
             alt={logo.name}
             loading="lazy"
             onError={() => setFailed(true)}
-            className="max-h-10 max-w-[7.5rem] object-contain"
+            className="max-h-14 max-w-[9.5rem] object-contain"
           />
         ) : (
           <span className="font-mono text-[0.9375rem] font-medium tracking-tight text-navy-800/70">

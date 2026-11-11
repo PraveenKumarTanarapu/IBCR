@@ -21,13 +21,7 @@ export type MarqueeItem = {
   logo?: string;
 };
 
-export function LogoMarquee({
-  items,
-  className,
-}: {
-  items: MarqueeItem[];
-  className?: string;
-}) {
+export function LogoMarquee({ items, className }: { items: MarqueeItem[]; className?: string }) {
   const half = Math.ceil(items.length / 2);
   const rows = [items.slice(0, half), items.slice(half)];
 
@@ -88,7 +82,7 @@ function Tile({ item }: { item: MarqueeItem }) {
             alt=""
             loading="lazy"
             onError={() => setFailed(true)}
-            className="size-9 object-contain"
+            className="size-10 object-contain"
           />
         ) : (
           <span className="font-mono text-[0.75rem] font-medium tracking-tight text-navy-800">

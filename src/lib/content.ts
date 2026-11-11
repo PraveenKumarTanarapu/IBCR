@@ -170,7 +170,7 @@ export const STATS = [
     label: "Committed Indian investment in Rwanda in 2024",
   },
   { value: 9, prefix: "", suffix: "", label: "Key sectors driving the corridor today" },
-  { value: 25, prefix: "", suffix: "", label: "Member companies on the register today" },
+  { value: 31, prefix: "", suffix: "", label: "Member companies on the register today" },
   { value: 5, prefix: "", suffix: "", label: "Membership categories, Silver to International" },
 ] as const;
 
@@ -556,23 +556,42 @@ export const MEMBERSHIP_BENEFITS = [
 /* -------------------------------------------------------- member directory */
 
 /**
- * The member register.
+ * The member register, in two parts.
  *
- * Every member company is based in Kigali, so the directory shows the company,
- * who represents it and their role, with the membership category — location is
- * the same for all of them and is left off. Representatives' phone numbers and
- * email addresses are in the Chamber's register and are deliberately not
- * published here.
+ * MEMBERS is the Rwanda register: every one of these companies is based in
+ * Kigali, so the directory shows the company, who represents it and their role,
+ * with the membership category — location is the same for all of them and is
+ * left off. INTERNATIONAL_MEMBERS is the separate register for the
+ * International category, which is a different category of membership and is
+ * shown on its own rather than mixed into the Kigali list.
+ *
+ * Representatives' phone numbers and email addresses are in the Chamber's
+ * register and are deliberately not published here. A few entries have no
+ * representative recorded yet; those fields are optional rather than filled
+ * with a guess.
  */
-export type MemberTier = "Silver" | "Gold" | "Platinum" | "Corporate" | "International";
+export type MemberTier = "Silver" | "Gold" | "Platinum";
 
 export type Member = {
   id: string;
   name: string;
-  representative: string;
-  designation: string;
+  representative?: string;
+  designation?: string;
   tier: MemberTier;
   /** Optional mark for the logo wall; falls back to the company's initials. */
+  logo?: string;
+};
+
+/** The two ways to hold International membership, as the fee card sets them out. */
+export type InternationalOption = "Corporate" | "Individual";
+
+export type InternationalMember = {
+  id: string;
+  name: string;
+  representative?: string;
+  designation?: string;
+  option: InternationalOption;
+  /** Optional mark for the international logo row; falls back to initials. */
   logo?: string;
 };
 
@@ -590,13 +609,7 @@ export const MEMBER_SECTORS = [
   "Professional Services",
 ] as const;
 
-export const MEMBER_TIERS: MemberTier[] = [
-  "Platinum",
-  "Gold",
-  "Silver",
-  "Corporate",
-  "International",
-];
+export const MEMBER_TIERS: MemberTier[] = ["Platinum", "Gold", "Silver"];
 
 export const MEMBERS: Member[] = [
   {
@@ -713,6 +726,19 @@ export const MEMBERS: Member[] = [
   },
   {
     id: "m15",
+    name: "VR Industries",
+    tier: "Gold",
+    logo: "/images/members/vr-industries.png",
+  },
+  {
+    id: "m16",
+    name: "Sorwathe",
+    representative: "Rahul Bedi",
+    tier: "Gold",
+    logo: "/images/members/sorwathe.png",
+  },
+  {
+    id: "m17",
     name: "Finex Investment Ltd",
     representative: "Raviraja Poojary",
     designation: "Director",
@@ -720,7 +746,7 @@ export const MEMBERS: Member[] = [
     logo: "/images/members/finex-investment-ltd.png",
   },
   {
-    id: "m16",
+    id: "m18",
     name: "Care Group International",
     representative: "Jyotiprakash Panda",
     designation: "CEO",
@@ -728,7 +754,7 @@ export const MEMBERS: Member[] = [
     logo: "/images/members/care-group-international.png",
   },
   {
-    id: "m17",
+    id: "m19",
     name: "Ram Associates",
     representative: "Nupur Jain",
     designation: "Managing Director",
@@ -736,7 +762,7 @@ export const MEMBERS: Member[] = [
     logo: "/images/members/ram-associates.png",
   },
   {
-    id: "m18",
+    id: "m20",
     name: "Sai Info-Tech Ltd",
     representative: "Prakash Kalavagadd",
     designation: "Managing Director",
@@ -744,7 +770,7 @@ export const MEMBERS: Member[] = [
     logo: "/images/members/sai-info-tech-ltd.png",
   },
   {
-    id: "m19",
+    id: "m21",
     name: "Impact Technology",
     representative: "Shaikh Mahebubddin",
     designation: "Managing Director",
@@ -752,7 +778,7 @@ export const MEMBERS: Member[] = [
     logo: "/images/members/impact-technology.png",
   },
   {
-    id: "m20",
+    id: "m22",
     name: "Gyan Ltd",
     representative: "Jwala Vijay Kumar Chaluvadi",
     designation: "Managing Director",
@@ -760,7 +786,7 @@ export const MEMBERS: Member[] = [
     logo: "/images/members/gyan-ltd.png",
   },
   {
-    id: "m21",
+    id: "m23",
     name: "ALSM",
     representative: "Sunnykumar Mateeti",
     designation: "Managing Partner",
@@ -768,7 +794,7 @@ export const MEMBERS: Member[] = [
     logo: "/images/members/alsm.png",
   },
   {
-    id: "m22",
+    id: "m24",
     name: "SSV Shop & General Trading Ltd",
     representative: "Somishetty Venkateswarlu",
     designation: "Managing Director",
@@ -776,7 +802,7 @@ export const MEMBERS: Member[] = [
     logo: "/images/members/ssv-shop-and-general-trading-ltd.png",
   },
   {
-    id: "m23",
+    id: "m25",
     name: "Flexipay Finance Ltd",
     representative: "Ross T Nathan",
     designation: "Managing Director & CEO",
@@ -784,20 +810,56 @@ export const MEMBERS: Member[] = [
     logo: "/images/members/flexipay-finance-ltd.png",
   },
   {
-    id: "m24",
-    name: "Artab Biobag Ltd",
+    id: "m26",
+    name: "Arth Biobag Ltd",
     representative: "Sidharth Bohra",
     designation: "Managing Director",
     tier: "Silver",
-    logo: "/images/members/artab-biobag-ltd.png",
+    logo: "/images/members/arth-biobag-ltd.png",
   },
   {
-    id: "m25",
+    id: "m27",
     name: "Techin1000Hills Ltd",
     representative: "Sadesh Kumae Puthenpurayil Soman",
     designation: "Chairperson & CEO",
     tier: "Silver",
     logo: "/images/members/techin1000hills-ltd.png",
+  },
+  {
+    id: "m28",
+    name: "Anik Rwanda",
+    representative: "Bipin Patel",
+    tier: "Silver",
+    logo: "/images/members/anik-rwanda.png",
+  },
+];
+
+/**
+ * The International register — members based outside Rwanda, holding the
+ * Corporate or Individual international membership. Kept apart from MEMBERS
+ * above: it is a separate category, not another row in the Kigali directory.
+ */
+export const INTERNATIONAL_MEMBERS: InternationalMember[] = [
+  {
+    id: "i01",
+    name: "Ecotech Engineers and Consulate",
+    representative: "Ishwarya Pandiyan",
+    option: "Corporate",
+    logo: "/images/members/international/ecotech-engineers-and-consulate.png",
+  },
+  {
+    id: "i02",
+    name: "Sri Sai Industries",
+    representative: "Katageri B.S",
+    option: "Individual",
+    logo: "/images/members/international/sri-sai-industries.png",
+  },
+  {
+    id: "i03",
+    name: "Gopal GK Techno Synergies Pvt Ltd",
+    representative: "Gopal Kuli",
+    option: "Individual",
+    logo: "/images/members/international/gopal-gk-techno-synergies-pvt-ltd.png",
   },
 ];
 

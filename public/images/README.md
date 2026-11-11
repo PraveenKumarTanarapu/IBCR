@@ -46,16 +46,16 @@ the file is being read.
 
 ## Summary
 
-| # | Set                  | Folder                      | Files | Status        |
-| - | -------------------- | --------------------------- | ----- | ------------- |
-| 1 | Page backgrounds     | `images/heroes/`            | 6     | 6 to upload   |
-| 2 | Board portraits      | `images/board/`             | 7     | 7 to upload   |
-| 3 | Member logos         | `images/members/`           | 25    | 25 to upload  |
-| 4 | Partner logos        | `images/partners/`          | 9     | 9 to upload   |
-| 5 | Opportunity sectors  | `images/opportunities/`     | 8     | 5 to upload   |
-| 6 | Service photographs  | `images/services/`          | 6     | 2 to upload   |
-| 7 | Insight articles     | `images/insights/`          | 6     | 5 to upload   |
-| 8 | Why IBCR             | `images/`                   | 1     | ✅ in place    |
+| #   | Set                 | Folder                  | Files | Status       |
+| --- | ------------------- | ----------------------- | ----- | ------------ |
+| 1   | Page backgrounds    | `images/heroes/`        | 6     | 6 to upload  |
+| 2   | Board portraits     | `images/board/`         | 7     | 7 to upload  |
+| 3   | Member logos        | `images/members/`       | 31    | 31 to upload |
+| 4   | Partner logos       | `images/partners/`      | 9     | 9 to upload  |
+| 5   | Opportunity sectors | `images/opportunities/` | 8     | 5 to upload  |
+| 6   | Service photographs | `images/services/`      | 6     | 2 to upload  |
+| 7   | Insight articles    | `images/insights/`      | 6     | 5 to upload  |
+| 8   | Why IBCR            | `images/`               | 1     | ✅ in place  |
 
 Sets 5 and 6 each do double duty — see their notes.
 
@@ -87,13 +87,13 @@ Falls back to: the drawn corridor motif.
 
 | File                               | Member                                      |
 | ---------------------------------- | ------------------------------------------- |
-| `mangesh-kumar-verma.jpg`          | Mr. Mangesh Kumar Verma — Chairman           |
-| `suman-alla.jpg`                   | Mr. Suman Alla — Vice Chairman               |
-| `tiwari-himanshu.jpg`              | Mr. Tiwari Himanshu — Treasurer              |
-| `manoj-thaipparampil-skariah.jpg`  | Mr. Manoj Thaipparampil Skariah — Gen. Sec.  |
-| `thomas-binoy.jpg`                 | Mr. Thomas Binoy — Director, Membership      |
-| `harlalka-natwarlal-murarilal.jpg` | Mr. Harlalka Natwarlal Murarilal — PR        |
-| `palaparthy-vinay.jpg`             | Mr. Palaparthy Vinay — Investment            |
+| `mangesh-kumar-verma.jpg`          | Mr. Mangesh Kumar Verma — Chairman          |
+| `suman-alla.jpg`                   | Mr. Suman Alla — Vice Chairman              |
+| `tiwari-himanshu.jpg`              | Mr. Tiwari Himanshu — Treasurer             |
+| `manoj-thaipparampil-skariah.jpg`  | Mr. Manoj Thaipparampil Skariah — Gen. Sec. |
+| `thomas-binoy.jpg`                 | Mr. Thomas Binoy — Director, Membership     |
+| `harlalka-natwarlal-murarilal.jpg` | Mr. Harlalka Natwarlal Murarilal — PR       |
+| `palaparthy-vinay.jpg`             | Mr. Palaparthy Vinay — Investment           |
 
 Portrait, roughly 4:5, about 800×1000. Head and shoulders, face in the upper
 half — the tiles crop from the centre. They sit in greyscale until pointed at,
@@ -101,42 +101,60 @@ so a plain, even background reads best. Under ~250KB.
 
 Falls back to: the member's initials on a drawn plate.
 
-## 3. Member logos — 25 to upload
+## 3. Member logos — 31 to upload
 
 `public/images/members/` · the logo wall on the homepage and on
 `/membership#member-logos`.
 
-| File                                     | Company                        |
-| ---------------------------------------- | ------------------------------ |
-| `imana-steel-rwanda-ltd.png`             | Imana Steel Rwanda Ltd         |
-| `konnect-analysis-ltd.png`               | Konnect Analysis Ltd           |
-| `alpine-holidays-ltd.png`                | Alpine Holidays Ltd            |
-| `quadinfra-ltd.png`                      | Quadinfra Ltd                  |
-| `yuvikhetani-ltd.png`                    | Yuvikhetani Ltd                |
-| `satguru-travel-and-tours.png`           | Satguru Travel & Tours         |
-| `orbit-healthcare-service-ltd.png`       | Orbit Healthcare Service Ltd   |
-| `sabari-ltd.png`                         | Sabari Ltd                     |
-| `savita-builders-rwanda-ltd.png`         | Savita Builders Rwanda Ltd     |
-| `imprisco-plus-ltd.png`                  | Imprisco Plus Ltd              |
-| `ashree-com-ltd.png`                     | Ashree Com Ltd                 |
-| `shyam-group-ltd.png`                    | Shyam Group Ltd                |
-| `d-p-singh-associates-ltd.png`           | D.P Singh Associates Ltd       |
-| `hi-fi-trading-service-ltd.png`          | Hi-Fi Trading Service Ltd      |
-| `finex-investment-ltd.png`               | Finex Investment Ltd           |
-| `care-group-international.png`           | Care Group International       |
-| `ram-associates.png`                     | Ram Associates                 |
-| `sai-info-tech-ltd.png`                  | Sai Info-Tech Ltd              |
-| `impact-technology.png`                  | Impact Technology              |
-| `gyan-ltd.png`                           | Gyan Ltd                       |
-| `alsm.png`                               | ALSM                           |
-| `ssv-shop-and-general-trading-ltd.png`   | SSV Shop & General Trading Ltd |
-| `flexipay-finance-ltd.png`               | Flexipay Finance Ltd           |
-| `artab-biobag-ltd.png`                   | Artab Biobag Ltd               |
-| `techin1000hills-ltd.png`                | Techin1000Hills Ltd            |
+| File                                   | Company                        |
+| -------------------------------------- | ------------------------------ |
+| `imana-steel-rwanda-ltd.png`           | Imana Steel Rwanda Ltd         |
+| `konnect-analysis-ltd.png`             | Konnect Analysis Ltd           |
+| `alpine-holidays-ltd.png`              | Alpine Holidays Ltd            |
+| `quadinfra-ltd.png`                    | Quadinfra Ltd                  |
+| `yuvikhetani-ltd.png`                  | Yuvikhetani Ltd                |
+| `satguru-travel-and-tours.png`         | Satguru Travel & Tours         |
+| `orbit-healthcare-service-ltd.png`     | Orbit Healthcare Service Ltd   |
+| `sabari-ltd.png`                       | Sabari Ltd                     |
+| `savita-builders-rwanda-ltd.png`       | Savita Builders Rwanda Ltd     |
+| `imprisco-plus-ltd.png`                | Imprisco Plus Ltd              |
+| `ashree-com-ltd.png`                   | Ashree Com Ltd                 |
+| `shyam-group-ltd.png`                  | Shyam Group Ltd                |
+| `d-p-singh-associates-ltd.png`         | D.P Singh Associates Ltd       |
+| `hi-fi-trading-service-ltd.png`        | Hi-Fi Trading Service Ltd      |
+| `vr-industries.png`                    | VR Industries                  |
+| `sorwathe.png`                         | Sorwathe                       |
+| `finex-investment-ltd.png`             | Finex Investment Ltd           |
+| `care-group-international.png`         | Care Group International       |
+| `ram-associates.png`                   | Ram Associates                 |
+| `sai-info-tech-ltd.png`                | Sai Info-Tech Ltd              |
+| `impact-technology.png`                | Impact Technology              |
+| `gyan-ltd.png`                         | Gyan Ltd                       |
+| `alsm.png`                             | ALSM                           |
+| `ssv-shop-and-general-trading-ltd.png` | SSV Shop & General Trading Ltd |
+| `flexipay-finance-ltd.png`             | Flexipay Finance Ltd           |
+| `arth-biobag-ltd.png`                  | Arth Biobag Ltd                |
+| `techin1000hills-ltd.png`              | Techin1000Hills Ltd            |
+| `anik-rwanda.png`                      | Anik Rwanda                    |
+
+### International members
+
+`public/images/members/international/` · their own row beneath the wall, and
+the section at the bottom of `/members`.
+
+| File                                    | Company                           |
+| --------------------------------------- | --------------------------------- |
+| `ecotech-engineers-and-consulate.png`   | Ecotech Engineers and Consulate   |
+| `sri-sai-industries.png`                | Sri Sai Industries                |
+| `gopal-gk-techno-synergies-pvt-ltd.png` | Gopal GK Techno Synergies Pvt Ltd |
 
 PNG with a transparent background, roughly 400×160, the mark trimmed to its
-own edges. Displayed at 40px tall inside a 6.5rem tile, so a wordmark works
-better than a detailed crest. Under ~60KB each.
+own edges. Displayed up to 56px tall and 152px wide inside a 6.5rem tile, so a
+wordmark works better than a detailed crest. Under ~60KB each.
+
+**If you uploaded logos before November 2026:** one filename changed. The
+register now spells the company **Arth** Biobag Ltd, so `artab-biobag-ltd.png`
+must be renamed to `arth-biobag-ltd.png` or it will not be found.
 
 Falls back to: the company's initials.
 
@@ -144,21 +162,21 @@ Falls back to: the company's initials.
 
 `public/images/partners/` · the marquee on the homepage and on `/about#partners`.
 
-| File                             | Institution                |
-| -------------------------------- | -------------------------- |
-| `high-commission-of-india.png`   | High Commission of India   |
-| `rwanda-development-board.png`   | Rwanda Development Board   |
-| `private-sector-federation.png`  | Private Sector Federation  |
-| `rwanda-revenue-authority.png`   | Rwanda Revenue Authority   |
-| `ficci.png`                      | FICCI                      |
-| `cii.png`                        | CII                        |
-| `bank-of-kigali.png`             | Bank of Kigali             |
-| `norrsken-east-africa.png`       | Norrsken East Africa       |
-| `exim-bank-of-india.png`         | EXIM Bank of India         |
+| File                            | Institution               |
+| ------------------------------- | ------------------------- |
+| `high-commission-of-india.png`  | High Commission of India  |
+| `rwanda-development-board.png`  | Rwanda Development Board  |
+| `private-sector-federation.png` | Private Sector Federation |
+| `rwanda-revenue-authority.png`  | Rwanda Revenue Authority  |
+| `ficci.png`                     | FICCI                     |
+| `cii.png`                       | CII                       |
+| `bank-of-kigali.png`            | Bank of Kigali            |
+| `norrsken-east-africa.png`      | Norrsken East Africa      |
+| `exim-bank-of-india.png`        | EXIM Bank of India        |
 
-Square-ish PNG, transparent, around 200×200. The tile is 48px, so a mark works
-better than a full lockup. Use each institution's own approved artwork — do not
-redraw or recolour it.
+Square-ish PNG, transparent, around 200×200. The mark is drawn at 40px inside a
+48px disc, so a mark works better than a full lockup. Use each institution's own
+approved artwork — do not redraw or recolour it.
 
 Falls back to: the institution's initials.
 
@@ -170,10 +188,10 @@ where each sector gets a full-width section.
 
 | File                 | Sector                     | Status      |
 | -------------------- | -------------------------- | ----------- |
-| `agriculture.jpg`    | 01 Agriculture             | ✅ in place  |
-| `manufacturing.jpg`  | 02 Manufacturing           | ✅ in place  |
+| `agriculture.jpg`    | 01 Agriculture             | ✅ in place |
+| `manufacturing.jpg`  | 02 Manufacturing           | ✅ in place |
 | `infrastructure.jpg` | 03 Infrastructure          | to upload   |
-| `healthcare.jpg`     | 04 Healthcare              | ✅ in place  |
+| `healthcare.jpg`     | 04 Healthcare              | ✅ in place |
 | `technology.jpg`     | 05 Technology & Innovation | to upload   |
 | `tourism.jpg`        | 06 Tourism & Hospitality   | to upload   |
 | `energy.jpg`         | 07 Energy                  | to upload   |
@@ -193,14 +211,14 @@ section.
 fan on the homepage, and as the section background for that service on
 `/services`.
 
-| File                         | Service                  | Status      |
-| ---------------------------- | ------------------------ | ----------- |
-| `market-entry.jpg`           | 01 Market Entry          | ✅ in place  |
-| `trade-facilitation.jpg`     | 02 Trade Facilitation    | ✅ in place  |
-| `investment-advisory.jpg`    | 03 Investment Advisory   | to upload   |
-| `business-delegations.jpg`   | 04 Business Delegations  | ✅ in place  |
-| `business-intelligence.jpg`  | 05 Business Intelligence | to upload   |
-| `advocacy-policy.jpg`        | 06 Advocacy & Policy     | ✅ in place  |
+| File                        | Service                  | Status      |
+| --------------------------- | ------------------------ | ----------- |
+| `market-entry.jpg`          | 01 Market Entry          | ✅ in place |
+| `trade-facilitation.jpg`    | 02 Trade Facilitation    | ✅ in place |
+| `investment-advisory.jpg`   | 03 Investment Advisory   | to upload   |
+| `business-delegations.jpg`  | 04 Business Delegations  | ✅ in place |
+| `business-intelligence.jpg` | 05 Business Intelligence | to upload   |
+| `advocacy-policy.jpg`       | 06 Advocacy & Policy     | ✅ in place |
 
 Portrait, 5:7 — 640×896 is what the four in place use. The fan card fills, it
 does not letterbox, so crop before exporting. Under ~150KB.
@@ -213,14 +231,14 @@ section.
 `public/images/insights/` · the card on `/insights`, and the masthead of the
 article itself. One file does both.
 
-| File                                             | Article                                            |
-| ------------------------------------------------ | -------------------------------------------------- |
-| `rwanda-as-a-gateway-to-east-africa.jpg`          | Rwanda as a gateway (Market Intelligence) — ✅ in place |
-| `ibcr-announces-investment-forum-2026.jpg`        | IBCR announces the Business & Investment Forum 2026 |
-| `india-rwanda-trade-in-review.jpg`                | India–Rwanda trade in review                        |
-| `manufacturing-in-rwanda-a-practical-checklist.jpg` | Manufacturing in Rwanda: a practical setup checklist |
-| `why-advocacy-matters-for-smaller-members.jpg`    | Why advocacy matters for smaller members            |
-| `digital-payments-and-the-sme-gap.jpg`            | Digital payments and the SME gap                    |
+| File                                                | Article                                                 |
+| --------------------------------------------------- | ------------------------------------------------------- |
+| `rwanda-as-a-gateway-to-east-africa.jpg`            | Rwanda as a gateway (Market Intelligence) — ✅ in place |
+| `ibcr-announces-investment-forum-2026.jpg`          | IBCR announces the Business & Investment Forum 2026     |
+| `india-rwanda-trade-in-review.jpg`                  | India–Rwanda trade in review                            |
+| `manufacturing-in-rwanda-a-practical-checklist.jpg` | Manufacturing in Rwanda: a practical setup checklist    |
+| `why-advocacy-matters-for-smaller-members.jpg`      | Why advocacy matters for smaller members                |
+| `digital-payments-and-the-sme-gap.jpg`              | Digital payments and the SME gap                        |
 
 Landscape, 16:10 or wider, around 1600×1000. The featured card crops to 16:10
 and the rest to 3:2, so keep the subject central. Behind the article masthead
@@ -234,18 +252,18 @@ the article.
 
 ## 8. Why IBCR
 
-| File                      | Used by                     | Status     |
-| ------------------------- | --------------------------- | ---------- |
+| File                      | Used by                     | Status      |
+| ------------------------- | --------------------------- | ----------- |
 | `images/kigali-night.jpg` | Why IBCR (parallax feature) | ✅ in place |
 
 Landscape, 4:3 or wider, at least 1600px across.
 
 ## Generated — do not replace by hand
 
-| File                        | What it is                                          |
-| --------------------------- | --------------------------------------------------- |
-| `images/globe-poster.png`   | A still of the corridor globe, shown until WebGL draws |
-| `textures/world-map.png`    | The land and border masks the globe samples           |
+| File                      | What it is                                             |
+| ------------------------- | ------------------------------------------------------ |
+| `images/globe-poster.png` | A still of the corridor globe, shown until WebGL draws |
+| `textures/world-map.png`  | The land and border masks the globe samples            |
 
 Both come out of the repo rather than a camera. Regenerate the texture with
 `node tools/media/worldmap.mjs`; re-capture the poster only if the globe's
