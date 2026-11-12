@@ -19,7 +19,7 @@ export function Services() {
       <div className="container-page">
         <SectionHeading
           eyebrow="What we do"
-          title="Six services,"
+          title="Seven services,"
           accent="one purpose."
           copy="Everything the Chamber offers is designed to shorten the distance between an intention and an operating business."
           action={

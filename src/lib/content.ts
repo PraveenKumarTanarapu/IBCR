@@ -308,6 +308,21 @@ export const SERVICES = [
     ],
     icon: "shield",
   },
+  {
+    id: "networking",
+    image: "/images/services/networking.jpg",
+    short: "The room where the next deal starts",
+    number: "07",
+    title: "Networking",
+    copy: "Bringing members into the same room as each other, and as the people who decide — regular gatherings, sector round tables and the introductions that follow them.",
+    detail: [
+      "Member meetings and business mixers in Kigali",
+      "Sector round tables and industry evenings",
+      "Introductions to members working the same market",
+      "Access to partner, institutional and diplomatic events",
+    ],
+    icon: "network",
+  },
 ] as const;
 
 /* --------------------------------------------------------- opportunities */

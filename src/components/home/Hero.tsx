@@ -108,8 +108,39 @@ function HeroVideo() {
   useEffect(() => {
     const video = ref.current;
     if (!video) return;
-    const p = video.play();
-    if (p) p.catch(() => undefined);
+
+    // The footage is by far the heaviest thing the site serves, and the poster
+    // beneath it is already the finished picture. So nothing is fetched until
+    // the rest of the page has loaded: the hero looks identical either way,
+    // but the text, fonts and first scroll no longer queue behind a video.
+    // On a data-saving connection it never loads at all and the poster stays.
+    const connection = (navigator as Navigator & { connection?: { saveData?: boolean } })
+      .connection;
+    if (connection?.saveData) return;
+
+    let cancelled = false;
+
+    const start = () => {
+      const node = ref.current;
+      if (cancelled || !node) return;
+      node.load();
+      const playing = node.play();
+      if (playing) playing.catch(() => undefined);
+    };
+
+    if (document.readyState === "complete") {
+      const id = window.setTimeout(start, 0);
+      return () => {
+        cancelled = true;
+        window.clearTimeout(id);
+      };
+    }
+
+    window.addEventListener("load", start, { once: true });
+    return () => {
+      cancelled = true;
+      window.removeEventListener("load", start);
+    };
   }, []);
 
   return (
@@ -120,6 +151,7 @@ function HeroVideo() {
         src={HERO.poster}
         alt=""
         aria-hidden
+        fetchPriority="high"
         className={cn(
           "absolute inset-0 size-full object-cover transition-opacity duration-700",
           canPlay ? "opacity-0" : "opacity-100",
@@ -132,8 +164,7 @@ function HeroVideo() {
         muted
         loop
         playsInline
-        autoPlay
-        preload="auto"
+        preload="none"
         onCanPlay={() => setCanPlay(true)}
         aria-hidden
       >

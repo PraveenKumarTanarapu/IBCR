@@ -4,6 +4,7 @@ import {
   Check,
   Compass,
   DoorOpen,
+  Network,
   Route,
   ShieldCheck,
   Users,
@@ -18,7 +19,7 @@ import { SERVICES } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Services",
   description:
-    "Market entry, trade facilitation, investment advisory, business delegations, business intelligence and advocacy — practical support for India–Rwanda business.",
+    "Market entry, trade facilitation, investment advisory, business delegations, business intelligence, advocacy and networking — practical support for India–Rwanda business.",
   alternates: { canonical: "/services" },
 };
 
@@ -29,6 +30,7 @@ const ICONS = {
   users: Users,
   compass: Compass,
   shield: ShieldCheck,
+  network: Network,
 } as const;
 
 export default function ServicesPage() {
@@ -39,7 +41,7 @@ export default function ServicesPage() {
         eyebrow="Services"
         title="What we do,"
         accent="in practice."
-        copy="Six services designed to shorten the distance between an intention and an operating business."
+        copy="Seven services designed to shorten the distance between an intention and an operating business."
         crumbs={[{ label: "Services" }]}
       >
         <div className="flex flex-wrap gap-2">
@@ -91,7 +93,8 @@ export default function ServicesPage() {
                 <div className="lg:col-span-7">
                   <RevealGroup className="grid gap-px overflow-hidden rounded-[var(--radius-card)] bg-hairline sm:grid-cols-2">
                     {service.detail.map((item) => (
-                      <RevealItem noShift
+                      <RevealItem
+                        noShift
                         key={item}
                         className="flex items-start gap-3 bg-white p-6 transition-colors duration-500 hover:bg-hover"
                       >

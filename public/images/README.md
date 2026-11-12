@@ -53,7 +53,7 @@ the file is being read.
 | 3   | Member logos        | `images/members/`       | 31    | 31 to upload |
 | 4   | Partner logos       | `images/partners/`      | 9     | 9 to upload  |
 | 5   | Opportunity sectors | `images/opportunities/` | 8     | 5 to upload  |
-| 6   | Service photographs | `images/services/`      | 6     | 2 to upload  |
+| 6   | Service photographs | `images/services/`      | 7     | 3 to upload  |
 | 7   | Insight articles    | `images/insights/`      | 6     | 5 to upload  |
 | 8   | Why IBCR            | `images/`               | 1     | ✅ in place  |
 | 9   | Recognition         | `images/`               | 1     | ✅ in place  |
@@ -206,7 +206,7 @@ veil, so avoid fussy detail. Under ~400KB.
 Falls back to: a drawn corridor plate on the card, and no background on the
 section.
 
-## 6. Service photographs — 2 to upload
+## 6. Service photographs — 3 to upload
 
 `public/images/services/` · **used twice.** As the card face in the What We Do
 fan on the homepage, and as the section background for that service on
@@ -220,6 +220,7 @@ fan on the homepage, and as the section background for that service on
 | `business-delegations.jpg`  | 04 Business Delegations  | ✅ in place |
 | `business-intelligence.jpg` | 05 Business Intelligence | to upload   |
 | `advocacy-policy.jpg`       | 06 Advocacy & Policy     | ✅ in place |
+| `networking.jpg`            | 07 Networking            | to upload   |
 
 Portrait, 5:7 — 640×896 is what the four in place use. The fan card fills, it
 does not letterbox, so crop before exporting. Under ~150KB.
