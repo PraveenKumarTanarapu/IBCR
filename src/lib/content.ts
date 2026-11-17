@@ -927,8 +927,8 @@ export const EVENTS: IbcrEvent[] = [
     city: "Kigali",
     type: "Launch",
     summary:
-      "The Chamber's official launch, in collaboration with the High Commission of India, Rwanda. Join us as we embark on this new chapter of strengthening India\u2013Rwanda business ties, building partnerships and creating opportunities for growth. Dress code: business or traditional.",
-    status: "upcoming",
+      "The Chamber's official launch, held in collaboration with the High Commission of India, Rwanda. The evening the Chamber began its work in public, with members, partners and institutional guests in the room.",
+    status: "past",
   },
   {
     id: "e2",
@@ -944,6 +944,102 @@ export const EVENTS: IbcrEvent[] = [
       "The Chamber's members in one room: registration and networking breakfast, welcome by the General Secretary, the Chairman's opening remarks, member introductions, the Vice Chairman's roadmap presentation, remarks from the Guest of Honour from the High Commission of India, and an open floor on member suggestions and expectations.",
     status: "past",
     attendance: "Members only",
+  },
+];
+
+/* ------------------------------------------------------ key events record */
+
+/**
+ * The photographic record of what the Chamber has actually held in Rwanda.
+ *
+ * Four photographs to an event, shown four across on one slide. Photographs
+ * that have not been supplied fall back to a drawn plate, so a set that is
+ * still being filled reads as deliberate rather than broken.
+ *
+ * This is a record, not a diary: EVENTS above carries the programme, with
+ * dates, venues and registration. These two lists are deliberately separate —
+ * an event belongs here once there are pictures of it.
+ */
+export type KeyEvent = {
+  id: string;
+  title: string;
+  year: string;
+  summary: string;
+  /** Four photographs, in the order they should appear. */
+  images: string[];
+};
+
+const eventPhotos = (slug: string) => [1, 2, 3, 4].map((n) => `/images/events/${slug}/${n}.jpg`);
+
+export const KEY_EVENTS: KeyEvent[] = [
+  {
+    id: "grand-launch",
+    title: "IBCR Grand Launch",
+    year: "2026",
+    summary:
+      "The Chamber's official launch at the Kigali Marriott Hotel, held in collaboration with the High Commission of India.",
+    images: eventPhotos("grand-launch"),
+  },
+  {
+    id: "ibcr-rdb-meet",
+    title: "IBCR & RDB Meet",
+    year: "2026",
+    summary:
+      "The Chamber in session with the Rwanda Development Board on investment facilitation and the priorities of the corridor.",
+    images: eventPhotos("ibcr-rdb-meet"),
+  },
+  {
+    id: "exclusive-members-meeting",
+    title: "IBCR Exclusive Members Meeting",
+    year: "2026",
+    summary:
+      "Members in one room at Four Points by Sheraton Kigali — introductions, the Chairman's remarks and the roadmap ahead.",
+    images: eventPhotos("exclusive-members-meeting"),
+  },
+  {
+    id: "kigali-genocide-memorial",
+    title: "Kigali Genocide Memorial",
+    year: "2026",
+    summary:
+      "The Chamber's visit to the Kigali Genocide Memorial, paying its respects on behalf of the membership.",
+    images: eventPhotos("kigali-genocide-memorial"),
+  },
+  {
+    id: "high-commission-introduction",
+    title: "IBCR Introduction at the High Commission of India",
+    year: "2026",
+    summary:
+      "The Chamber introduced to the High Commission of India in Kigali, and the working relationship that followed.",
+    images: eventPhotos("high-commission-introduction"),
+  },
+];
+
+/**
+ * Films from those events. Two for now, side by side on the events page.
+ * Nothing autoplays — a film is something a visitor chooses to watch.
+ */
+export type EventFilm = {
+  id: string;
+  title: string;
+  caption: string;
+  src: string;
+  poster: string;
+};
+
+export const EVENT_FILMS: EventFilm[] = [
+  {
+    id: "grand-launch",
+    title: "IBCR Grand Launch",
+    caption: "Kigali Marriott Hotel · October 2026",
+    src: "/video/events/grand-launch.mp4",
+    poster: "/video/events/grand-launch.jpg",
+  },
+  {
+    id: "members-meeting",
+    title: "IBCR Exclusive Members Meeting",
+    caption: "Four Points by Sheraton Kigali · July 2026",
+    src: "/video/events/members-meeting.mp4",
+    poster: "/video/events/members-meeting.jpg",
   },
 ];
 

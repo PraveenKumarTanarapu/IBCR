@@ -5,6 +5,8 @@ import { EventRegistrationForm } from "@/components/forms/EventRegistrationForm"
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
 import { ButtonLink } from "@/components/ui/Button";
 import { EventCard } from "@/components/ui/EventCard";
+import { EventFilms } from "@/components/events/EventFilms";
+import { KeyEvents } from "@/components/home/KeyEvents";
 import { Section, SectionHeading } from "@/components/ui/Section";
 import { EVENTS } from "@/lib/content";
 import { formatLongDate } from "@/lib/utils";
@@ -95,18 +97,20 @@ export default function EventsPage() {
       ) : null}
 
       {/* -------------------------------------------------------- upcoming */}
-      <Section className="pt-4">
-        <div className="container-page">
-          <SectionHeading eyebrow="Upcoming" title="Also in the" accent="diary." />
-          <RevealGroup className="mt-12 grid gap-5 md:grid-cols-3">
-            {upcoming.map((event) => (
-              <RevealItem key={event.id}>
-                <EventCard event={event} />
-              </RevealItem>
-            ))}
-          </RevealGroup>
-        </div>
-      </Section>
+      {upcoming.length > 0 ? (
+        <Section className="pt-4">
+          <div className="container-page">
+            <SectionHeading eyebrow="Upcoming" title="Also in the" accent="diary." />
+            <RevealGroup className="mt-12 grid gap-5 md:grid-cols-3">
+              {upcoming.map((event) => (
+                <RevealItem key={event.id}>
+                  <EventCard event={event} />
+                </RevealItem>
+              ))}
+            </RevealGroup>
+          </div>
+        </Section>
+      ) : null}
 
       {/* ------------------------------------------------------- register */}
       <Section id="register" divided>
@@ -150,6 +154,9 @@ export default function EventsPage() {
           </RevealGroup>
         </div>
       </Section>
+
+      <KeyEvents divided />
+      <EventFilms />
     </>
   );
 }

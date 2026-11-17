@@ -8,6 +8,7 @@ import { Opportunities } from "@/components/home/Opportunities";
 import { Membership } from "@/components/home/Membership";
 import { Directory } from "@/components/home/Directory";
 import { InsightsSection } from "@/components/home/InsightsSection";
+import { KeyEvents } from "@/components/home/KeyEvents";
 import { Testimonials } from "@/components/home/Testimonials";
 import { Partners } from "@/components/home/Partners";
 import { MemberLogos } from "@/components/home/MemberLogos";
@@ -33,6 +34,7 @@ export default function HomePage() {
       <Membership />
       <Directory />
       <InsightsSection />
+      <KeyEvents divided />
       <Testimonials />
       <Partners />
       <MemberLogos divided />

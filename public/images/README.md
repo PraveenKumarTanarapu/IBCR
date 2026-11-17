@@ -57,6 +57,8 @@ the file is being read.
 | 7   | Insight articles    | `images/insights/`      | 6     | 5 to upload  |
 | 8   | Why IBCR            | `images/`               | 1     | ✅ in place  |
 | 9   | Recognition         | `images/`               | 1     | ✅ in place  |
+| 10  | Key event photos    | `images/events/`        | 20    | 20 to upload |
+| 11  | Event films         | `video/events/`         | 4     | 4 to upload  |
 
 Sets 5 and 6 each do double duty — see their notes.
 
@@ -269,6 +271,50 @@ Landscape, 4:3 or wider, at least 1600px across.
 The State Emblem of India, as supplied by the Chamber: transparent PNG, drawn
 at 88px on desktop and 64px on phones. Use the High Commission's own artwork
 and never redraw or recolour it.
+
+## 10. Key event photographs — 20 to upload
+
+`public/images/events/` · the **Key events hosted in Rwanda** carousel, on the
+homepage and on `/events`. One folder per event, four photographs each, shown
+four across on a slide (two by two on a phone).
+
+| Folder                                 | Event                                             |
+| -------------------------------------- | ------------------------------------------------- |
+| `events/grand-launch/`                 | IBCR Grand Launch                                 |
+| `events/ibcr-rdb-meet/`                | IBCR & RDB Meet                                   |
+| `events/exclusive-members-meeting/`    | IBCR Exclusive Members Meeting                    |
+| `events/kigali-genocide-memorial/`     | Kigali Genocide Memorial                          |
+| `events/high-commission-introduction/` | IBCR Introduction at the High Commission of India |
+
+Inside each folder the files are simply **`1.jpg`, `2.jpg`, `3.jpg`, `4.jpg`**,
+in the order you want them to appear — left to right.
+
+Landscape, 4:3, around 1200×900. The tile fills and crops to the centre, so
+put the subject there. Under ~200KB each.
+
+Falls back to: a drawn plate, so a part-filled set still reads as deliberate.
+
+## 11. Event films — 4 to upload
+
+`public/video/events/` · the **On film** section on `/events`.
+
+| File                  | What it is                                               |
+| --------------------- | -------------------------------------------------------- |
+| `grand-launch.mp4`    | Film of the IBCR Grand Launch                            |
+| `grand-launch.jpg`    | Its poster frame — what shows before anyone presses play |
+| `members-meeting.mp4` | Film of the IBCR Exclusive Members Meeting               |
+| `members-meeting.jpg` | Its poster frame                                         |
+
+MP4 (H.264), 1920×1080 or 1280×720, 16:9. Nothing downloads until a visitor
+presses play, so length is not a performance problem — but keep each under
+about 50MB so the upload itself is manageable. Posters are 16:9 JPEGs.
+
+The titles and captions beside each film live in `src/lib/content.ts` under
+`EVENT_FILMS`; say the word and they can be changed to match whatever the two
+films actually are.
+
+Falls back to: the tile says "Film to be added" rather than showing a broken
+player.
 
 ## Generated — do not replace by hand
 
