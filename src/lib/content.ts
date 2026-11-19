@@ -1290,6 +1290,8 @@ export type BoardMember = {
   bio: string;
   highlights: string[];
   image: string;
+  /** Published in the board directory — the address that member takes enquiries on. */
+  email: string;
 };
 
 /**
@@ -1315,6 +1317,7 @@ export const BOARD: BoardMember[] = [
       "Leads several companies across the region",
     ],
     image: "/images/board/mangesh-kumar-verma.jpg",
+    email: "ceo@cimerwa.rw",
   },
   {
     id: "suman-alla",
@@ -1329,6 +1332,7 @@ export const BOARD: BoardMember[] = [
       "Rotary leadership · Oxford alumnus",
     ],
     image: "/images/board/suman-alla.jpg",
+    email: "allasuman@bizoneer.com",
   },
   {
     id: "tiwari-himanshu",
@@ -1342,6 +1346,7 @@ export const BOARD: BoardMember[] = [
       "Financial oversight and corporate governance for IBCR",
     ],
     image: "/images/board/tiwari-himanshu.jpg",
+    email: "himanshurwanda@gmail.com",
   },
   {
     id: "manoj-thaipparampil-skariah",
@@ -1356,6 +1361,7 @@ export const BOARD: BoardMember[] = [
       "In Rwanda since 2007",
     ],
     image: "/images/board/manoj-thaipparampil-skariah.jpg",
+    email: "shilby.manoj@yahoo.com",
   },
   {
     id: "thomas-binoy",
@@ -1370,6 +1376,7 @@ export const BOARD: BoardMember[] = [
       "Eccetra Rwanda Ltd",
     ],
     image: "/images/board/thomas-binoy.jpg",
+    email: "binoythomas@gmail.com",
   },
   {
     id: "harlalka-natwarlal-murarilal",
@@ -1384,6 +1391,7 @@ export const BOARD: BoardMember[] = [
       "Leads industry growth, corporate relations and business opportunities",
     ],
     image: "/images/board/harlalka-natwarlal-murarilal.jpg",
+    email: "chairman@vpluspackagingrwanda.com",
   },
   {
     id: "palaparthy-vinay",
@@ -1398,6 +1406,7 @@ export const BOARD: BoardMember[] = [
       "Mining",
     ],
     image: "/images/board/palaparthy-vinay.jpg",
+    email: "vinaypalaparthy29@gmail.com",
   },
 ];
 

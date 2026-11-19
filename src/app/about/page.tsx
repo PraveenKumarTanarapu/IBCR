@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { PageHero } from "@/components/layout/PageHero";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
 import { ButtonLink } from "@/components/ui/Button";
+import { BoardDirectory } from "@/components/about/BoardDirectory";
 import { Section, SectionHeading } from "@/components/ui/Section";
 import { LogoMarquee, type MarqueeItem } from "@/components/ui/integration-hero";
-import { TeamShowcase } from "@/components/ui/team-showcase";
 import { BOARD, MISSION, PARTNERS, SITE, TEAM, VALUES, VISION } from "@/lib/content";
 
 const PARTNER_ITEMS: MarqueeItem[] = PARTNERS.map((partner) => ({
@@ -46,7 +46,11 @@ export default function AboutPage() {
         <div className="container-page">
           <div className="grid gap-14 lg:grid-cols-12 lg:gap-16">
             <div className="lg:col-span-5">
-              <SectionHeading eyebrow="Who we are" title="What the Chamber" accent="actually does." />
+              <SectionHeading
+                eyebrow="Who we are"
+                title="What the Chamber"
+                accent="actually does."
+              />
             </div>
             <div className="space-y-6 text-[1.0625rem] leading-[1.7] text-body/85 lg:col-span-7">
               <Reveal>
@@ -59,15 +63,15 @@ export default function AboutPage() {
               <Reveal delay={0.06}>
                 <p>
                   Through business networking, advocacy, knowledge sharing, trade facilitation and
-                  strategic engagements, the Chamber supports its members in navigating and expanding
-                  within the Rwandan and wider African markets.
+                  strategic engagements, the Chamber supports its members in navigating and
+                  expanding within the Rwandan and wider African markets.
                 </p>
               </Reveal>
               <Reveal delay={0.12}>
                 <p>
-                  With Rwanda emerging as a strategic gateway to the African continent, IBCR serves as
-                  a bridge between Indian expertise, investment, technology and entrepreneurship and
-                  Rwanda&rsquo;s growing economic opportunities.
+                  With Rwanda emerging as a strategic gateway to the African continent, IBCR serves
+                  as a bridge between Indian expertise, investment, technology and entrepreneurship
+                  and Rwanda&rsquo;s growing economic opportunities.
                 </p>
               </Reveal>
               <Reveal delay={0.18}>
@@ -92,7 +96,10 @@ export default function AboutPage() {
                 </p>
                 <ul className="mt-8 space-y-3 border-t border-hairline pt-6">
                   {VISION.points.map((point) => (
-                    <li key={point} className="flex gap-3 text-[0.9375rem] leading-[1.6] text-muted">
+                    <li
+                      key={point}
+                      className="flex gap-3 text-[0.9375rem] leading-[1.6] text-muted"
+                    >
                       <span className="mt-2 size-1 shrink-0 rounded-full bg-gold" aria-hidden />
                       {point}
                     </li>
@@ -131,11 +138,11 @@ export default function AboutPage() {
             eyebrow="Board members"
             title="The seven people who"
             accent="govern the Chamber."
-            copy="Point at a name to see that member in full. Membership at every category carries representative participation in the Board."
+            copy="What each of them brings, and the address they take enquiries on. Membership at every category carries representative participation in the Board."
           />
 
           <Reveal className="mt-14" y={26}>
-            <TeamShowcase members={[...BOARD]} />
+            <BoardDirectory members={[...BOARD]} />
           </Reveal>
         </div>
       </Section>
